@@ -14,7 +14,7 @@ namespace VasilekCerozhka.Models.ProductAPI
         [Display(Name = "Цена")]
         public double Price { get; set; }
         [Display(Name = "Время создания")]
-        public DateTime CreateDateTime { get; set; };
+        public DateTime CreateDateTime { get; set; }
         [Display(Name = "Описание")]
         public string Description { get; set; } = string.Empty;
         public int CategoryId { get; set; }
