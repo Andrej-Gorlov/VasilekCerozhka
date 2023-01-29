@@ -20,14 +20,20 @@
             </div>
 
 
-            <div class="col-2">
-                <label asp-for="CreateProduct.Category.CategoryName" class="control-label pt-2" style="font-size:20px;"></label>
-            </div>
-            <div class="col-10 pb-3">
-                <input asp-for="CreateProduct.Category.CategoryName" class="form-control" />
-                <span asp-validation-for="CreateProduct.Category.CategoryName" class="text-danger"></span>
-            </div>
+             <div class="form-group row py-2">
 
+                <div class="col-2">
+                    <label asp-for="CreateProduct.Category.CategoryName" class="control-label pt-2" style="font-size:20px;">Категории</label>
+                </div>
+                <div class="col-10 pb-2">
+
+                    <select asp-for="paramsCategory" asp-items="@Model.SelectCategorys" class="form-select text-center" >
+                        <option disabled selected>--Выберите категорию--</option>
+                    </select>
+                        
+                </div>
+
+             </div>
 
             <div class="col-2">
                 <label asp-for="CreateProduct.Description" class="control-label pt-2" style="font-size:20px;"></label>
@@ -57,8 +63,6 @@
                 <div class="col-3">
                     <input asp-for="Images" type="button" value="Добавить" class="btn btn-outline-primary form-control" onclick="newImages()" />
                 </div>
-
-               @* <input asp-for="SecondaryImages" type="button" class="btn btn-outline-primary" icon="fas fa-plus" onclick="newImages()" />*@
 
                 <span asp-validation-for="CreateProduct.SecondaryImages" class="text-danger"></span>
             </div>
