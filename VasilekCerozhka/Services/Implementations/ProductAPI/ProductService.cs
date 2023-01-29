@@ -35,13 +35,13 @@ namespace VasilekCerozhka.Services.Implementations.ProductAPI
             });
         }
 
-        public async Task<T> GetAllProductAsync<T>(PagingParameters parameters, string? filter, string? search, string token)
+        public async Task<T> GetAllProductAsync<T>(PagingParameters parameters, string? filter, string? search, string? token)
         {
             return await this.SendAsync<T>(new ApiRequest()
             {
                 Api_Type = StaticDitels.ApiType.GET,
                 Url = StaticDitels.ProductApiBase + $"/api/v1/products?PageNumber={parameters.PageNumber}&PageSize={parameters.maxPageSize}&filter={filter}&search={search}",
-                AccessToken = token
+                //AccessToken = token
             });
         }
 

@@ -1,4 +1,5 @@
-﻿
+﻿@model VasilekCerozhka.Models.ViewModels.ProductVM
+
 <br />
 <br />
 
@@ -14,6 +15,7 @@
                 <i class="fas fa-plus"></i> Создать новый продукт
             </a>
         </div>
+
     </div>
     <table class="table">
         <thead>
@@ -31,11 +33,11 @@
             </tr>
         </thead>
         <tbody>
-            @*@foreach (var item in Model)
+            @foreach (var item in Model.products)
             {
                 <tr>
                     <td>
-                        @item.Name
+                        @item.ProductName
                     </td>
                     <td>
                         @item.Category.CategoryName
@@ -43,19 +45,50 @@
                     <td>
                         @((item.Price).ToString("c"))
                     </td>
+
                     <td class="col text-end pt-1">
-                        <a asp-action="ProductEdit" class="btn btn-outline-primary"
-                            asp-route-productId="@item.ProductId">
+
+                        <a asp-action="ProductEdit" class="btn btn-outline-primary" asp-route-productId="@item.ProductId">
                             <i class="fas fa-edit"></i>
                         </a>
 
-                        <a asp-action="ProductDelete" class="btn btn-outline-primary"
-                            asp-route-productId="@item.ProductId">
+                        <a asp-action="ProductDelete" class="btn btn-outline-primary" asp-route-productId="@item.ProductId">
                             <i class="fas fa-trash"></i>
                         </a>
+
                     </td>
+
                 </tr>
-            }*@
+            }
         </tbody>
     </table>
+
+    <div class="text-center">
+
+        @if (Model.Paging.HasPrevious)
+        {
+            <a asp-action="СreditСardIndex" asp-route-page="@(Model.Paging.CurrentPage - 1)" class="btn btn-outline-primary">
+                <i class="glyphicon glyphicon-chevron-left"></i>
+                    Назад
+            </a>
+        }
+
+        @for (int i = 1; i <= Model.Paging.TotalPages; i++)
+        {
+            @if (@Model.Paging.CurrentPage != i)
+            {
+                <a asp-action="ProductIndex" asp-route-page="@i" class="btn btn-outline-primary">@i</a>
+            }
+        }
+
+        @if (Model.Paging.HasNext && Model.Paging.CurrentPage != 1)
+        {
+            <a asp-action="ProductIndex" asp-route-page="@(Model.Paging.CurrentPage + 1)" class="btn btn-outline-primary">
+                    Вперед
+                <i class="glyphicon glyphicon-chevron-right"></i>
+            </a>
+        }
+
+    </div>
+
 </div>

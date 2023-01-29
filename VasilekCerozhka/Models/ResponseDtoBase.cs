@@ -1,4 +1,6 @@
-﻿namespace VasilekCerozhka.Models
+﻿using VasilekCerozhka.Models.Paging;
+
+namespace VasilekCerozhka.Models
 {
     public class ResponseDtoBase
     {
@@ -6,5 +8,6 @@
         public object? Result { get; set; }
         public string DisplayMessage { get; set; } = "";
         public ICollection<string>? ErrorMessages { get; set; }
+        public PagedList? PagedList { get; set; }
     }
 }
