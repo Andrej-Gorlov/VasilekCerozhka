@@ -3,10 +3,11 @@ using System.Net.Http.Headers;
 using System.Text;
 using VasilekCerozhka.Helpers;
 using VasilekCerozhka.Models;
+using VasilekCerozhka.Services.IServices;
 
 namespace VasilekCerozhka.Services
 {
-    public class BaseService
+    public class BaseService : IBaseService
     {
         public ResponseDtoBase responseModel { get; set; }
         public IHttpClientFactory? httpClient { get; set; }
