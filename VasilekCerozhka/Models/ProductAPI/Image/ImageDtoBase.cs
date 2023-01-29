@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace VasilekCerozhka.Models.ProductAPI
+namespace VasilekCerozhka.Models.ProductAPI.Image
 {
-    public class ImageDtoDase
+    public class ImageDtoBase
     {
         public int ImageId { get; set; }
         public int ProductId { get; set; }
