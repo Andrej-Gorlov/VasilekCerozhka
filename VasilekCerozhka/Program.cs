@@ -18,6 +18,8 @@ builder.Services.AddHttpClient<IProductService, ProductService>();
 
 StaticDitels.ProductApiBase = builder.Configuration["ServiseUrl:ProductAPI"];
 
+builder.Services.AddScoped<IProductService, ProductService>();
+
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
