@@ -15,10 +15,12 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 // Add HttpClient
 builder.Services.AddHttpClient<IProductService, ProductService>();
+builder.Services.AddHttpClient<IImageService, ImageService>();
 
 StaticDitels.ProductApiBase = builder.Configuration["ServiseUrl:ProductAPI"];
 
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IImageService, ImageService>();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();

@@ -1,4 +1,5 @@
 ﻿using VasilekCerozhka.Models.ProductAPI.Category;
+using VasilekCerozhka.Models.ProductAPI.Image;
 
 namespace VasilekCerozhka.Services.Interfaces.IProductAPI
 {
@@ -6,8 +7,8 @@ namespace VasilekCerozhka.Services.Interfaces.IProductAPI
     {
         Task<T> GetAllImageAsync<T>(string? filter, string? search, string token);
         Task<T> GetImageByIdAsync<T>(int id, string token);
-        Task<T> CreateImageAsync<T>(CreateCategoryDtoBase categoryDto, string token);
-        Task<T> UpdateImageAsync<T>(UpdateCategoryDtoBase categoryDto, string token);
+        Task<T> CreateImageAsync<T>(CreateImageDtoBase imageDto, string token);
+        Task<T> UpdateImageAsync<T>(UpdateImageDtoBase imageDto, string token);
         Task<T> DeleteImageAsync<T>(int id, string token);
     }
 }

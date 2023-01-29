@@ -11,5 +11,7 @@ namespace VasilekCerozhka.Models.ProductAPI.Product
         public CreateCategoryDtoBase? Category { get; set; }
         public string MainImageUrl { get; set; } = string.Empty;
         public ICollection<CreateImageDtoBase>? SecondaryImages { get; set; }
+
+        public List<string>? Images { get; set; }
     }
 }

@@ -1,5 +1,123 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@model VasilekCerozhka.Models.ViewModels.Product.CreateProductVM
+
+<form asp-action="ProductCreate">
+    <br />
+    <div class="container border p-3">
+        <h1 class="text-primary">Создать продукт</h1>
+
+        <hr />
+        <div class="row">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+            <div class="col-2">
+                <label asp-for="CreateProduct.ProductName" class="control-label pt-2" style="font-size:20px;"></label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="CreateProduct.ProductName" class="form-control" />
+                <span asp-validation-for="CreateProduct.ProductName" class="text-danger"></span>
+            </div>
+
+
+            <div class="col-2">
+                <label asp-for="CreateProduct.Category.CategoryName" class="control-label pt-2" style="font-size:20px;"></label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="CreateProduct.Category.CategoryName" class="form-control" />
+                <span asp-validation-for="CreateProduct.Category.CategoryName" class="text-danger"></span>
+            </div>
+
+
+            <div class="col-2">
+                <label asp-for="CreateProduct.Description" class="control-label pt-2" style="font-size:20px;"></label>
+            </div>
+            <div class="col-10 pb-3">
+                <textarea asp-for="CreateProduct.Description" class="form-control" rows="5"></textarea>
+                <span asp-validation-for="CreateProduct.Description" class="text-danger"></span>
+            </div>
+
+
+            <div class="col-2">
+                <label asp-for="CreateProduct.MainImageUrl" class="control-label pt-2" style="font-size:20px;"></label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="CreateProduct.MainImageUrl" class="form-control" />
+                <span asp-validation-for="CreateProduct.MainImageUrl" class="text-danger"></span>
+            </div>
+
+
+            <div class="col-2">
+                <label asp-for="CreateProduct.SecondaryImages" class="control-label pt-2" style="font-size:20px;"></label>
+            </div>
+            <div class="col-10 pb-3">
+
+                <div id="second_images" class="pb-2"></div>
+
+                <div class="col-3">
+                    <input asp-for="Images" type="button" value="Добавить" class="btn btn-outline-primary form-control" onclick="newImages()" />
+                </div>
+
+               @* <input asp-for="SecondaryImages" type="button" class="btn btn-outline-primary" icon="fas fa-plus" onclick="newImages()" />*@
+
+                <span asp-validation-for="CreateProduct.SecondaryImages" class="text-danger"></span>
+            </div>
+
+
+            <div class="col-2">
+                <label asp-for="CreateProduct.Price" class="control-label pt-2" style="font-size:20px;"></label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="CreateProduct.Price" class="form-control" />
+                <span asp-validation-for="CreateProduct.Price" class="text-danger"></span>
+            </div>
+
+
+            <div class="col-5 offset-2">
+                <a asp-action="ProductIndex" class="btn btn-outline-primary form-control">Вернуться</a>
+            </div>
+            <div class="col-5">
+                <input type="submit" value="Добавить" class="btn btn-outline-primary form-control" />
+            </div>
+
+        </div>
+
+        <div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial"/>
 }
+
+<script type="text/javascript">
+
+  function newImages() {
+
+    // определяем контейнер для хранения полей 
+        let container = document.getElementById("second_images"); 
+    // получаем текущее количество input
+        let fieldCount = container.getElementsByTagName("input").length;
+    // увеличиваем Id для нового поля
+        let nextFieldId = fieldCount + 1;
+
+    // здесь добавляем элемент, который будет хранить input
+        let div = document.createElement("div");
+            div.setAttribute("class", "form-group pb-2");
+
+    // создаем новое поле с новым id
+        let field = document.createElement("input");
+        field.setAttribute("class", "form-control");
+        field.setAttribute("id", "Images[" + nextFieldId + "]");
+        field.setAttribute("name", "Images");
+        field.setAttribute("type", "text");
+        field.setAttribute("placeholder", "Введите url изображения");
+
+    // добавляем поле в <div class="form-group"></div>
+    div.appendChild(field);
+    // добавляем <div class="form-group"><input ... /></div> в главный контейнер
+    container.appendChild(div);
+}
+
+</script>
