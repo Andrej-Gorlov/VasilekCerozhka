@@ -9,24 +9,27 @@ using VasilekCerozhka.Models.ProductAPI.Image;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using VasilekCerozhka.Models.ProductAPI.Category;
 using Newtonsoft.Json.Linq;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace VasilekCerozhka.Controllers
 {
     public class ProductController : Controller
     {
         private readonly IProductService _productService;
-        private readonly IImageService _imageService;
+        //private readonly IImageService _imageService;
         private readonly ICategoryService _categoryService;
         //private IEnumerable<SelectListItem>? _categorys { get; set; }  почему не записывается???
 
         public ProductController(IProductService productService, IImageService imageService, ICategoryService categoryService)
         {
             _productService = productService;
-            _imageService = imageService; 
+           // _imageService = imageService; 
             _categoryService = categoryService;
         }
         /// <summary>
-        /// request to ProductAPI
+        /// request to ProductAPI (controller: Product / metod: Get)
         /// </summary>
         /// <param name="page">номер страницы</param>
         /// <returns>Open page ProductIndex</returns>
@@ -43,7 +46,10 @@ namespace VasilekCerozhka.Controllers
 
             return View(productVM);
         }
-
+        /// <summary>
+        /// request to ProductAPI (controller: Category / metod: Get)
+        /// </summary>
+        /// <returns>Open views page create</returns>
         public async Task<IActionResult> ProductCreate()
         {
             var productVM = new CreateProductVM();
@@ -55,11 +61,16 @@ namespace VasilekCerozhka.Controllers
                 productVM.SelectCategorys = productVM.Categorys.Select(x => new SelectListItem
                 {
                     Text = x.CategoryName,
-                    Value = $"{x.CategoryId},{x.CategoryName}"
+                    Value = x.CategoryId.ToString(),
                 }).DistinctBy(x => x.Text);
             }
             return View(productVM);
         }
+        /// <summary>
+        /// request to ProductAPI (controller: Product / metod: Create)
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns>Open page ProductIndex</returns>
         [HttpPost]
         //[Authorize(Roles = "Admin")]
         //[ValidateAntiForgeryToken]
@@ -71,52 +82,63 @@ namespace VasilekCerozhka.Controllers
 
                 if (!(model.paramsCategory is null))
                 {
-                    var parametrs = model.paramsCategory.Split(',');
                     int id;
-                    if (int.TryParse(parametrs[0], out id))
+                    if (int.TryParse(model.paramsCategory, out id))
                     {
-                        model.CreateProduct.Category = new()
-                        {
-                            CategoryId = id,
-                            CategoryName = parametrs[1]
-                        };
+                        model.CreateProduct.CategoryId = id;
                     }
                 }
-                if (model.Images.Count > 0)
+                if (!(model.Images is null))
                 {
-                    List<CreateImageDtoBase> second = new();
+                    var second = new List<CreateImageDtoBase>();
                     foreach (var item in model.Images)
                     {
                         second.Add(new() { ImageUrl = item });
                     };
                     model.CreateProduct.SecondaryImages = second;
                 };
-
-
-
-
-
-
                 var respons = await _productService.CreateProductAsync<ResponseDtoBase>(model.CreateProduct, null);
-
                 if (respons.Result != null & respons.IsSuccess)
                 {
-                    var product = new ProductDtoBase();
-
-                    product = JsonConvert.DeserializeObject<ProductDtoBase>(Convert.ToString(respons.Result));
-
-                    foreach (var item in model.Images)
-                    {
-                        var SecondaryImages = new CreateImageDtoBase()
-                        {
-                            ProductId = product.ProductId,
-                            ImageUrl = item
-                        };
-                        var pesponsImage = await _imageService.CreateImageAsync<ResponseDtoBase>(SecondaryImages, null);
-                    }
                     return RedirectToAction(nameof(ProductIndex));
                 }
             }
+            return View(model);
+        }
+        /// <summary>
+        /// request to ProductAPI (controller: Product / metod: Get)
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <returns>Open page ProductEdit</returns>
+        public async Task<IActionResult> ProductEdit(int productId)
+        {
+            var productVM = new UpdateProductVM();
+            //var accessToken = await HttpContext.GetTokenAsync("access_token");
+            var responsProduct = await _productService.GetProductByIdAsync<ResponseDtoBase>(productId,null);
+            var responseCategory = await _categoryService.GetAllCategoryAsync<ResponseDtoBase>(null,null,null);
+            if (responsProduct != null & responsProduct.IsSuccess)
+            {
+                productVM.product = JsonConvert.DeserializeObject<ProductDtoBase>(Convert.ToString(responsProduct.Result));
+                productVM.Categorys = JsonConvert.DeserializeObject<List<CategoryDtoBase>>(Convert.ToString(responseCategory.Result));
+                productVM.SelectCategorys = productVM.Categorys.Select(x => new SelectListItem
+                {
+                    Text = x.CategoryName,
+                    Value = x.CategoryId.ToString(),
+                }).DistinctBy(x => x.Text);
+                return View(productVM);
+            }
+            return NotFound();
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        //[Authorize(Roles = "Admin")]
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> ProductEdit(UpdateProductVM model)
+        {
             return View(model);
         }
     }

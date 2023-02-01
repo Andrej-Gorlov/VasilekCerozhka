@@ -59,7 +59,7 @@ namespace VasilekCerozhka.Services
                         break;
                 }
 
-                apiResponse = await client.SendAsync(message);
+                apiResponse = await client.SendAsync(message); // Узнать сообщения от ModelState!
                 var apiContet = await apiResponse.Content.ReadAsStringAsync();
 
                 if (apiResponse.Headers.FirstOrDefault(x => x.Key == "X-Pagination").Key != null)
