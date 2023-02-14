@@ -19,7 +19,7 @@ namespace VasilekCerozhka.Services.Implementations.ProductAPI
             {
                 Api_Type = StaticDitels.ApiType.POST,
                 Data = categoryDto,
-                Url = StaticDitels.ProductApiBase + "/api/v1/category",
+                Url = StaticDitels.ProductApiBase + "/api/v2/category",
                 AccessToken = token
             });
         }
@@ -29,7 +29,7 @@ namespace VasilekCerozhka.Services.Implementations.ProductAPI
             return await this.SendAsync<T>(new ApiRequest()
             {
                 Api_Type = StaticDitels.ApiType.DELETE,
-                Url = StaticDitels.ProductApiBase + $"/api/v1/category/{id}",
+                Url = StaticDitels.ProductApiBase + $"/api/v2/category/{id}",
                 AccessToken = token
             });
         }
@@ -39,7 +39,7 @@ namespace VasilekCerozhka.Services.Implementations.ProductAPI
             return await this.SendAsync<T>(new ApiRequest()
             {
                 Api_Type = StaticDitels.ApiType.GET,
-                Url = StaticDitels.ProductApiBase + $"/api/v1/categorys?filter={filter}&search={search}",
+                Url = StaticDitels.ProductApiBase + $"/api/v2/categorys?filter={filter}&search={search}",
                 //AccessToken = token                           
             });
         }
@@ -49,7 +49,7 @@ namespace VasilekCerozhka.Services.Implementations.ProductAPI
             return await this.SendAsync<T>(new ApiRequest()
             {
                 Api_Type = StaticDitels.ApiType.GET,
-                Url = StaticDitels.ProductApiBase + $"/api/v1/category/{id}",
+                Url = StaticDitels.ProductApiBase + $"/api/v2/category/{id}",
                 AccessToken = token
             });
         }
@@ -60,7 +60,7 @@ namespace VasilekCerozhka.Services.Implementations.ProductAPI
             {
                 Api_Type = StaticDitels.ApiType.PUT,
                 Data = categoryDto,
-                Url = StaticDitels.ProductApiBase + "/api/v1/category",
+                Url = StaticDitels.ProductApiBase + "/api/v2/category",
                 AccessToken = token
             });
         }

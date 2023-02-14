@@ -1,7 +1,7 @@
 ﻿@model VasilekCerozhka.Models.ViewModels.Product.UpdateProductVM
 
 <form asp-action="ProductEdit">
-    <input asp-for="product.ProductId" hidden />
+    <input asp-for="UpdateProduct.ProductId" hidden />
     <br />
     <div class="container border p-3">
         <h1 class="text-primary">Обновить продукт</h1>
@@ -13,23 +13,23 @@
 
 
             <div class="col-2">
-                <label asp-for="product.ProductName" class="control-label pt-2" style="font-size:20px;"></label>
+                <label asp-for="UpdateProduct.ProductName" class="control-label pt-2" style="font-size:20px;"></label>
             </div>
             <div class="col-10 pb-3">
-                <input asp-for="product.ProductName" class="form-control" />
-                <span asp-validation-for="product.ProductName" class="text-danger"></span>
+                <input asp-for="UpdateProduct.ProductName" class="form-control" />
+                <span asp-validation-for="UpdateProduct.ProductName" class="text-danger"></span>
             </div>
 
 
             <div class="form-group row py-2">
 
                 <div class="col-2">
-                    <label asp-for="product.Category.CategoryName" class="control-label pt-2" style="font-size:20px;">Категории</label>
+                    <label asp-for="UpdateProduct.Category.CategoryName" class="control-label pt-2" style="font-size:20px;">Категории</label>
                 </div>
                 <div class="col-10 pb-2">
 
                     <select asp-for="paramsCategory" asp-items="@Model.SelectCategorys" class="form-select text-center">
-                        <option disabled selected>@(Model.product.Category.CategoryName)</option>
+                        <option disabled selected>@(Model.UpdateProduct.Category.CategoryName)</option>
                     </select>
 
                 </div>
@@ -38,29 +38,77 @@
 
 
             <div class="col-2">
-                <label asp-for="product.Description" class="control-label pt-2" style="font-size:20px;"></label>
+                <label asp-for="UpdateProduct.Description" class="control-label pt-2" style="font-size:20px;"></label>
             </div>
             <div class="col-10 pb-3">
-                <textarea asp-for="product.Description" class="form-control" rows="5"></textarea>
-                <span asp-validation-for="product.Description" class="text-danger"></span>
+                <textarea asp-for="UpdateProduct.Description" class="form-control" rows="5"></textarea>
+                <span asp-validation-for="UpdateProduct.Description" class="text-danger"></span>
             </div>
 
 
             <div class="col-2">
-                <label asp-for="product.MainImageUrl" class="control-label pt-2" style="font-size:20px;"></label>
+                <label asp-for="UpdateProduct.MainImageUrl" class="control-label pt-2" style="font-size:20px;"></label>
             </div>
             <div class="col-10 pb-3">
-                <input asp-for="product.MainImageUrl" class="form-control" />
-                <span asp-validation-for="product.MainImageUrl" class="text-danger"></span>
+                <input asp-for="UpdateProduct.MainImageUrl" class="form-control" />
+                <span asp-validation-for="UpdateProduct.MainImageUrl" class="text-danger"></span>
             </div>
+
+
 
 
             <div class="col-2">
-                <label asp-for="product.Price" class="control-label pt-2" style="font-size:20px;"></label>
+                <label asp-for="UpdateProduct.SecondaryImages" class="control-label pt-2" style="font-size:20px;"></label>
             </div>
             <div class="col-10 pb-3">
-                <input asp-for="product.Price" class="form-control" />
-                <span asp-validation-for="product.Price" class="text-danger"></span>
+                
+                @if (Model.UpdateProduct.SecondaryImages.Count >0 )
+                {
+                    <table class="table table-borderless">
+                        @foreach (var item in Model.UpdateProduct.SecondaryImages)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="pb-1">
+                                        <input asp-for="@item.ImageUrl" class="form-control" />
+                                    </div>
+                                </td>
+                                <td class="col-1 text-end">
+                                    <div class="col-1 pb-1">
+                                        <a asp-action="ProductDelete" class="btn btn-outline-primary" asp-route-imageId="@item.ImageId">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                }
+
+                <table class="table">
+                    <tr>
+                        <td>
+                            <div id="second_images"></div>
+                        </td>
+                        <td class="col-1 text-end">
+                            <div id="delete_url"></div>
+                        </td>
+                    </tr>
+                </table>
+
+                <div class="col-3">
+                    <input asp-for="Images" type="button" value="Добавить" class="btn btn-outline-primary form-control" onclick="addImages()" />
+                </div>
+
+                <span asp-validation-for="UpdateProduct.SecondaryImages" class="text-danger"></span>
+            </div>
+
+            <div class="col-2">
+                <label asp-for="UpdateProduct.Price" class="control-label pt-2" style="font-size:20px;"></label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="UpdateProduct.Price" class="form-control" />
+                <span asp-validation-for="UpdateProduct.Price" class="text-danger"></span>
             </div>
 
 
@@ -81,3 +129,53 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
+
+<script type="text/javascript">
+
+    function addImages() {
+
+        // определяем контейнер для хранения полей
+        let container = document.getElementById("second_images");
+        let fieldCount = container.getElementsByTagName("input").length;
+        let nextFieldId = fieldCount + 1;
+
+        // здесь добавляем элемент, который будет хранить input
+        let div = document.createElement("div");
+            div.setAttribute("class", "form-group pb-2");
+
+        // создаем новое поле с новым id
+        let field = document.createElement("input");
+            field.setAttribute("class", "form-control");
+            field.setAttribute("id", "Images[" + nextFieldId + "]");
+            field.setAttribute("name", "Images");
+            field.setAttribute("type", "text");
+            field.setAttribute("placeholder", "Введите url изображения");
+
+        // добавляем поле в <div class="form-group"></div>
+        div.appendChild(field);
+        // добавляем <div class="form-group"><input ... /></div> в главный контейнер
+        container.appendChild(div);
+
+        let containerBtn = document.getElementById("delete_url");
+        let divBtn = document.createElement("div");
+            divBtn.setAttribute("class", "col-1 pb-2");
+            
+        let fieldBtn = document.createElement("div");
+            fieldBtn.setAttribute("id", "Btn[" + nextFieldId + "]");
+            fieldBtn.setAttribute("class", "btn btn-outline-primary");
+        fieldBtn.setAttribute("onclick", "deleteImages('Images[" + nextFieldId + "]','Btn[" + nextFieldId + "]')");
+
+        let i = document.createElement("i");
+            i.setAttribute("class", "fas fa-trash");
+
+        fieldBtn.appendChild(i);
+        divBtn.appendChild(fieldBtn);
+        containerBtn.appendChild(divBtn);
+    }
+
+    function deleteImages(idInput,idBtn) {
+        document.getElementById(idInput).remove();
+        document.getElementById(idBtn).remove();
+    }
+
+</script>

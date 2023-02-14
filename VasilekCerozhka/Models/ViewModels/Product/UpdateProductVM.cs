@@ -4,6 +4,6 @@ namespace VasilekCerozhka.Models.ViewModels.Product
 {
     public class UpdateProductVM : SelectCategory 
     {
-        public ProductDtoBase? product { get; set; }
+        public UpdateProductDtoBase? UpdateProduct { get; set; }
     }
 }

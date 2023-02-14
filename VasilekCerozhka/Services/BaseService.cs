@@ -59,20 +59,10 @@ namespace VasilekCerozhka.Services
                         break;
                 }
 
-                apiResponse = await client.SendAsync(message); // Узнать сообщения от ModelState!
-                var apiContet = await apiResponse.Content.ReadAsStringAsync();
+                apiResponse = await client.SendAsync(message);
+                var apiContet = await apiResponse.Content.ReadFromJsonAsync<T>();
 
-                if (apiResponse.Headers.FirstOrDefault(x => x.Key == "X-Pagination").Key != null)
-                {
-                    var apiHeaders = apiResponse.Headers.GetValues("X-Pagination").FirstOrDefault();
-
-                    var apiResponseDt = JsonConvert.DeserializeObject<T>
-                        (apiContet.Substring(0, apiContet.Length - 1)+ ",\"PagedList\":" + apiHeaders + "}");
-                    return apiResponseDt;
-                }
-
-                var apiResponseDto = JsonConvert.DeserializeObject<T>(apiContet);
-                return apiResponseDto;
+                return apiContet;
 
             }
             catch (Exception ex)

@@ -8,24 +8,22 @@ using VasilekCerozhka.Models.ViewModels.Product;
 using VasilekCerozhka.Models.ProductAPI.Image;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using VasilekCerozhka.Models.ProductAPI.Category;
-using Newtonsoft.Json.Linq;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
 using System.Data;
+using Microsoft.Extensions.Caching.Memory;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace VasilekCerozhka.Controllers
 {
     public class ProductController : Controller
     {
         private readonly IProductService _productService;
-        //private readonly IImageService _imageService;
         private readonly ICategoryService _categoryService;
-        //private IEnumerable<SelectListItem>? _categorys { get; set; }  почему не записывается???
+        private readonly IMemoryCache _cache;
 
-        public ProductController(IProductService productService, IImageService imageService, ICategoryService categoryService)
+        public ProductController(IProductService productService, IImageService imageService, ICategoryService categoryService, IMemoryCache cache)
         {
             _productService = productService;
-           // _imageService = imageService; 
+            _cache= cache;
             _categoryService = categoryService;
         }
         /// <summary>
@@ -41,7 +39,7 @@ namespace VasilekCerozhka.Controllers
             if (respons != null & respons.IsSuccess)
             {
                 productVM.products = JsonConvert.DeserializeObject<List<ProductDtoBase>>(Convert.ToString(respons.Result));
-                productVM.Paging = respons.PagedList;
+                productVM.Paging = respons.ParameterPaged;
             }
 
             return View(productVM);
@@ -114,20 +112,32 @@ namespace VasilekCerozhka.Controllers
         {
             var productVM = new UpdateProductVM();
             //var accessToken = await HttpContext.GetTokenAsync("access_token");
+            _cache.TryGetValue(productId, out UpdateProductVM? productCache);
+            if (productCache != null)
+            {
+                return View(productCache);
+            }
             var responsProduct = await _productService.GetProductByIdAsync<ResponseDtoBase>(productId,null);
             var responseCategory = await _categoryService.GetAllCategoryAsync<ResponseDtoBase>(null,null,null);
             if (responsProduct != null & responsProduct.IsSuccess)
             {
-                productVM.product = JsonConvert.DeserializeObject<ProductDtoBase>(Convert.ToString(responsProduct.Result));
+                productVM.UpdateProduct = JsonConvert.DeserializeObject<UpdateProductDtoBase>(Convert.ToString(responsProduct.Result));
                 productVM.Categorys = JsonConvert.DeserializeObject<List<CategoryDtoBase>>(Convert.ToString(responseCategory.Result));
+                //productVM.Images = productVM.UpdateProduct.SecondaryImages.Select( x => x.ImageUrl).ToList();
                 productVM.SelectCategorys = productVM.Categorys.Select(x => new SelectListItem
                 {
                     Text = x.CategoryName,
                     Value = x.CategoryId.ToString(),
                 }).DistinctBy(x => x.Text);
+                //_cache.Set(productId, productVM, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(5)));
                 return View(productVM);
             }
             return NotFound();
+        }
+
+        public async Task<IActionResult> DeleteItemFromSecondaryImages(int imageId)
+        {
+            return null;
         }
         /// <summary>
         /// 

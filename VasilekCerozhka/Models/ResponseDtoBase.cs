@@ -8,6 +8,6 @@ namespace VasilekCerozhka.Models
         public object? Result { get; set; }
         public string DisplayMessage { get; set; } = "";
         public ICollection<string>? ErrorMessages { get; set; }
-        public PagedList? PagedList { get; set; }
+        public PagedList? ParameterPaged { get; set; }
     }
 }
