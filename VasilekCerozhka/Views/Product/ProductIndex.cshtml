@@ -3,92 +3,103 @@
 <br />
 <br />
 
-<div class="container p-4 border">
-    <div class="row pb-2">
+@if (Model.products is null)
+{
+    <div><h1>Проверьте соединение с API</h1></div>
+}
+else
+{
+    <div class="container p-4 border">
+        <div class="row pb-2">
 
-        <div class="col ">
-            <h1 class="text-primary"> Список товаров </h1>
+            <div class="col ">
+                <h1 class="text-primary"> Список товаров </h1>
+            </div>
+
+            <div class="col text-end pt-1">
+                <a asp-action="ProductCreate" class="btn btn-outline-primary">
+                    <i class="fas fa-plus"></i> Создать новый продукт
+                </a>
+            </div>
+
         </div>
-
-        <div class="col text-end pt-1">
-            <a asp-action="ProductCreate" class="btn btn-outline-primary">
-                <i class="fas fa-plus"></i> Создать новый продукт
-            </a>
-        </div>
-
-    </div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    Имя
-                </th>
-                <th>
-                    Категория
-                </th>
-                <th>
-                    Цена
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.products)
-            {
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>
-                        @item.ProductName
-                    </td>
-                    <td>
-                        @item.Category.CategoryName
-                    </td>
-                    <td>
-                        @((item.Price).ToString("c"))
-                    </td>
-
-                    <td class="col text-end pt-1">
-
-                        <a asp-action="ProductEdit" class="btn btn-outline-primary" asp-route-productId="@item.ProductId">
-                            <i class="fas fa-edit"></i>
-                        </a>
-
-                        <a asp-action="ProductDelete" class="btn btn-outline-primary" asp-route-productId="@item.ProductId">
-                            <i class="fas fa-trash"></i>
-                        </a>
-
-                    </td>
-
+                    <th>
+                        Имя
+                    </th>
+                    <th>
+                        Категория
+                    </th>
+                    <th>
+                        Цена
+                    </th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.products)
+                {
+                    <tr>
+                        <td>
+                            @item.ProductName
+                        </td>
+                        <td>
+                            @item.Category.CategoryName
+                        </td>
+                        <td>
+                            @((item.Price).ToString("c"))
+                        </td>
 
-    <div class="text-center">
+                        <td class="col text-end pt-1">
 
-        @if (Model.Paging.HasPrevious)
-        {
-            <a asp-action="ProductIndex" asp-route-page="@(Model.Paging.CurrentPage - 1)" class="btn btn-outline-primary">
-                <i class="glyphicon glyphicon-chevron-left"></i>
-                    Назад
-            </a>
-        }
+                            <a asp-action="ProductEdit" class="btn btn-outline-primary" asp-route-productId="@item.ProductId">
+                                <i class="fas fa-edit"></i>
+                            </a>
 
-        @for (int i = 1; i <= Model.Paging.TotalPages; i++)
-        {
-            @if (@Model.Paging.CurrentPage != i)
+                            <a asp-action="ProductDelete" class="btn btn-outline-primary" asp-route-productId="@item.ProductId">
+                                <i class="fas fa-trash"></i>
+                            </a>
+
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="text-center">
+
+            @if (Model.Paging.HasPrevious)
             {
-                <a asp-action="ProductIndex" asp-route-page="@i" class="btn btn-outline-primary">@i</a>
+                <a asp-action="ProductIndex" asp-route-page="@(Model.Paging.CurrentPage - 1)" class="btn btn-outline-primary">
+                    <i class="glyphicon glyphicon-chevron-left"></i>
+                        Назад
+                </a>
             }
-        }
 
-        @if (Model.Paging.HasNext && Model.Paging.CurrentPage != 1)
-        {
-            <a asp-action="ProductIndex" asp-route-page="@(Model.Paging.CurrentPage + 1)" class="btn btn-outline-primary">
-                    Вперед
-                <i class="glyphicon glyphicon-chevron-right"></i>
-            </a>
-        }
+            @for (int i = 1; i <= Model.Paging.TotalPages; i++)
+            {
+                @if (@Model.Paging.CurrentPage != i)
+                {
+                    <a asp-action="ProductIndex" asp-route-page="@i" class="btn btn-outline-primary">@i</a>
+                }
+                else
+                {
+                    <div class="btn btn-primary">@i</div>
+                }
+            }
+
+            @if (Model.Paging.HasNext)
+            {
+                <a asp-action="ProductIndex" asp-route-page="@(Model.Paging.CurrentPage + 1)" class="btn btn-outline-primary">
+                        Вперед
+                    <i class="glyphicon glyphicon-chevron-right"></i>
+                </a>
+            }
+
+        </div>
 
     </div>
-
-</div>
+}

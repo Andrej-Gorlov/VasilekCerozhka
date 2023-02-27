@@ -1,22 +1,4 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
-
-//import AddImages from './AddImages';
-//import deleteImages from './DeleteImages';
-//window.addEventListener('DOMContentLoaded', () => {
-
-    //AddImages();
-   // DeleteImages(idInput, idBtn);
-
-//});
-
-//window.Images = new Object();
-
-//window.Images.addImages = function () {
-
-function addImages() {
+﻿function AddImages() {
 
     // определяем контейнер для хранения полей
     let container = document.getElementById("second_images");
@@ -47,7 +29,7 @@ function addImages() {
     let fieldBtn = document.createElement("div");
     fieldBtn.setAttribute("id", "Btn[" + nextFieldId + "]");
     fieldBtn.setAttribute("class", "btn btn-outline-primary");
-    fieldBtn.setAttribute("onclick", "deleteImages('Images[" + nextFieldId + "]','Btn[" + nextFieldId + "]')");
+    fieldBtn.setAttribute("onclick", "DeleteImages('Images[" + nextFieldId + "]','Btn[" + nextFieldId + "]')");
 
     let i = document.createElement("i");
     i.setAttribute("class", "fas fa-trash");
@@ -57,8 +39,4 @@ function addImages() {
     containerBtn.appendChild(divBtn);
 }
 
-function deleteImages(idInput, idBtn) {
-    document.getElementById(idInput).remove();
-    document.getElementById(idBtn).remove();
-}
-
+export default AddImages;

@@ -1,0 +1,95 @@
+﻿@model VasilekCerozhka.Models.ProductAPI.Product.ProductDtoBase
+
+<form asp-action="ProductDelete">
+
+    <input asp-for="ProductId" hidden />
+
+    <br />
+    <div class="border p-3">
+        <h1 class="text-primary">Удалить продукт</h1>
+
+        <hr />
+        <div class="row mx-auto">
+
+            @if (Model.SecondaryImages.Count > 0)
+            {
+                <div class="col-3">
+                    <div id="carouselExampleDark" class="carousel carousel-blue slide carousel-fade" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            @{
+                                int i = 0;
+                            }
+                            @foreach (var item in Model.SecondaryImages)
+                            {
+                                i++;
+                                var active = i == 1 ? "active" : "";
+                                <div class="carousel-item @active" data-bs-interval="3500">
+                                    <img src="@item.ImageUrl" alt="Image @item" class="d-block w-100">
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="col-3">
+                    <img src="~/img/886fac756d43925eea0cb1e3643b0dfd.jpg" class="w-100" />
+                </div>
+            }
+
+            <div class="col-6 px-5">
+
+                <div class="col-2">
+                    <label asp-for="ProductName" class="control-label pt-2" style="font-size:20px;"></label>
+                </div>
+                <div class="col-12 pb-3">
+                    <input asp-for="ProductName" disabled class="form-control" />
+                </div>
+
+                <div class="col-2">
+                    <label asp-for="Category.CategoryName" class="control-label pt-2" style="font-size:20px;"></label>
+                </div>
+                <div class="col-12 pb-3">
+                    <input asp-for="Category.CategoryName" disabled class="form-control" />
+                </div>
+
+
+                <div class="col-2">
+                    <label asp-for="Description" class="control-label pt-2" style="font-size:20px;"></label>
+                </div>
+                <div class="col-12 pb-3">
+                    <textarea asp-for="Description" disabled class="form-control" rows="5"></textarea>
+                </div>
+
+
+                <div class="col-2">
+                    <label asp-for="Price" class="control-label pt-2" style="font-size:20px;"></label>
+                </div>
+                <div class="col-12 pb-3">
+                    <input asp-for="Price" disabled class="form-control" />
+                </div>
+
+                <div class="row">
+                    <div class="col-6">
+                        <a asp-action="ProductIndex" class="btn btn-outline-primary form-control">Вернуться</a>
+                    </div>
+                    <div class="col-6">
+                        <input type="submit" value="Удалить" class="btn btn-outline-primary form-control" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-3">
+                @if (Model.ProductId != 0)
+                {
+                    <img src="@Model.MainImageUrl" class="w-100"/>
+                }
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

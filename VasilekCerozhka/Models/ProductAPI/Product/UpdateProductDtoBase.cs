@@ -17,12 +17,13 @@ namespace VasilekCerozhka.Models.ProductAPI.Product
         [Display(Name = "Описание")]
         [StringLength(1000, MinimumLength = 0, ErrorMessage = "Описание продукта не должно превышать 1000 символов.")]
         public string Description { get; set; } = string.Empty;
+        public int CategoryId { get; set; }
         public UpdateCategoryDtoBase? Category { get; set; }
         [Display(Name = "Url Изображения")]
         [StringLength(int.MaxValue, MinimumLength = 5, ErrorMessage = "Длина url адреса должна быть не менее 5 символов")]
         [Url(ErrorMessage = "Не веерно введен url адрес")]
         public string MainImageUrl { get; set; } = string.Empty;
         [Display(Name = "Список изображений")]
-        public ICollection<UpdateImageDtoBase>? SecondaryImages { get; set; }
+        public List<UpdateImageDtoBase>? SecondaryImages { get; set; }
     }
 }

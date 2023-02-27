@@ -63,7 +63,6 @@ namespace VasilekCerozhka.Services
                 var apiContet = await apiResponse.Content.ReadFromJsonAsync<T>();
 
                 return apiContet;
-
             }
             catch (Exception ex)
             {

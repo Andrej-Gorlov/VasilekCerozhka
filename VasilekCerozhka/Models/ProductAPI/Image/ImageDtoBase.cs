@@ -2,7 +2,7 @@
 
 namespace VasilekCerozhka.Models.ProductAPI.Image
 {
-    public class ImageDtoBase
+    public class ImageDtoBase : IImageBase
     {
         public int ImageId { get; set; }
         public int ProductId { get; set; }
