@@ -62,3 +62,24 @@ function deleteImages(idInput, idBtn) {
     document.getElementById(idBtn).remove();
 }
 
+function onclickhandler(value) {
+
+    let container = document.getElementById("new_product");
+    let divCount = container.getElementsByTagName("div").length;
+
+    if (divCount === 0) {
+        let div = document.createElement("div");
+        div.setAttribute("class", "pb-2");
+
+        let label = document.createElement("label");
+        label.setAttribute("class", "control-label pt-2");
+        label.setAttribute("style", "font-size:20px;");
+        label.textContent = 'Новое изображение';
+
+        div.appendChild(label);
+        container.prepend(div);
+    }
+
+    document.getElementById("new_product_img").src = value.value;
+}
+

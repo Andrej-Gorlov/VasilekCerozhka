@@ -11,9 +11,10 @@
         <hr />
         <div class="row mx-auto">
 
-            @if (Model.SecondaryImages.Count > 0)
-            {
-                <div class="col-3">
+            <div class="col-3">
+
+                @if (Model.SecondaryImages.Count > 0)
+                {
                     <div id="carouselExampleDark" class="carousel carousel-blue slide carousel-fade" data-bs-ride="carousel">
                         <div class="carousel-inner">
                             @{
@@ -29,14 +30,13 @@
                             }
                         </div>
                     </div>
-                </div>
-            }
-            else
-            {
-                <div class="col-3">
+                }
+                else
+                {
                     <img src="~/img/886fac756d43925eea0cb1e3643b0dfd.jpg" class="w-100" />
-                </div>
-            }
+                }
+
+            </div>
 
             <div class="col-6 px-5">
 
@@ -84,6 +84,10 @@
                 @if (Model.ProductId != 0)
                 {
                     <img src="@Model.MainImageUrl" class="w-100"/>
+                }
+                else
+                {
+                    <img src="~/img/886fac756d43925eea0cb1e3643b0dfd.jpg" class="w-100" />
                 }
             </div>
         </div>

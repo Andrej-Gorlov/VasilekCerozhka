@@ -14,108 +14,181 @@
         <h1 class="text-primary">Обновить продукт</h1>
 
         <hr />
-        <div class="row">
+        <div class="row mx-auto">
 
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="col-3">
+                <div class="pb-3">
+                    @if (Model.UpdateProduct.SecondaryImages.Count > 0)
+                    {
+                        <div class="pb-2">
+                            <label class="control-label pt-2" style="font-size:20px;">Tекущий список изображений</label>
+                        </div>
 
-            <div class="col-2">
-                <label asp-for="UpdateProduct.ProductName" class="control-label pt-2" style="font-size:20px;"></label>
-            </div>
-            <div class="col-10 pb-3">
-                <input asp-for="UpdateProduct.ProductName" class="form-control" />
-                <span asp-validation-for="UpdateProduct.ProductName" class="text-danger"></span>
-            </div>
-
-          @*  Выподающий списсок*@
-            <div class="form-group row py-2">
-
-                <div class="col-2">
-                    <label asp-for="UpdateProduct.Category.CategoryName" class="control-label pt-2" style="font-size:20px;">Категории</label>
-                </div>
-                <div class="col-10 pb-2">
-
-                    <select asp-for="paramsCategory" asp-items="@Model.SelectCategorys" class="form-select text-center">
-                        <option>@(Model.UpdateProduct.Category.CategoryName)</option>
-                    </select>
-
-                </div>
-
-            </div>
-
-
-            <div class="col-2">
-                <label asp-for="UpdateProduct.Description" class="control-label pt-2" style="font-size:20px;"></label>
-            </div>
-            <div class="col-10 pb-3">
-                <textarea asp-for="UpdateProduct.Description" class="form-control" rows="5"></textarea>
-                <span asp-validation-for="UpdateProduct.Description" class="text-danger"></span>
-            </div>
-
-
-            <div class="col-2">
-                <label asp-for="UpdateProduct.MainImageUrl" class="control-label pt-2" style="font-size:20px;"></label>
-            </div>
-            <div class="col-10 pb-3">
-                <input asp-for="UpdateProduct.MainImageUrl" class="form-control" />
-                <span asp-validation-for="UpdateProduct.MainImageUrl" class="text-danger"></span>
-            </div>
-
-           @* Добовляем/Удаляем вторичные изображения*@
-            <div class="col-2">
-                <label asp-for="UpdateProduct.SecondaryImages" class="control-label pt-2" style="font-size:20px;"></label>
-            </div>
-            <div class="col-10 pb-3">
-
-                <table class="table">
-                    <tr>
-                        <td>
-                            <div id="second_images">
-                                @if (Model.Images.Count > 0)
+                        <div id="carouselExampleDark" class="carousel carousel-blue slide carousel-fade" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                @{
+                                    int i = 0;
+                                }
+                                @foreach (var item in Model.UpdateProduct.SecondaryImages)
                                 {
-                                    @for (int i = 1; i <= Model.Images.Count; i++)
-                                    {
-                                        <div class="form-group pb-2">
-                                            <input asp-for="@Model.Images[@i-1]" class="form-control" id="Images[@i]" name="Images" type="text" />
-                                        </div>
-                                    }
+                                    i++;
+                                    var active = i == 1 ? "active" : "";
+                                    <div class="carousel-item @active" data-bs-interval="3500">
+                                        <img src="@item.ImageUrl" alt="Image @item" class="d-block w-100">
+                                    </div>
                                 }
                             </div>
-                        </td>
-                        <td class="col-1 text-end">
-                            <div id="delete_url">
-                                @if (Model.Images.Count > 0)
-                                {
-                                    @for (int i = 1; i <= Model.Images.Count; i++)
-                                    {
-                                        <div class="col-1 pb-2">
-                                            <div id="Btn[@i]" class="btn btn-outline-primary" onclick="deleteImages('Images[@i]','Btn[@i]')"><i class="fas fa-trash"></i></div>
-                                        </div>
-                                    }
-                                }
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-
-                <div class="col-3">
-                    <input asp-for="Images" type="button" value="Добавить" class="btn btn-outline-primary form-control" onclick="addImages()" />
+                        </div>
+                    }
+                    else
+                    {
+                        <img src="~/img/886fac756d43925eea0cb1e3643b0dfd.jpg" class="w-100" />
+                    }
                 </div>
-                <span asp-validation-for="UpdateProduct.SecondaryImages" class="text-danger"></span>
+
+                <div id="new_products">
+
+                    @*<img id="new_products_imges" class="w-100" />*@
+
+                </div>
+
             </div>
 
-            <div class="col-2">
-                <label asp-for="UpdateProduct.Price" class="control-label pt-2" style="font-size:20px;"></label>
-            </div>
-            <div class="col-10 pb-3">
-                <input asp-for="UpdateProduct.Price" class="form-control" />
-                <span asp-validation-for="UpdateProduct.Price" class="text-danger"></span>
+            <div class="col-6 px-5">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="ms-2 col-5 text-lg-start">
+                    <label asp-for="UpdateProduct.ProductName" class="control-label pt-2" style="font-size:20px;"></label>
+                </div>
+                <div class="col-12 pb-3">
+                    <input asp-for="UpdateProduct.ProductName" class="form-control" />
+                    <span asp-validation-for="UpdateProduct.ProductName" class="text-danger"></span>
+                </div>
+
+              @*  Выподающий списсок*@
+                <div class="form-group row py-2">
+
+                    <div class="ms-2 col-5 text-lg-start">
+                        <label asp-for="UpdateProduct.Category.CategoryName" class="control-label pt-2" style="font-size:20px;">Категории</label>
+                    </div>
+                    <div class="col-12 pb-2">
+
+                        <select asp-for="paramsCategory" asp-items="@Model.SelectCategorys" class="form-select text-center">
+                            <option>@(Model.UpdateProduct.Category.CategoryName)</option>
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="ms-2 col-5 text-lg-start">
+                    <label asp-for="UpdateProduct.Description" class="control-label pt-2" style="font-size:20px;"></label>
+                </div>
+                <div class="col-12 pb-3">
+                    <textarea asp-for="UpdateProduct.Description" class="form-control" rows="5"></textarea>
+                    <span asp-validation-for="UpdateProduct.Description" class="text-danger"></span>
+                </div>
+
+
+                <div class="ms-2 col-5 text-lg-start">
+                    <label asp-for="UpdateProduct.MainImageUrl" class="control-label pt-2" style="font-size:20px;"></label>
+                </div>
+                <div class="col-12 pb-3">
+                    <input asp-for="UpdateProduct.MainImageUrl" class="form-control" oninput="onclickhandler(this)" />
+                    <span asp-validation-for="UpdateProduct.MainImageUrl" class="text-danger"></span>
+                </div>
+
+               @* Добовляем/Удаляем вторичные изображения*@
+                <div class="ms-3 col-5 text-lg-start">
+                    <label asp-for="UpdateProduct.SecondaryImages" class="control-label pt-2" style="font-size:20px;"></label>
+                </div>
+                <div class="col-12 pb-3">
+
+                    <table class="table">
+                        <tr>
+                            <td>
+                                <div id="second_images">
+                                    @if (Model.Images.Count > 0)
+                                    {
+                                        @for (int i = 1; i <= Model.Images.Count; i++)
+                                        {
+                                            <div class="form-group pb-2">
+                                                <input asp-for="@Model.Images[@i-1]" class="form-control" id="Images[@i]" name="Images" type="text" />
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </td>
+                            <td class="col-1 text-end">
+                                <div id="delete_url">
+                                    @if (Model.Images.Count > 0)
+                                    {
+                                        @for (int i = 1; i <= Model.Images.Count; i++)
+                                        {
+                                            <div class="col-1 pb-2">
+                                                <div id="Btn[@i]" class="btn btn-outline-primary" onclick="deleteImages('Images[@i]','Btn[@i]')"><i class="fas fa-trash"></i></div>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div class="col-3">
+                        <input asp-for="Images" type="button" value="Добавить" class="btn btn-outline-primary form-control" onclick="addImages()" />
+                    </div>
+                    <span asp-validation-for="UpdateProduct.SecondaryImages" class="text-danger"></span>
+                </div>
+
+                <div class="ms-2 col-5 text-lg-start">
+                    <label asp-for="UpdateProduct.Price" class="control-label pt-2" style="font-size:20px;"></label>
+                </div>
+                <div class="col-12 pb-3">
+                    <input asp-for="UpdateProduct.Price" class="form-control" />
+                    <span asp-validation-for="UpdateProduct.Price" class="text-danger"></span>
+                </div>
+
+
+                <div class="row">
+
+                    <div class="col-6">
+                        <a asp-action="ProductIndex" class="btn btn-outline-primary form-control">Вернуться</a>
+                    </div>
+                    <div class="col-6">
+                        <input type="submit" value="Обновить" class="btn btn-outline-primary form-control" />
+                    </div>
+
+                </div>
             </div>
 
-            <div class="col-5 offset-2">
-                <a asp-action="ProductIndex" class="btn btn-outline-primary form-control">Вернуться</a>
-            </div>
-            <div class="col-5">
-                <input type="submit" value="Обновить" class="btn btn-outline-primary form-control" />
+            <div class="col-3">
+
+                <div class="pb-3">
+
+                    @if (Model.UpdateProduct.ProductId != 0)
+                    {
+                        <div class="pb-2">
+                            <label class="control-label pt-2" style="font-size:20px;">Tекущие изображение</label>
+                        </div>
+
+                        <img src="@Model.UpdateProduct.MainImageUrl" class="w-100" />
+                    }
+                    else
+                    {
+                        <img src="~/img/886fac756d43925eea0cb1e3643b0dfd.jpg" class="w-100" />
+                    }
+
+                </div>
+                
+                <div id="new_product">
+
+                    <img id="new_product_img" class="w-100" />
+
+                </div>
+
             </div>
 
         </div>
