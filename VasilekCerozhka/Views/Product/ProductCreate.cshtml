@@ -6,96 +6,120 @@
         <h1 class="text-primary">Создать продукт</h1>
 
         <hr />
-        <div class="row">
+        <div class="row mx-auto">
 
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="col-3">
+                
+                <div id="carouselExampleDark" class="carousel carousel-blue slide carousel-fade" data-bs-ride="carousel">
 
+                    <div id="new_products" class="carousel-inner">
+                    </div>
 
-            <div class="col-2">
-                <label asp-for="CreateProduct.ProductName" class="control-label pt-2" style="font-size:20px;"></label>
-            </div>
-            <div class="col-10 pb-3">
-                <input asp-for="CreateProduct.ProductName" class="form-control" />
-                <span asp-validation-for="CreateProduct.ProductName" class="text-danger"></span>
-            </div>
-
-
-             <div class="form-group row py-2">
-
-                <div class="col-2">
-                    <label asp-for="CreateProduct.Category.CategoryName" class="control-label pt-2" style="font-size:20px;">Категории</label>
                 </div>
-                <div class="col-10 pb-2">
 
-                    <select asp-for="paramsCategory" asp-items="@Model.SelectCategorys" class="form-select text-center" >
-                        <option disabled selected>--Выберите категорию--</option>
-                    </select>
+            </div>
+
+            <div class="col-6 px-5">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="ms-2 col-5 text-lg-start">
+                    <label asp-for="CreateProduct.ProductName" class="control-label pt-2" style="font-size:20px;"></label>
+                </div>
+                <div class="col-12 pb-3">
+                    <input asp-for="CreateProduct.ProductName" class="form-control" />
+                    <span asp-validation-for="CreateProduct.ProductName" class="text-danger"></span>
+                </div>
+
+
+                <div class="form-group row py-2">
+
+                    <div class="ms-2 col-5 text-lg-start">
+                        <label asp-for="CreateProduct.Category.CategoryName" class="control-label pt-2" style="font-size:20px;">Категории</label>
+                    </div>
+                    <div class="col-12 pb-2">
+
+                        <select asp-for="paramsCategory" asp-items="@Model.SelectCategorys" class="form-select text-center" >
+                            <option disabled selected>--Выберите категорию--</option>
+                        </select>
                         
+                    </div>
+
                 </div>
 
-             </div>
-
-            <div class="col-2">
-                <label asp-for="CreateProduct.Description" class="control-label pt-2" style="font-size:20px;"></label>
-            </div>
-            <div class="col-10 pb-3">
-                <textarea asp-for="CreateProduct.Description" class="form-control" rows="5"></textarea>
-                <span asp-validation-for="CreateProduct.Description" class="text-danger"></span>
-            </div>
-
-
-            <div class="col-2">
-                <label asp-for="CreateProduct.MainImageUrl" class="control-label pt-2" style="font-size:20px;"></label>
-            </div>
-            <div class="col-10 pb-3">
-                <input asp-for="CreateProduct.MainImageUrl" class="form-control" />
-                <span asp-validation-for="CreateProduct.MainImageUrl" class="text-danger"></span>
-            </div>
-
-
-            <div class="col-2">
-                <label asp-for="CreateProduct.SecondaryImages" class="control-label pt-2" style="font-size:20px;"></label>
-            </div>
-            <div class="col-10 pb-3">
-
-                <table class="table">
-                    <tr>
-                        <td>
-                            <div id="second_images"></div>
-                        </td>
-                        <td class="col-1 text-end">
-                            <div id="delete_url"></div>
-                        </td>
-                    </tr>
-                </table>
-
-                <div class="col-3">
-                    <input asp-for="Images" type="button" value="Добавить" class="btn btn-outline-primary form-control" onclick="addImages()" />
+                <div class="ms-2 col-5 text-lg-start">
+                    <label asp-for="CreateProduct.Description" class="control-label pt-2" style="font-size:20px;"></label>
+                </div>
+                <div class="col-12 pb-3">
+                    <textarea asp-for="CreateProduct.Description" class="form-control" rows="5"></textarea>
+                    <span asp-validation-for="CreateProduct.Description" class="text-danger"></span>
                 </div>
 
-                <span asp-validation-for="CreateProduct.SecondaryImages" class="text-danger"></span>
+
+                <div class="ms-2 col-5 text-lg-start">
+                    <label asp-for="CreateProduct.MainImageUrl" class="control-label pt-2" style="font-size:20px;"></label>
+                </div>
+                <div class="col-12 pb-3">
+                    <input asp-for="CreateProduct.MainImageUrl" class="form-control" oninput="newimgproduct(this)" />
+                    <span asp-validation-for="CreateProduct.MainImageUrl" class="text-danger"></span>
+                </div>
+
+
+                <div class="ms-3 col-5 text-lg-start">
+                    <label asp-for="CreateProduct.SecondaryImages" class="control-label pt-2" style="font-size:20px;"></label>
+                </div>
+                <div class="col-12 pb-3">
+
+                    <table class="table">
+                        <tr>
+                            <td>
+                                <div id="second_images"></div>
+                            </td>
+                            <td class="col-1 text-end">
+                                <div id="delete_url"></div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div class="col-3">
+                        <input asp-for="Images" type="button" value="Добавить" class="btn btn-outline-primary form-control" onclick="addImages()" />
+                    </div>
+
+                    <span asp-validation-for="CreateProduct.SecondaryImages" class="text-danger"></span>
+                </div>
+
+
+                <div class="ms-2 col-5 text-lg-start">
+                    <label asp-for="CreateProduct.Price" class="control-label pt-2" style="font-size:20px;"></label>
+                </div>
+                <div class="col-12 pb-3">
+                    <input asp-for="CreateProduct.Price" class="form-control" />
+                    <span asp-validation-for="CreateProduct.Price" class="text-danger"></span>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-6">
+                        <a asp-action="ProductIndex" class="btn btn-outline-primary form-control">Вернуться</a>
+                    </div>
+                    <div class="col-6">
+                        <input type="submit" value="Добавить" class="btn btn-outline-primary form-control" />
+                    </div>
+                
+                </div>
+
             </div>
 
+            <div class="col-3">
 
-            <div class="col-2">
-                <label asp-for="CreateProduct.Price" class="control-label pt-2" style="font-size:20px;"></label>
-            </div>
-            <div class="col-10 pb-3">
-                <input asp-for="CreateProduct.Price" class="form-control" />
-                <span asp-validation-for="CreateProduct.Price" class="text-danger"></span>
-            </div>
+                <div id="new_product">
 
+                    <img id="new_product_img" class="w-100" />
 
-            <div class="col-5 offset-2">
-                <a asp-action="ProductIndex" class="btn btn-outline-primary form-control">Вернуться</a>
-            </div>
-            <div class="col-5">
-                <input type="submit" value="Добавить" class="btn btn-outline-primary form-control" />
+                </div>
+
             </div>
 
-        </div>
-
-        <div>
         </div>
     </div>
 </form>

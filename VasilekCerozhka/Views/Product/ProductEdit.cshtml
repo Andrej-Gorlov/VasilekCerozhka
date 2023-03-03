@@ -42,13 +42,17 @@
                     }
                     else
                     {
-                        <img src="~/img/886fac756d43925eea0cb1e3643b0dfd.jpg" class="w-100" />
+                        <img src="~/img/886fac756d43925eea0cb1e3643b0dfd.jpg" class="w-100"/>
                     }
                 </div>
 
-                <div id="new_products">
+                <div id="carouselExampleDark" class="carousel carousel-blue slide carousel-fade" data-bs-ride="carousel">
 
-                    @*<img id="new_products_imges" class="w-100" />*@
+                    <div id="new_products" class="carousel-inner">
+
+                        
+
+                    </div>
 
                 </div>
 
@@ -96,7 +100,7 @@
                     <label asp-for="UpdateProduct.MainImageUrl" class="control-label pt-2" style="font-size:20px;"></label>
                 </div>
                 <div class="col-12 pb-3">
-                    <input asp-for="UpdateProduct.MainImageUrl" class="form-control" oninput="onclickhandler(this)" />
+                    <input asp-for="UpdateProduct.MainImageUrl" class="form-control" oninput="newimgproduct(this)" />
                     <span asp-validation-for="UpdateProduct.MainImageUrl" class="text-danger"></span>
                 </div>
 
@@ -114,8 +118,8 @@
                                     {
                                         @for (int i = 1; i <= Model.Images.Count; i++)
                                         {
-                                            <div class="form-group pb-2">
-                                                <input asp-for="@Model.Images[@i-1]" class="form-control" id="Images[@i]" name="Images" type="text" />
+                                            <div class="form-group pb-2" id="Images[@i]">
+                                                <input asp-for="@Model.Images[@i-1]" class="form-control" name="Images" type="text" />
                                             </div>
                                         }
                                     }
@@ -127,8 +131,8 @@
                                     {
                                         @for (int i = 1; i <= Model.Images.Count; i++)
                                         {
-                                            <div class="col-1 pb-2">
-                                                <div id="Btn[@i]" class="btn btn-outline-primary" onclick="deleteImages('Images[@i]','Btn[@i]')"><i class="fas fa-trash"></i></div>
+                                            <div class="col-1 pb-2" id="Btn[@i]">
+                                                <div class="btn btn-outline-primary" onclick="deleteImages('Images[@i]','Btn[@i]')"><i class="fas fa-trash"></i></div>
                                             </div>
                                         }
                                     }
