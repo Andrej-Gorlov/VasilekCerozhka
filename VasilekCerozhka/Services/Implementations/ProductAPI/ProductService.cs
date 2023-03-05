@@ -31,7 +31,7 @@ namespace VasilekCerozhka.Services.Implementations.ProductAPI
             return await this.SendAsync<T>(new ApiRequest()
             {
                 Api_Type = StaticDitels.ApiType.DELETE,
-                Url = StaticDitels.ProductApiBase + $"/api/product/{id}",
+                Url = StaticDitels.ProductApiBase + $"/api/v1/product/{id}",
                 AccessToken = token
             });
         }

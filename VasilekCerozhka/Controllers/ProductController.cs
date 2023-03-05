@@ -11,8 +11,6 @@ using VasilekCerozhka.Models.ProductAPI.Category;
 using System.Data;
 using Microsoft.Extensions.Caching.Memory;
 using VasilekCerozhka.Services.Helpers;
-using Microsoft.AspNetCore.Authentication;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace VasilekCerozhka.Controllers
 {
@@ -162,6 +160,23 @@ namespace VasilekCerozhka.Controllers
                 return View(model);
             }
             return NotFound();
+        }
+
+        [HttpPost]
+        //[Authorize(Roles = "Admin")]
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> ProductDelete(ProductDtoBase model)
+        {
+            if (ModelState.IsValid)
+            {
+                //var accessToken = await HttpContext.GetTokenAsync("access_token");
+                var respons = await _productService.DeleteProductAsync<ResponseDtoBase>(model.ProductId, null);
+                if (respons.IsSuccess)
+                {
+                    return RedirectToAction(nameof(ProductIndex));
+                }
+            }
+            return View(model);
         }
     }
 }

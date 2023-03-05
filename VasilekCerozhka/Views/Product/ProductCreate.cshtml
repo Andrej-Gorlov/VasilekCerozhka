@@ -1,8 +1,10 @@
 ﻿@model VasilekCerozhka.Models.ViewModels.Product.CreateProductVM
 
-<form asp-action="ProductCreate">
+<br />
+
+<form asp-action="ProductCreate" class="form-glass">
     <br />
-    <div class="container border p-3">
+    <div class="container p-3">
         <h1 class="text-primary">Создать продукт</h1>
 
         <hr />
@@ -100,10 +102,16 @@
                 <div class="row">
 
                     <div class="col-6">
-                        <a asp-action="ProductIndex" class="btn btn-outline-primary form-control">Вернуться</a>
+
+                        <div class="container_btn_custom">
+                            <a asp-action="ProductIndex" class="btn_custom a_custom">Вернуться</a>
+                        </div>
+
                     </div>
                     <div class="col-6">
-                        <input type="submit" value="Добавить" class="btn btn-outline-primary form-control" />
+                        <div class="container_btn_custom">
+                            <button type="submit" class="btn_custom a_custom">Добавить</button>
+                        </div>
                     </div>
                 
                 </div>
@@ -113,8 +121,6 @@
             <div class="col-3">
 
                 <div id="new_product">
-
-                    <img id="new_product_img" class="w-100" />
 
                 </div>
 

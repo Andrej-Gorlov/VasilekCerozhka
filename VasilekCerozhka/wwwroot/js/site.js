@@ -16,7 +16,7 @@
 
 //window.Images.addImages = function () {
 
-// add input
+// add new input
 function addImages() {
 
     // определяем контейнер для хранения полей
@@ -45,11 +45,11 @@ function addImages() {
 
     let containerBtn = document.getElementById("delete_url");
     let divBtn = document.createElement("div");
-    divBtn.setAttribute("class", "col-1 pb-2");
+    divBtn.setAttribute("class", "pb-2 container_btn_custom");
     divBtn.setAttribute("id", "Btn[" + nextFieldId + "]");
 
     let fieldBtn = document.createElement("div");
-    fieldBtn.setAttribute("class", "btn btn-outline-primary");
+    fieldBtn.setAttribute("class", "btn_custom i_custom");
     fieldBtn.setAttribute("onclick", "deleteImages('Images[" + nextFieldId + "]','Btn[" + nextFieldId + "]','elem_img[" + nextFieldId + "]')");
 
     let i = document.createElement("i");
@@ -64,14 +64,15 @@ function addImages() {
 function deleteImages(idInput, idBtn, idImg) {
     document.getElementById(idInput).remove();
     document.getElementById(idBtn).remove();
-
-    if (document.getElementById(idImg).classList.contains('active') &&
-        document.getElementById(idImg).previousSibling.classList != undefined) {
+   
+    if (document.getElementById(idImg).previousSibling === null) {
+        document.getElementById("imges_lebel_name").remove();
+        document.getElementById("gloss_div").remove();
+        return;
+    }
+    if (document.getElementById(idImg).classList.contains('active')) {
 
         document.getElementById(idImg).previousSibling.classList.add("active");
-    }
-    if (document.getElementById(idImg).previousSibling.classList === undefined) {
-        document.getElementById("imges_lebel_name").remove();
     }
     document.getElementById(idImg).remove();
 }
@@ -98,29 +99,57 @@ function newimgproduct(value) {
     if (value.value === "") {
         document.getElementById("img_lebel_name").remove();
     }
-    document.getElementById("new_product_img").src = value.value;
+    if (document.getElementById("new_product_img") === null && value.value != "") {
+
+        let divImg = document.createElement("div");
+        divImg.setAttribute("class", "effect_gloss_img");
+        divImg.setAttribute("id", "div_effect_gloss_img");
+        let img = document.createElement("img");
+        img.setAttribute("src", value.value);
+        img.setAttribute("id", "new_product_img");
+        divImg.appendChild(img);
+        container.appendChild(divImg);
+    }
+    else if (document.getElementById("new_product_img") != null && value.value != ""){
+        document.getElementById("new_product_img").src = value.value;
+    }
+    if (value.value === "") {
+        document.getElementById("div_effect_gloss_img").remove();
+    }
 }
 
 // add new imges to carousel
 function newimgproducts(value) {
 
-    let container = document.getElementById("new_products");
+    let containerEG = document.getElementById("new_products");
+
+    if (document.getElementById("gloss_div") === null) {
+        
+        let divEG = document.createElement("div");
+        divEG.setAttribute("id", "gloss_div");
+        divEG.setAttribute("class", "effect_gloss_div");
+        containerEG.appendChild(divEG);
+    }
+
+    let container = document.getElementById("gloss_div");
+
     let imgCount = container.getElementsByTagName("img").length;
     let nextImgId = imgCount + 1;
 
     let idImg = document.getElementById("elem_" + value.id);
 
     if (idImg === null) {
+
         let div = document.createElement("div");
         div.setAttribute("id", "elem_" + value.id);
         div.setAttribute("class", "carousel-item " + (nextImgId === 1 ? "active" : ""));
-        div.setAttribute("data-bs-interval", "3500");
+        div.setAttribute("data-bs-interval", "3900");
 
         let img = document.createElement("img")
         img.setAttribute("src", value.value);
         img.setAttribute("id", "new_" + value.id);
         img.setAttribute("alt", "Image" + value.id + "");
-        img.setAttribute("class", "d-block w-100");
+        img.setAttribute("class", "d-block w-100 h-100");
 
         div.appendChild(img);
         container.appendChild(div);
@@ -140,7 +169,7 @@ function newimgproducts(value) {
         label.textContent = 'Новый список изображений';
 
         div.appendChild(label);
-        container.prepend(div);
+        containerEG.prepend(div);
     }
 }
 
