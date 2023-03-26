@@ -56,63 +56,54 @@
 
             </div>
 
-            <div class="col-6 px-5">
+            <div class="col-6 px-5 mt-3">
 
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-               @* <div class="formsss">
-                    <input asp-for="UpdateProduct.ProductName" type="text" name="name" required autocomplete="off" />
+                <div class="form_input_custom">
+                    <input asp-for="UpdateProduct.ProductName" required autocomplete="on" />
 
-                    <label asp-for="UpdateProduct.ProductName" for="name" class="label-namesss">
-                        <span class="content-namesss">Name</span>
+                    <label asp-for="UpdateProduct.ProductName" for="name" class="label_name_input">
+                        <span class="content_name_input">Наименование</span>
                     </label>
-                </div>*@
-
-                <div class="ms-2 col-5 text-lg-start">
-                    <label asp-for="UpdateProduct.ProductName" class="control-label pt-2" style="font-size:20px;"></label>
-                </div>
-                <div class="col-12 pb-3">
-                    <input asp-for="UpdateProduct.ProductName" class="form-control" />
                     <span asp-validation-for="UpdateProduct.ProductName" class="text-danger"></span>
                 </div>
 
               @*  Выподающий списсок*@
-                <div class="form-group row py-2">
 
-                    <div class="ms-2 col-5 text-lg-start">
-                        <label asp-for="UpdateProduct.Category.CategoryName" class="control-label pt-2" style="font-size:20px;">Категории</label>
-                    </div>
-                    <div class="col-12 pb-2">
+                <div class="sel sel--black-panther">
+                    <select asp-for="paramsCategory" asp-items="@Model.SelectCategorys">
+                        <option value="" disabled>@Model.UpdateProduct.Category.CategoryName</option>
+                    </select>
 
-                        <select asp-for="paramsCategory" asp-items="@Model.SelectCategorys" class="form-select text-center">
-                            <option>@(Model.UpdateProduct.Category.CategoryName)</option>
-                        </select>
-
-                    </div>
-
+                    <label for="name" class="label_name_select">
+                        <span class="content_name_select">Категории</span>
+                    </label>
                 </div>
-
 
                 <div class="ms-2 col-5 text-lg-start">
-                    <label asp-for="UpdateProduct.Description" class="control-label pt-2" style="font-size:20px;"></label>
+                    <label asp-for="UpdateProduct.Description" class="control-label label_textarea pt-2"></label>
                 </div>
-                <div class="col-12 pb-3">
-                    <textarea asp-for="UpdateProduct.Description" class="form-control" rows="5"></textarea>
+                <div class="col-12">
+                    <div class="border_textarea_custom">
+                        <textarea asp-for="UpdateProduct.Description" class="textarea_custom" rows="5"></textarea>
+                    </div>
+
                     <span asp-validation-for="UpdateProduct.Description" class="text-danger"></span>
                 </div>
 
+                <div class="form_input_custom mt-3">
+                    <input asp-for="UpdateProduct.MainImageUrl" required autocomplete="off" oninput="newimgproduct(this)" />
 
-                <div class="ms-2 col-5 text-lg-start">
-                    <label asp-for="UpdateProduct.MainImageUrl" class="control-label pt-2" style="font-size:20px;"></label>
-                </div>
-                <div class="col-12 pb-3">
-                    <input asp-for="UpdateProduct.MainImageUrl" class="form-control" oninput="newimgproduct(this)" />
+                    <label asp-for="UpdateProduct.MainImageUrl" for="name" class="label_name_input">
+                        <span class="content_name_input">Url Изображения</span>
+                    </label>
                     <span asp-validation-for="UpdateProduct.MainImageUrl" class="text-danger"></span>
                 </div>
 
                @* Добовляем/Удаляем вторичные изображения*@
                 <div class="ms-3 col-5 text-lg-start">
-                    <label asp-for="UpdateProduct.SecondaryImages" class="control-label pt-2" style="font-size:20px;"></label>
+                    <label asp-for="UpdateProduct.SecondaryImages" class="control-label label_secondary_inputs pt-2"></label>
                 </div>
                 <div class="col-12 pb-3">
 
@@ -124,8 +115,11 @@
                                     {
                                         @for (int i = 1; i <= Model.Images.Count; i++)
                                         {
-                                            <div class="form-group pb-2" id="Images[@i]">
-                                                <input asp-for="@Model.Images[@i-1]" class="form-control" name="Images" type="text" />
+                                            <div class="form_input_secondary_custom mt-3" id="Images[@i]">
+                                                <input asp-for="@Model.Images[@i-1]" name="Images" type="text" required autocomplete="off" />
+                                                <label for="name" class="label_name_input_secondary">
+                                                    <span class="content_name_input_secondary"></span>
+                                                </label>
                                             </div>
                                         }
                                     }
@@ -137,7 +131,7 @@
                                     {
                                         @for (int i = 1; i <= Model.Images.Count; i++)
                                         {
-                                            <div class="pb-2 container_btn_custom" id="Btn[@i]">
+                                            <div class="pb-1 container_btn_custom mt-3" id="Btn[@i]">
 
                                                 <a class="btn_custom i_custom" onclick="deleteImages('Images[@i]','Btn[@i]')">
                                                     <i class="fas fa-trash"></i>
@@ -159,14 +153,14 @@
                     <span asp-validation-for="UpdateProduct.SecondaryImages" class="text-danger"></span>
                 </div>
 
-                <div class="ms-2 col-5 text-lg-start">
-                    <label asp-for="UpdateProduct.Price" class="control-label pt-2" style="font-size:20px;"></label>
-                </div>
-                <div class="col-12 pb-3">
-                    <input asp-for="UpdateProduct.Price" class="form-control" />
+                <div class="form_input_custom mt-3">
+                    <input asp-for="UpdateProduct.Price" required autocomplete="off" />
+
+                    <label asp-for="UpdateProduct.Price" for="name" class="label_name_input">
+                        <span class="content_name_input">Цена</span>
+                    </label>
                     <span asp-validation-for="UpdateProduct.Price" class="text-danger"></span>
                 </div>
-
 
                 <div class="row p-3">
                     <div class="col-6">

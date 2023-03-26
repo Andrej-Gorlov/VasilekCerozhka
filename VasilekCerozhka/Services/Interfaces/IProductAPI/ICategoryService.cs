@@ -1,10 +1,11 @@
-﻿using VasilekCerozhka.Models.ProductAPI.Category;
+﻿using VasilekCerozhka.Models.Paging;
+using VasilekCerozhka.Models.ProductAPI.Category;
 
 namespace VasilekCerozhka.Services.Interfaces.IProductAPI
 {
     public interface ICategoryService
     {
-        Task<T> GetAllCategoryAsync<T>(string? filter, string? search, string token);
+        Task<T> GetAllCategoryAsync<T>(string? filter = null, string? search = null, string? token = null);
         Task<T> GetCategoryByIdAsync<T>(int id, string token);
         Task<T> CreateCategoryAsync<T>(CreateCategoryDtoBase categoryDto, string token);
         Task<T> UpdateCategoryAsync<T>(UpdateCategoryDtoBase categoryDto, string token);

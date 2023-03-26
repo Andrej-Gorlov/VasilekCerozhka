@@ -46,36 +46,45 @@
 
             </div>
 
-            <div class="col-6 px-5">
+            <div class="col-6 px-5 mt-3">
 
+                <div class="form_input_custom" disabled>
+                    <input asp-for="ProductName" required autocomplete="on" />
+
+                    <label asp-for="ProductName" for="name" class="label_name_input">
+                        <span class="content_name_input">Наименование</span>
+                    </label>
+                </div>
+
+                <div class="form_input_custom" disabled>
+                    <input asp-for="Category.CategoryName" required autocomplete="on" />
+
+                    <label asp-for="Category.CategoryName" for="name" class="label_name_input">
+                        <span class="content_name_input">Наименование</span>
+                    </label>
+                </div>
+
+                <div disabled>
+
+                
                 <div class="ms-2 col-5 text-lg-start">
-                    <label asp-for="ProductName" class="control-label pt-2" style="font-size:20px;"></label>
+                    <label asp-for="Description" class="control-label label_textarea pt-2"></label>
                 </div>
-                <div class="col-12 pb-3">
-                    <input asp-for="ProductName" disabled class="form-control bg-primary" style="--bs-bg-opacity: .3;" />
+                <div class="col-12">
+                    <div class="border_textarea_custom">
+                        <textarea asp-for="Description" class="textarea_custom" rows="5"></textarea>
+                    </div>
                 </div>
 
-                <div class="ms-2 col-5 text-lg-start">
-                    <label asp-for="Category.CategoryName" class="control-label pt-2" style="font-size:20px;"></label>
-                </div>
-                <div class="col-12 pb-3">
-                    <input asp-for="Category.CategoryName" disabled class="form-control bg-primary" style="--bs-bg-opacity: .3;" />
                 </div>
 
 
-                <div class="ms-2 col-5 text-lg-start">
-                    <label asp-for="Description" class="control-label pt-2" style="font-size:20px;"></label>
-                </div>
-                <div class="col-12 pb-3">
-                    <textarea asp-for="Description" disabled class="form-control bg-primary" rows="5"style="--bs-bg-opacity: .3;"></textarea>
-                </div>
+                <div class="form_input_custom mt-3" disabled>
+                    <input asp-for="Price" required autocomplete="on" />
 
-
-                <div class="ms-2 col-5 text-lg-start">
-                    <label asp-for="Price" class="control-label pt-2" style="font-size:20px;"></label>
-                </div>
-                <div class="col-12 pb-3">
-                    <input asp-for="Price" disabled class="form-control bg-primary" style="--bs-bg-opacity: .3;" />
+                    <label asp-for="Price" for="name" class="label_name_input">
+                        <span class="content_name_input">Наименование</span>
+                    </label>
                 </div>
 
                 <div class="row p-3">

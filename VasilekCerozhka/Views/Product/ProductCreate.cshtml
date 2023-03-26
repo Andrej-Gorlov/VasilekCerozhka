@@ -21,59 +21,60 @@
 
             </div>
 
-            <div class="col-6 px-5">
+            <div class="col-6 px-5  mt-3">
 
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                <div class="ms-2 col-5 text-lg-start">
-                    <label asp-for="CreateProduct.ProductName" class="control-label pt-2" style="font-size:20px;"></label>
-                </div>
-                <div class="col-12 pb-3">
-                    <input asp-for="CreateProduct.ProductName" class="form-control" />
+                <div class="form_input_custom">
+                    <input asp-for="CreateProduct.ProductName" required autocomplete="on" />
+
+                    <label asp-for="CreateProduct.ProductName" for="name" class="label_name_input">
+                        <span class="content_name_input">Наименование</span>
+                    </label>
                     <span asp-validation-for="CreateProduct.ProductName" class="text-danger"></span>
                 </div>
 
+                <div id="select_custom" class="form_input_custom sel sel--black-panther" style="overflow: hidden" onclick="editSelect()">
 
-                <div class="form-group row py-2">
+                    <input id="deleteInput" required />
 
-                    <div class="ms-2 col-5 text-lg-start">
-                        <label asp-for="CreateProduct.Category.CategoryName" class="control-label pt-2" style="font-size:20px;">Категории</label>
-                    </div>
-                    <div class="col-12 pb-2">
+                    <select asp-for="paramsCategory" asp-items="@Model.SelectCategorys" id="select-category" class="label_name_select" hidden>
+                        <option id="cuctom_opt" disabled hidden>&nbsp</option>
+                    </select>
 
-                        <select asp-for="paramsCategory" asp-items="@Model.SelectCategorys" class="form-select text-center" >
-                            <option disabled selected>--Выберите категорию--</option>
-                        </select>
-                        
-                    </div>
-
+                    <label id="lebel_custom" for="name" class="label_name_input">
+                        <span id="span_custom" class="content_name_input">Категории</span>
+                    </label>
                 </div>
 
                 <div class="ms-2 col-5 text-lg-start">
-                    <label asp-for="CreateProduct.Description" class="control-label pt-2" style="font-size:20px;"></label>
+                    <label asp-for="CreateProduct.Description" class="control-label label_textarea pt-2"></label>
                 </div>
-                <div class="col-12 pb-3">
-                    <textarea asp-for="CreateProduct.Description" class="form-control" rows="5"></textarea>
+                <div class="col-12">
+                    <div class="border_textarea_custom">
+                        <textarea asp-for="CreateProduct.Description" class="textarea_custom" rows="5"></textarea>
+                    </div>
+
                     <span asp-validation-for="CreateProduct.Description" class="text-danger"></span>
                 </div>
 
+                <div class="form_input_custom mt-3">
+                    <input asp-for="CreateProduct.MainImageUrl" required autocomplete="off" oninput="newimgproduct(this)" />
 
-                <div class="ms-2 col-5 text-lg-start">
-                    <label asp-for="CreateProduct.MainImageUrl" class="control-label pt-2" style="font-size:20px;"></label>
-                </div>
-                <div class="col-12 pb-3">
-                    <input asp-for="CreateProduct.MainImageUrl" class="form-control" oninput="newimgproduct(this)" />
+                    <label asp-for="CreateProduct.MainImageUrl" for="name" class="label_name_input">
+                        <span class="content_name_input">Url Изображения</span>
+                    </label>
                     <span asp-validation-for="CreateProduct.MainImageUrl" class="text-danger"></span>
                 </div>
 
 
                 <div class="ms-3 col-5 text-lg-start">
-                    <label asp-for="CreateProduct.SecondaryImages" class="control-label pt-2" style="font-size:20px;"></label>
+                    <label asp-for="CreateProduct.SecondaryImages" class="control-label label_secondary_inputs pt-2" ></label>
                 </div>
                 <div class="col-12 pb-3">
 
                     <table class="table">
-                        <tr>
+                        <tr class="pb-3">
                             <td>
                                 <div id="second_images"></div>
                             </td>
@@ -82,20 +83,19 @@
                             </td>
                         </tr>
                     </table>
-
+                    
                     <div class="col-3">
                         <input asp-for="Images" type="button" value="Добавить" class="btn btn-outline-primary form-control" onclick="addImages()" />
                     </div>
-
                     <span asp-validation-for="CreateProduct.SecondaryImages" class="text-danger"></span>
                 </div>
 
+                <div class="form_input_custom mt-3">
+                    <input asp-for="CreateProduct.Price" required autocomplete="off" />
 
-                <div class="ms-2 col-5 text-lg-start">
-                    <label asp-for="CreateProduct.Price" class="control-label pt-2" style="font-size:20px;"></label>
-                </div>
-                <div class="col-12 pb-3">
-                    <input asp-for="CreateProduct.Price" class="form-control" />
+                    <label asp-for="CreateProduct.Price" for="name" class="label_name_input">
+                        <span class="content_name_input">Цена</span>
+                    </label>
                     <span asp-validation-for="CreateProduct.Price" class="text-danger"></span>
                 </div>
 

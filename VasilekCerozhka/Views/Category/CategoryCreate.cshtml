@@ -1,0 +1,89 @@
+﻿@model VasilekCerozhka.Models.ProductAPI.Category.CreateCategoryDtoBase
+
+<br />
+
+<form asp-action="CategoryCreate" class="form-glass">
+    <br />
+    <div class="container p-3">
+        <h1 class="text-primary">Создать продукт</h1>
+
+        <hr />
+        <div class="row mx-auto">
+
+
+            <div class="col-9 px-5">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <br />
+                <br />
+
+                <div class="form_input_custom">
+                    <input asp-for="CategoryName" required autocomplete="on"/>
+
+                    <label asp-for="CategoryName" for="name" class="label_name_input">
+                        <span class="content_name_input">Наименование</span>
+                    </label>
+                    <span asp-validation-for="CategoryName" class="text-danger"></span>
+                </div>
+
+               @* <div class="ms-2 col-5 text-lg-start">
+                    <label asp-for="CategoryName" class="control-label pt-2" style="font-size:20px;"></label>
+                </div>
+                <div class="col-12 pb-3">
+                    <input asp-for="CategoryName" class="form-control" />
+                    <span asp-validation-for="CategoryName" class="text-danger"></span>
+                </div>*@
+
+
+                <div class="form_input_custom">
+                    <input asp-for="ImageUrl" required autocomplete="off" oninput="newimgproduct(this)" />
+
+                    <label asp-for="ImageUrl" for="name" class="label_name_input">
+                        <span class="content_name_input">Url Изображения</span>
+                    </label>
+                
+                </div>
+              
+
+               @* <div class="ms-2 col-5 text-lg-start">
+                    <label asp-for="CreateProduct.MainImageUrl" class="control-label pt-2" style="font-size:20px;"></label>
+                </div>
+                <div class="col-12 pb-3">
+                    <input asp-for="CreateProduct.MainImageUrl" class="form-control" oninput="newimgproduct(this)" />
+                    <span asp-validation-for="CreateProduct.MainImageUrl" class="text-danger"></span>
+                </div>*@
+
+                <div class="row p-3">
+
+                    <div class="col-6">
+
+                        <div class="container_btn_custom">
+                            <a asp-action="CategoryIndex" class="btn_custom a_custom">Вернуться</a>
+                        </div>
+
+                    </div>
+                    <div class="col-6">
+                        <div class="container_btn_custom">
+                            <button type="submit" class="btn_custom a_custom">Добавить</button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-3">
+
+                <div id="new_product">
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

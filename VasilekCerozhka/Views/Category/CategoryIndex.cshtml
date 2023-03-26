@@ -1,0 +1,71 @@
+﻿@model VasilekCerozhka.Models.ViewModels.Category.CategoryVM
+
+<br />
+<br />
+
+@if (Model.categorys is null)
+{
+    <div><h1>Проверьте соединение с API</h1></div>
+}
+else
+{
+    <form class="form-glass">
+        <div class="container p-4">
+
+            <div class="row pb-2">
+
+                <div class="col ">
+                    <h1 class="text-primary"> Список категорий </h1>
+                </div>
+
+                <div class="col text-end pt-1">
+
+                    <div class="container_btn_custom" style="justify-content: flex-end;">
+                        <a asp-action="CategoryCreate" class="btn_custom a_custom">Создать категорию</a>
+                    </div>
+
+                </div>
+
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Наименование
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.categorys)
+                    {
+                        <tr>
+                            <td class="px-3">
+                                @item.CategoryName
+                            </td>
+
+                            <td class="col-3 text-end pt-1">
+
+                                <div class="row" style="justify-content: flex-end;">
+                                    <div class="col-3 container_btn_custom">
+                                        <a asp-action="CategoryEdit" class="btn_custom i_custom" asp-route-productId="@item.CategoryId">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-3 container_btn_custom">
+                                        <a asp-action="CategoryDelete" class="btn_custom i_custom" asp-route-productId="@item.CategoryId">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </form>
+}

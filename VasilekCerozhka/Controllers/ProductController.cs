@@ -21,7 +21,7 @@ namespace VasilekCerozhka.Controllers
         private readonly IMemoryCache _cache;
         private SetParams SetParams = new();
 
-        public ProductController(IProductService productService, IImageService imageService, ICategoryService categoryService, IMemoryCache cache)
+        public ProductController(IProductService productService, ICategoryService categoryService, IMemoryCache cache)
         {
             _productService = productService;
             _cache= cache;
@@ -44,14 +44,14 @@ namespace VasilekCerozhka.Controllers
             return View(productVM);
         }
         /// <summary>
-        /// request to ProductAPI (controller: Category / metod: Get)
+        /// request to ProductAPI (controller: Product / metod: Get)
         /// </summary>
         /// <returns>Open views page create</returns>
         public async Task<IActionResult> ProductCreate()
         {
             var productVM = new CreateProductVM();
 
-            var respons = await _categoryService.GetAllCategoryAsync<ResponseDtoBase>(null, null, null);
+            var respons = await _categoryService.GetAllCategoryAsync<ResponseDtoBase>();
             if (respons != null & respons.IsSuccess)
             {
                 productVM.Categorys = JsonConvert.DeserializeObject<List<CategoryDtoBase>>(Convert.ToString(respons.Result));
@@ -107,7 +107,7 @@ namespace VasilekCerozhka.Controllers
                 return View(productCache);
             }
             var responsProduct = await _productService.GetProductByIdAsync<ResponseDtoBase>(productId,null);
-            var responseCategory = await _categoryService.GetAllCategoryAsync<ResponseDtoBase>(null,null,null);
+            var responseCategory = await _categoryService.GetAllCategoryAsync<ResponseDtoBase>();
             if (responsProduct != null & responsProduct.IsSuccess)
             {
                 productVM.UpdateProduct = JsonConvert.DeserializeObject<UpdateProductDtoBase>(Convert.ToString(responsProduct.Result));

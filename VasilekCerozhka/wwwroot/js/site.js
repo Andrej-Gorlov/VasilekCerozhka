@@ -3,18 +3,18 @@
 
 // Write your JavaScript code.
 
-//import AddImages from './AddImages';
-//import deleteImages from './DeleteImages';
+//import ddImages from './AddImages.js';
+//import eleteImages from './DeleteImages.js';
 //window.addEventListener('DOMContentLoaded', () => {
-
-    //AddImages();
-   // DeleteImages(idInput, idBtn);
-
+//    AddImages();
+//    DeleteImages(idInput, idBtn);   
+//    const x = await import ('./AddImages.js');
+//    let btn = document.getElementById('xxx');
+//    btn.addEventListener('click', (idInput, idBtn, idImg) => {
+//        eleteImages(idInput, idBtn, idImg);
+//    });
 //});
 
-//window.Images = new Object();
-
-//window.Images.addImages = function () {
 
 // add new input
 function addImages() {
@@ -26,26 +26,36 @@ function addImages() {
 
     // здесь добавляем элемент, который будет хранить input
     let div = document.createElement("div");
-    div.setAttribute("class", "form-group pb-2");
+    div.setAttribute("class", "form_input_secondary_custom mt-3");
     div.setAttribute("id", "Images[" + nextFieldId + "]");
 
     // создаем новое поле с новым id
-    let field = document.createElement("input");
-    field.setAttribute("class", "form-control");
-    field.setAttribute("name", "Images");
-    field.setAttribute("type", "text");
-    field.setAttribute("id", "img[" + nextFieldId + "]")
-    field.setAttribute("oninput", "newimgproducts(this)");
-    field.setAttribute("placeholder", "Введите url изображения");
+    let input = document.createElement("input");
+    input.setAttribute("name", "Images");
+    input.setAttribute("type", "text");
+    input.setAttribute("required", "required");
+    input.setAttribute("autocomplete", "off");
+    input.setAttribute("id", "img[" + nextFieldId + "]")
+    input.setAttribute("oninput", "newimgproducts(this)");
+    input.setAttribute("placeholder", "Введите url изображения");
+
+    let leb = document.createElement("label");
+    leb.setAttribute("for", "name");
+    leb.setAttribute("class", "label_name_input_secondary");
+
+    let span = document.createElement("span");
+    span.setAttribute("class", "content_name_input_secondary");
+    leb.appendChild(span);
 
     // добавляем поле в <div class="form-group"></div>
-    div.appendChild(field);
+    div.appendChild(input);
+    div.appendChild(leb);
     // добавляем <div class="form-group"><input ... /></div> в главный контейнер
     container.appendChild(div);
 
     let containerBtn = document.getElementById("delete_url");
     let divBtn = document.createElement("div");
-    divBtn.setAttribute("class", "pb-2 container_btn_custom");
+    divBtn.setAttribute("class", "pb-1 container_btn_custom mt-3");
     divBtn.setAttribute("id", "Btn[" + nextFieldId + "]");
 
     let fieldBtn = document.createElement("div");
@@ -62,6 +72,7 @@ function addImages() {
 
 // delete input, btn, img
 function deleteImages(idInput, idBtn, idImg) {
+
     document.getElementById(idInput).remove();
     document.getElementById(idBtn).remove();
    
@@ -173,3 +184,90 @@ function newimgproducts(value) {
     }
 }
 
+// custom selector
+function editSelect() {
+  if (document.getElementById("deleteInput") !== null) {
+    let div = document.getElementById("select_custom");
+    div.classList.remove("form_input_custom");
+
+    document.getElementById("deleteInput").remove();
+
+    document.getElementById("select-category").removeAttribute("hidden");
+    document.getElementById("cuctom_opt").removeAttribute("hidden");
+
+    let label = document.getElementById("lebel_custom");
+    label.classList.remove("label_name_input");
+    label.classList.add("label_name_select");
+
+    let span = document.getElementById("span_custom");
+    span.classList.remove("content_name_input");
+    span.classList.add("content_name_select");
+
+    setTimeout(deleteHidden, 300);
+  }
+}
+
+function deleteHidden() {
+  document.getElementById("select_custom").style.overflow = "";
+}
+
+$(".sel").each(function () {
+  let reg;
+  if (document.getElementById("select-category") != null) {
+    reg = /form_input_custom sel/g;
+  } else {
+    reg = /sel/g;
+  }
+
+  $(this).children("select").css("display", "none");
+
+  var $current = $(this);
+
+  $(this)
+    .find("option")
+    .each(function (i) {
+      if (i == 0) {
+        $current.prepend(
+          $("<div>", {
+            class: $current.attr("class").replace(reg, "sel__box"),
+          })
+        );
+
+        var placeholder = $(this).text();
+        $current.prepend(
+          $("<span>", {
+            class: $current.attr("class").replace(reg, "sel__placeholder"),
+            text: placeholder,
+            "data-placeholder": placeholder,
+          })
+        );
+
+        return;
+      }
+
+      $current.children("div").append(
+        $("<span>", {
+          class: $current.attr("class").replace(reg, "sel__box__options"),
+          text: $(this).text(),
+        })
+      );
+    });
+});
+
+// Toggling the `.active` state on the `.sel`.
+$(".sel").click(function () {
+  $(this).toggleClass("active");
+});
+
+// Toggling the `.selected` state on the options.
+$(".sel__box__options").click(function () {
+  var txt = $(this).text();
+  var index = $(this).index();
+
+  $(this).siblings(".sel__box__options").removeClass("selected");
+  $(this).addClass("selected");
+
+  var $currentSel = $(this).closest(".sel");
+  $currentSel.children(".sel__placeholder").text(txt);
+  $currentSel.children("select").prop("selectedIndex", index + 1);
+});

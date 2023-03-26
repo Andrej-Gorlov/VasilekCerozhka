@@ -22,7 +22,6 @@ hr {
     background: rgba(13, 110, 253);
 }
 
-
 .form-glass {
     position: relative;
     background: transparent;
@@ -34,8 +33,13 @@ hr {
     align-items: center;
 }
 
+div[disabled] {
+    pointer-events: none;
+    background: #b0cfff54;
+    border-radius: 0px 5px 5px 5px;
+}
 
-/*      button           */
+/*      button custom         */
 .container_btn_custom {
     display: flex;
     justify-content: center;
@@ -97,7 +101,6 @@ hr {
 .btn_custom:hover:before {
   left: 100%;
 }
-
 
 /*   блеск и рамка для img   */
 .effect_gloss_img {
@@ -178,7 +181,7 @@ hr {
   }
 }
 
-/*   блеск и рамка для div   */
+/*   blesk i ramka div   */
 .effect_gloss_div {
   box-sizing: border-box;
   height: 220px;
@@ -256,10 +259,8 @@ hr {
   }
 }
 
-
 /*   input custom   */
 .form_input_custom {
-  widht: 50%;
   height: 55px;
   position: relative;
   overflow: hidden;
@@ -270,7 +271,8 @@ hr {
 .form_input_custom input {
   width: 100%;
   height: 100%;
-  color: #0a55c3;
+  padding: 0.2em 0.5em;
+  color: #051a50;
   padding-top: 10px;
   border: none;
   outline: none;
@@ -321,4 +323,241 @@ hr {
 }
 .made i {
   color: red;
+}
+
+/*   input custom secondary   */
+.label_secondary_inputs {
+    font-size: 14px;
+    color: #155cc5;
+    position: relative;
+    z-index: 1;
+    bottom: -20px;
+}
+.form_input_secondary_custom {
+  position: relative;
+  overflow: hidden;
+}
+.form_input_secondary_custom input {
+  width: 100%;
+  height: 100%;
+  padding: 5px 10px;
+  color: #051a50;
+  padding-top: 10px;
+  border: none;
+  outline: none;
+  font-size:20px;
+  background: transparent;
+}
+.form_input_secondary_custom label {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  bottom: 1px;
+  left: 0%;
+  pointer-events: none;
+  border-bottom: 2px solid #5993fda1;
+}
+.form_input_secondary_custom input::placeholder {
+    color: #051a5ab9;
+}
+.form_input_secondary_custom label::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-bottom: 2px solid #0d6efd;
+  bottom: -1px;
+  left: 0px;
+  transform: translateX(-100%);
+  transition: all 0.3s cubic-bezier(0, 0.3, 0, 0.39);
+  filter: blur(1px);
+}
+.form_input_secondary_custom input:focus + .label_name_input_secondary::after,
+.form_input_secondary_custom input:valid + .label_name_input_secondary::after {
+    transform: translateX(0%);
+}
+
+/*   select custom   */
+.sel {
+  height: 55px;
+  margin: 1em 1em;
+  background-color: transparent;
+  position: relative;
+  cursor: pointer;
+}
+.sel__placeholder {
+  display: block;
+  font-size: 24px;
+  color: #051a50;
+  padding: 0.59em 0.5em;
+  text-align: left;
+  pointer-events: none;
+  user-select: none;
+  visibility: visible;
+}
+.sel.active .sel__placeholder {
+  visibility: hidden;
+}
+.sel__placeholder::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.59em 0.5em;
+  content: attr(data-placeholder);
+  visibility: hidden;
+}
+.sel.active .sel__placeholder::before {
+  visibility: visible;
+}
+.sel__box {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: -4px;
+    display: none;
+    list-style-type: none;
+    text-align: left;
+    font-size: 1em;
+    background-color: #b9cdf8e9;
+    width: calc(100% + 8px);
+    box-sizing: border-box;
+    z-index: 3;
+}
+.sel.active .sel__box {
+  display: block;
+  animation: fadeInUp 1350ms;
+}
+.sel__box__options {
+  display: list-item;
+  font-size: 1.5em;
+  color: #051a50;
+  padding: 0.5em 1em;
+  user-select: none;
+}
+.sel__box__options:hover {
+  background-color: #99bbfe;
+}
+.sel label {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  bottom: 1px;
+  left: 0%;
+  pointer-events: none;
+  border-bottom: 2px solid #5993fda1;
+}
+.sel label::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-bottom: 2px solid #0d6efd;
+  bottom: -1px;
+  left: 0px;
+  transform: translateX(-100%);
+  transition: all 0.3s cubic-bezier(0, 0.3, 0, 0.39);
+  filter: blur(1px);
+}
+.content_name_select {
+  position: absolute;
+  bottom: 5px;
+  left: 0px;
+  transition: all 0.2s ease;
+}
+.sel select:focus + .label_name_select .content_name_select,
+.sel select:valid + .label_name_select .content_name_select {
+  transform: translateY(-150%);
+  font-size: 14px;
+  color: #155cc5;
+}
+.sel select:focus + .label_name_select::after,
+.sel select:valid + .label_name_select::after {
+  transform: translateX(0%);
+}
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+/*   textarea custom   */
+.border_textarea_custom {
+    position: relative;
+    background: #b0cfff2b;
+    border-radius: 0.25rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-inline: 3px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    overflow: hidden;
+}
+.border_textarea_custom::before {
+    content: "";
+    position: absolute;
+    width: 900px;
+    height: 900px;
+    background: conic-gradient( transparent,transparent,transparent,#96bbfe );
+    animation: animate 4s linear infinite;
+    animation-delay: -2s;
+ 
+}
+.border_textarea_custom::after{
+    content: "";
+    position: absolute;
+    width: 900px;
+    height: 900px;
+    background: conic-gradient( transparent,transparent,transparent,#96bbfe );
+    animation: animate 4s linear infinite;
+}
+@keyframes animate{
+    0%{
+        transform: rotate(0);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+.textarea_custom {
+    background: #ebf3ff;
+    border-color: #5993fd00;
+    z-index: 1;
+    border-width: 2px;
+    color: #051a50;
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.25rem;
+    transition: 1s;
+}
+.textarea_custom:focus{
+   background: #e1eaf9;
+   color: #051a50;
+   border-color: #5993fd;
+   border-width: 2px;
+   outline: 0;
+}
+.label_textarea {
+    font-size: 14px;
+    color: #155cc5;
+    position: relative;
+    z-index: 2;
+    bottom: 5px;
 }

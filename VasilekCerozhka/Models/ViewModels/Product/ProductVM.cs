@@ -7,6 +7,5 @@ namespace VasilekCerozhka.Models.ViewModels.Product
     {
         public List<ProductDtoBase>? products { get; set; }
         public PagedList? Paging { get; set; }
-        //public ParameterPagedList? ParameterPaged { get; set; }
     }
 }
