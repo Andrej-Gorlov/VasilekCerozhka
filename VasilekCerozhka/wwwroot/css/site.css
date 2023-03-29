@@ -39,6 +39,15 @@ div[disabled] {
     border-radius: 0px 5px 5px 5px;
 }
 
+::-webkit-scrollbar{
+    width:10px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: #212529;
+}
 /*      button custom         */
 .container_btn_custom {
     display: flex;
@@ -510,7 +519,7 @@ div[disabled] {
     overflow: hidden;
 }
 .border_textarea_custom::before {
-    content: "";
+    content: " ";
     position: absolute;
     width: 900px;
     height: 900px;
@@ -520,7 +529,7 @@ div[disabled] {
  
 }
 .border_textarea_custom::after{
-    content: "";
+    content: " ";
     position: absolute;
     width: 900px;
     height: 900px;
@@ -543,9 +552,20 @@ div[disabled] {
     color: #051a50;
     display: block;
     width: 100%;
+    resize: none;
     padding: 0.375rem 0.75rem;
     border-radius: 0.25rem;
     transition: 1s;
+}
+.textarea_custom::-webkit-scrollbar{
+    width:10px;
+}
+.textarea_custom::-webkit-scrollbar-track {
+    background: transparent;
+}
+.textarea_custom::-webkit-scrollbar-thumb {
+    background:#b0cfff;
+    border-radius: 0.25rem;
 }
 .textarea_custom:focus{
    background: #e1eaf9;
@@ -555,9 +575,18 @@ div[disabled] {
    outline: 0;
 }
 .label_textarea {
+    font-size: 20px;
+    color: #0d5efd;
+    position: absolute;
+    z-index: 2;
+    text-indent: 10px;
+    transform: translateX(0%);
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0,0.3,0,0.39);
+}
+.label_textarea_focus {
+    transform: translateY(-120%);
     font-size: 14px;
     color: #155cc5;
-    position: relative;
     z-index: 2;
-    bottom: 5px;
 }

@@ -83,7 +83,7 @@ function deleteImages(idInput, idBtn, idImg) {
     }
     if (document.getElementById(idImg).classList.contains('active')) {
 
-        document.getElementById(idImg).previousSibling.classList.add("active");
+        document.getElementById(idImg).firstElementChild.classList.add("active");
     }
     document.getElementById(idImg).remove();
 }

@@ -1,9 +1,17 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
+    "module": "esnext",
     "noImplicitAny": false,
+    "lib": [
+      "dom",
+      "es5",
+      "scripthost",
+      "es2015.promise"
+    ],
     "noEmitOnError": true,
     "removeComments": false,
+    "declaration": false,
     "sourceMap": true,
     "target": "es5",
     "outDir": "wwwroot/js"
@@ -12,3 +20,23 @@
     "wwwroot/ts/**/*"
   ]
 }
+//{
+//  "compilerOptions": {
+//    "target": "es5",
+//    "module": "esnext",
+//    "lib": [
+//      "dom",
+//      "es5",
+//      "scripthost",
+//      "es2015.promise"
+//    ],
+//    "jsx": "react",
+//    "declaration": false,
+//    "sourceMap": true,
+//    "outDir": "./dist/js",
+//    "strict": true,
+//    "moduleResolution": "node",
+//    "typeRoots": [ "./node_modules/@types" ],
+//    "types": [ "node", "react", "react-dom" ]
+//  }
+//}

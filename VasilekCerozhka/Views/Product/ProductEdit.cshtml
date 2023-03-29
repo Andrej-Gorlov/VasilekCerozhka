@@ -81,12 +81,11 @@
                     </label>
                 </div>
 
-                <div class="ms-2 col-5 text-lg-start">
-                    <label asp-for="UpdateProduct.Description" class="control-label label_textarea pt-2"></label>
-                </div>
-                <div class="col-12">
+                <div class="col-12 pt-4">
+                   
+                    <label id="id_label_textarea" class="label_textarea">Описание</label>
                     <div class="border_textarea_custom">
-                        <textarea asp-for="UpdateProduct.Description" class="textarea_custom" rows="5"></textarea>
+                        <textarea asp-for="UpdateProduct.Description" id="id_textarea" class="textarea_custom" rows="5" onblur="TextareaEmpty()" onclick="TextareaChangesStyle()"></textarea>
                     </div>
 
                     <span asp-validation-for="UpdateProduct.Description" class="text-danger"></span>
