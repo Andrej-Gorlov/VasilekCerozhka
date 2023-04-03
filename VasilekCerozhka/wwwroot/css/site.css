@@ -585,6 +585,7 @@ div[disabled] {
     transition: all 0.3s cubic-bezier(0,0.3,0,0.39);
 }
 .label_textarea_focus {
+    position: absolute;
     transform: translateY(-120%);
     font-size: 14px;
     color: #155cc5;
