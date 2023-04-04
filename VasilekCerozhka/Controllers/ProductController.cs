@@ -93,7 +93,7 @@ namespace VasilekCerozhka.Controllers
             return View(model);
         }
         /// <summary>
-        /// request to ProductAPI (controller: Product / metod: Get)
+        /// request to ProductAPI (controller: Product / metod: GetById)
         /// </summary>
         /// <param name="productId"></param>
         /// <returns>Open page ProductEdit</returns>
@@ -150,6 +150,11 @@ namespace VasilekCerozhka.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// request to ProductAPI (controller: Product / metod: GetById)
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <returns>Open page ProductDelete</returns>
         public async Task<IActionResult> ProductDelete(int productId)
         {
             //var accessToken = await HttpContext.GetTokenAsync("access_token");
@@ -162,6 +167,11 @@ namespace VasilekCerozhka.Controllers
             return NotFound();
         }
 
+        /// <summary>
+        /// request to ProductAPI (controller: Product / metod: Delete)
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns>Open page ProductIndex</returns>
         [HttpPost]
         //[Authorize(Roles = "Admin")]
         //[ValidateAntiForgeryToken]

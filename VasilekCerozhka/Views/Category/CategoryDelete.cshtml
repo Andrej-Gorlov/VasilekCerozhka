@@ -1,0 +1,79 @@
+﻿@model VasilekCerozhka.Models.ProductAPI.Category.CategoryDtoBase
+
+<br />
+
+<form asp-action="CategoryDelete" class="form-glass">
+
+    <input asp-for="CategoryId" hidden />
+
+    <br />
+    <div class="container p-3">
+        <h1 class="text-primary">Удалить продукт</h1>
+
+        <hr />
+        <div class="row mx-auto">
+
+            <div class="col-9 px-5 pt-5">
+
+                <div class="pt-5"></div>
+
+                <div class="form_input_custom" disabled>
+                    <input asp-for="CategoryName" required autocomplete="off" />
+
+                    <label asp-for="CategoryName" for="name" class="label_name_input">
+                        <span class="content_name_input">Наименование</span>
+                    </label>
+                </div>
+
+                <div class="pt-5"></div>
+
+                <div class="row p-3">
+
+                    <div class="col-6">
+
+                        <div class="container_btn_custom">
+                            <a asp-action="CategoryIndex" class="btn_custom a_custom">Вернуться</a>
+                        </div>
+
+                    </div>
+                    <div class="col-6">
+
+                        <div class="container_btn_custom">
+                            <button type="submit" class="btn_custom a_custom">Удалить </button>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-3">
+
+                <div class="pb-3 box">
+
+                    @if (Model.CategoryId != 0)
+                    {
+                        <div class="pb-2">
+                            <label class="control-label pt-2" style="font-size:20px;">Tекущие изображение</label>
+                        </div>
+
+                        <div class="effect_gloss_img">
+                            <img src="@Model.ImageUrl" />
+                        </div>
+                    }
+                    else
+                    {
+                        <img src="~/img/886fac756d43925eea0cb1e3643b0dfd.jpg" class="w-100" />
+                    }
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

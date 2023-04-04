@@ -1,25 +1,24 @@
-﻿@model VasilekCerozhka.Models.ProductAPI.Category.CreateCategoryDtoBase
+﻿@model VasilekCerozhka.Models.ProductAPI.Category.UpdateCategoryDtoBase
 
 <br />
 
-<form asp-action="CategoryCreate" class="form-glass">
+<form asp-action="CategoryEdit" class="form-glass">
+    <input asp-for="CategoryId" hidden />
     <br />
     <div class="container p-3">
-        <h1 class="text-primary">Создать продукт</h1>
+        <h1 class="text-primary">Обновить категорию</h1>
 
         <hr />
-        <div class="row mx-auto">
+        <div class="row">
 
+            <div class="col-9 px-5 pt-5">
 
-            <div class="col-9 px-5">
-
+                <div class="pt-5"></div>
+                
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                <br />
-                <br />
-
                 <div class="form_input_custom">
-                    <input asp-for="CategoryName" required autocomplete="off"/>
+                    <input asp-for="CategoryName" required autocomplete="off" />
 
                     <label asp-for="CategoryName" for="name" class="label_name_input">
                         <span class="content_name_input">Наименование</span>
@@ -27,14 +26,7 @@
                     <span asp-validation-for="CategoryName" class="text-danger"></span>
                 </div>
 
-               @* <div class="ms-2 col-5 text-lg-start">
-                    <label asp-for="CategoryName" class="control-label pt-2" style="font-size:20px;"></label>
-                </div>
-                <div class="col-12 pb-3">
-                    <input asp-for="CategoryName" class="form-control" />
-                    <span asp-validation-for="CategoryName" class="text-danger"></span>
-                </div>*@
-
+                <div class="pt-5"></div>
 
                 <div class="form_input_custom">
                     <input asp-for="ImageUrl" required autocomplete="off" oninput="newimgproduct(this)" />
@@ -42,20 +34,12 @@
                     <label asp-for="ImageUrl" for="name" class="label_name_input">
                         <span class="content_name_input">Url Изображения</span>
                     </label>
-                
+                    <span asp-validation-for="ImageUrl" class="text-danger"></span>
                 </div>
-              
 
-               @* <div class="ms-2 col-5 text-lg-start">
-                    <label asp-for="CreateProduct.MainImageUrl" class="control-label pt-2" style="font-size:20px;"></label>
-                </div>
-                <div class="col-12 pb-3">
-                    <input asp-for="CreateProduct.MainImageUrl" class="form-control" oninput="newimgproduct(this)" />
-                    <span asp-validation-for="CreateProduct.MainImageUrl" class="text-danger"></span>
-                </div>*@
+                <div class="pt-5"></div>
 
                 <div class="row p-3">
-
                     <div class="col-6">
 
                         <div class="container_btn_custom">
@@ -64,9 +48,11 @@
 
                     </div>
                     <div class="col-6">
+
                         <div class="container_btn_custom">
-                            <button type="submit" class="btn_custom a_custom">Добавить</button>
+                            <button type="submit" class="btn_custom a_custom">Обновить </button>
                         </div>
+
                     </div>
 
                 </div>
@@ -75,11 +61,33 @@
 
             <div class="col-3">
 
+                <div class="pb-3 box">
+
+                    @if (Model.CategoryId != 0)
+                    {
+                        <div class="pb-2">
+                            <label class="control-label pt-2" style="font-size:20px;">Tекущие изображение</label>
+                        </div>
+
+                        <div class="effect_gloss_img">
+                            <img src="@Model.ImageUrl" />
+                        </div>
+                    }
+                    else
+                    {
+                        <img src="~/img/886fac756d43925eea0cb1e3643b0dfd.jpg" class="w-100" />
+                    }
+
+                </div>
+
                 <div id="new_product">
                 </div>
 
             </div>
 
+        </div>
+
+        <div>
         </div>
     </div>
 </form>
