@@ -75,15 +75,13 @@ namespace VasilekCerozhka.Controllers
         {
             if (ModelState.IsValid)
             {
-                //var accessToken = await HttpContext.GetTokenAsync("access_token");
-
                 model.CreateProduct.CategoryId = SetParams.IdParams(model.paramsCategory);
 
                 if (model.Images != null)
                 {
                     model.CreateProduct.SecondaryImages = SetParams.Images<CreateImageDtoBase>(model.Images);
                 }
-
+                //var accessToken = await HttpContext.GetTokenAsync("access_token");
                 var respons = await _productService.CreateProductAsync<ResponseDtoBase>(model.CreateProduct, null);
                 if (respons.Result != null & respons.IsSuccess)
                 {
@@ -138,7 +136,6 @@ namespace VasilekCerozhka.Controllers
             if (ModelState.IsValid)
             {
                 model.UpdateProduct.CategoryId = SetParams.IdParams(model.paramsCategory);
-
                 model.UpdateProduct.SecondaryImages = SetParams.Images<UpdateImageDtoBase>(model.Images);
 
                 var respons = await _productService.UpdateProductAsync<ResponseDtoBase>(model.UpdateProduct, null);
@@ -157,12 +154,22 @@ namespace VasilekCerozhka.Controllers
         /// <returns>Open page ProductDelete</returns>
         public async Task<IActionResult> ProductDelete(int productId)
         {
-            //var accessToken = await HttpContext.GetTokenAsync("access_token");
-            var respons = await _productService.GetProductByIdAsync<ResponseDtoBase>(productId, null);
-            if (respons != null & respons.IsSuccess)
+            if (ModelState.IsValid)
             {
-                ProductDtoBase? model = JsonConvert.DeserializeObject<ProductDtoBase>(Convert.ToString(respons.Result));
-                return View(model);
+                var model = new ProductDtoBase();
+                _cache.TryGetValue(productId, out ProductDtoBase? productCache);
+                if (productCache != null)
+                {
+                    return View(productCache);
+                }
+                //var accessToken = await HttpContext.GetTokenAsync("access_token");
+                var respons = await _productService.GetProductByIdAsync<ResponseDtoBase>(productId, null);
+                if (respons != null & respons.IsSuccess)
+                {
+                    model = JsonConvert.DeserializeObject<ProductDtoBase>(Convert.ToString(respons.Result));
+                    _cache.Set(productId, model, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(5)));
+                    return View(model);
+                }
             }
             return NotFound();
         }

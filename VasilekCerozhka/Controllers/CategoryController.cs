@@ -53,7 +53,6 @@ namespace VasilekCerozhka.Controllers
             if (ModelState.IsValid)
             {
                 //var accessToken = await HttpContext.GetTokenAsync("access_token");
-
                 var respons = await _categoryService.CreateCategoryAsync<ResponseDtoBase>(model, null);
                 if (respons.Result != null & respons.IsSuccess)
                 {
@@ -72,10 +71,18 @@ namespace VasilekCerozhka.Controllers
         {
             if (ModelState.IsValid)
             {
+                var category = new UpdateCategoryDtoBase();
+                _cache.TryGetValue(categoryId, out CategoryDtoBase? categoryCache);
+                if (categoryCache != null)
+                {
+                    return View(categoryCache);
+                }
+                //var accessToken = await HttpContext.GetTokenAsync("access_token");
                 var respons = await _categoryService.GetCategoryByIdAsync<ResponseDtoBase>(categoryId, null);
                 if (respons.Result != null & respons.IsSuccess)
                 {
-                    UpdateCategoryDtoBase category = JsonConvert.DeserializeObject<UpdateCategoryDtoBase>(Convert.ToString(respons.Result));
+                    category = JsonConvert.DeserializeObject<UpdateCategoryDtoBase>(Convert.ToString(respons.Result));
+                    _cache.Set(categoryId, category, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(5)));
                     return View(category);
                 }
             }
@@ -111,12 +118,22 @@ namespace VasilekCerozhka.Controllers
         /// <returns>Open page CategoryDelete</returns>
         public async Task<ActionResult> CategoryDelete(int categoryId)
         {
-            //var accessToken = await HttpContext.GetTokenAsync("access_token");
-            var respons = await _categoryService.GetCategoryByIdAsync<ResponseDtoBase>(categoryId, null);
-            if (respons != null & respons.IsSuccess)
+            if (ModelState.IsValid)
             {
-                CategoryDtoBase? model = JsonConvert.DeserializeObject<CategoryDtoBase>(Convert.ToString(respons.Result));
-                return View(model);
+                var model = new CategoryDtoBase();
+                _cache.TryGetValue(categoryId, out CategoryDtoBase? categoryCache);
+                if (categoryCache != null)
+                {
+                    return View(categoryCache);
+                }
+                //var accessToken = await HttpContext.GetTokenAsync("access_token");
+                var respons = await _categoryService.GetCategoryByIdAsync<ResponseDtoBase>(categoryId, null);
+                if (respons != null & respons.IsSuccess)
+                {
+                    model = JsonConvert.DeserializeObject<CategoryDtoBase>(Convert.ToString(respons.Result));
+                    _cache.Set(categoryId, model, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(5)));
+                    return View(model);
+                }
             }
             return NotFound();
         }
