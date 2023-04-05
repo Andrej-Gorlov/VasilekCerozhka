@@ -66,18 +66,16 @@
 
                 <div disabled>
 
-                
-                <div class="ms-2 col-5 text-lg-start">
-                    <label asp-for="Description" class="control-label label_textarea pt-2"></label>
-                </div>
-                <div class="col-12">
-                    <div class="border_textarea_custom">
-                        <textarea asp-for="Description" class="textarea_custom" rows="5"></textarea>
+                    <div class="col-12 pt-4">
+                       
+                        <label class="label_textarea_focus">Описание</label>
+                        <div class="border_textarea_custom">
+                            <textarea asp-for="Description"  class="textarea_custom" rows="5" ></textarea>
+                        </div>
+
                     </div>
-                </div>
 
                 </div>
-
 
                 <div class="form_input_custom mt-3" disabled>
                     <input asp-for="Price" required autocomplete="on" />
