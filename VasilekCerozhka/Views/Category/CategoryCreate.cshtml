@@ -27,14 +27,6 @@
                     <span asp-validation-for="CategoryName" class="text-danger"></span>
                 </div>
 
-               @* <div class="ms-2 col-5 text-lg-start">
-                    <label asp-for="CategoryName" class="control-label pt-2" style="font-size:20px;"></label>
-                </div>
-                <div class="col-12 pb-3">
-                    <input asp-for="CategoryName" class="form-control" />
-                    <span asp-validation-for="CategoryName" class="text-danger"></span>
-                </div>*@
-
 
                 <div class="form_input_custom">
                     <input asp-for="ImageUrl" required autocomplete="off" oninput="newimgproduct(this)" />
@@ -45,16 +37,17 @@
                 
                 </div>
               
+                <div class="col-12 pt-4">
 
-               @* <div class="ms-2 col-5 text-lg-start">
-                    <label asp-for="CreateProduct.MainImageUrl" class="control-label pt-2" style="font-size:20px;"></label>
+                    <label id="id_label_textarea" class="label_textarea">Описание</label>
+                    <div class="border_textarea_custom">
+                        <textarea asp-for="Description" id="id_textarea" class="textarea_custom" rows="5" onblur="TextareaEmpty()" onclick="TextareaChangesStyle()"></textarea>
+                    </div>
+
+                    <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
-                <div class="col-12 pb-3">
-                    <input asp-for="CreateProduct.MainImageUrl" class="form-control" oninput="newimgproduct(this)" />
-                    <span asp-validation-for="CreateProduct.MainImageUrl" class="text-danger"></span>
-                </div>*@
 
-                <div class="row p-3">
+                <div class="row p-3 pt-5">
 
                     <div class="col-6">
 

@@ -15,8 +15,6 @@
 
             <div class="col-9 px-5 pt-5">
 
-                <div class="pt-5"></div>
-
                 <div class="form_input_custom" disabled>
                     <input asp-for="CategoryName" required autocomplete="off" />
 
@@ -25,9 +23,20 @@
                     </label>
                 </div>
 
-                <div class="pt-5"></div>
+                <div disabled>
 
-                <div class="row p-3">
+                    <div class="col-12 pt-4">
+
+                        <label class="label_textarea_focus">Описание</label>
+                        <div class="border_textarea_custom">
+                            <textarea asp-for="Description" class="textarea_custom" rows="5"></textarea>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row p-3 pt-5">
 
                     <div class="col-6">
 
