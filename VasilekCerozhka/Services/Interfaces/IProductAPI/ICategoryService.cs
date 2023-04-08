@@ -1,5 +1,4 @@
-﻿using VasilekCerozhka.Models.Paging;
-using VasilekCerozhka.Models.ProductAPI.Category;
+﻿using VasilekCerozhka.Models.ProductAPI.Category;
 
 namespace VasilekCerozhka.Services.Interfaces.IProductAPI
 {
