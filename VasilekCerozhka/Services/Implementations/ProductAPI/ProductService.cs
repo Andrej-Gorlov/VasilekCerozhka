@@ -2,7 +2,6 @@
 using VasilekCerozhka.Models;
 using VasilekCerozhka.Models.Paging;
 using VasilekCerozhka.Models.ProductAPI.Product;
-using VasilekCerozhka.Models.ViewModels.Product;
 using VasilekCerozhka.Services.Interfaces.IProductAPI;
 
 namespace VasilekCerozhka.Services.Implementations.ProductAPI
