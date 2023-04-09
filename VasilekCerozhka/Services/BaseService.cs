@@ -51,10 +51,8 @@
                         message.Method = HttpMethod.Get;
                         break;
                 }
-
                 apiResponse = await client.SendAsync(message);
                 var apiContet = await apiResponse.Content.ReadFromJsonAsync<T>();
-
                 return apiContet;
             }
             catch (Exception ex)

@@ -1,0 +1,66 @@
+﻿@model VasilekCerozhka.Models.CouponAPI.Coupon.UpdateCouponDtoBase
+
+<br />
+
+<form asp-action="CouponEdit" class="container form-glass" style="width: 50%;">
+    <input asp-for="CouponId" hidden />
+    <br />
+    <div class="container p-3">
+        <h1 class="text-primary">Создать купон</h1>
+
+        <hr />
+        <div class="row mx-auto">
+
+
+            <div class="px-5">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <br />
+                <br />
+
+                <div class="form_input_custom">
+                    <input asp-for="CouponCode" required autocomplete="off" />
+
+                    <label asp-for="CouponCode" for="name" class="label_name_input">
+                        <span class="content_name_input">Промокод</span>
+                    </label>
+                    <span asp-validation-for="CouponCode" class="text-danger"></span>
+                </div>
+
+
+                <div class="form_input_custom">
+                    <input asp-for="DiscountAmount" required autocomplete="off" oninput="newimgproduct(this)" />
+
+                    <label asp-for="DiscountAmount" for="name" class="label_name_input">
+                        <span class="content_name_input">Скидка</span>
+                    </label>
+                    <span asp-validation-for="DiscountAmount" class="text-danger"></span>
+                </div>
+
+                <div class="row p-3 pt-5">
+
+                    <div class="col-6">
+
+                        <div class="container_btn_custom">
+                            <a asp-action="CouponIndex" class="btn_custom a_custom">Вернуться</a>
+                        </div>
+
+                    </div>
+                    <div class="col-6">
+                        <div class="container_btn_custom">
+                            <button type="submit" class="btn_custom a_custom">Обновить </button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

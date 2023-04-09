@@ -46,7 +46,7 @@
             {
                 //var accessToken = await HttpContext.GetTokenAsync("access_token");
                 var respons = await _categoryService.CreateCategoryAsync<ResponseDtoBase>(model, null);
-                if (respons.Result != null & respons.IsSuccess)
+                if (respons.Result != null && respons.IsSuccess)
                 {
                     return RedirectToAction(nameof(CategoryIndex));
                 }

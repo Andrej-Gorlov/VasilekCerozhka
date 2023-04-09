@@ -20,3 +20,4 @@ global using Microsoft.Extensions.Caching.Memory;
 global using VasilekCerozhka.Services.Helpers;
 global using System.Diagnostics;
 global using VasilekCerozhka.Models.ViewModels.Category;
+global using VasilekCerozhka.Models.ViewModels.Coupon;

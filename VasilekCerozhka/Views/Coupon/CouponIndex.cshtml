@@ -1,0 +1,85 @@
+﻿@model VasilekCerozhka.Models.ViewModels.Coupon.CouponVM
+
+<br />
+<br />
+
+@if (Model.Coupons is null)
+{
+    <div><h1>Проверьте соединение с API (Coupon)</h1></div>
+}
+else
+{
+    <form class="container form-glass">
+        <div class="container p-4">
+
+            <div class="row pb-2">
+
+                <div class="col ">
+                    <h1 class="text-primary"> Список купонов </h1>
+                </div>
+
+                <div class="col text-end pt-1">
+
+                    <div class="container_btn_custom" style="justify-content: flex-end;">
+                        <a asp-action="CouponCreate" class="btn_custom a_custom">Создать купон</a>
+                    </div>
+
+                </div>
+
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Промокод
+                        </th>
+                        <th>
+                            Скидка (%)
+                        </th>
+                        <th>
+                            Дата создания
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Coupons)
+                    {
+                        <tr>
+                            <td class="px-3">
+                                @item.CouponCode
+                            </td>
+
+                            <td class="px-3">
+                                @item.DiscountAmount
+                            </td>
+
+                            <td class="px-3">
+                                @item.DateTimeCreateCoupon.ToString("dd.MM.yyyy")
+                            </td>
+
+                            <td class="col-3 text-end pt-1">
+
+                                <div class="row" style="justify-content: flex-end;">
+                                    <div class="col-3 container_btn_custom">
+                                        <a asp-action="CouponEdit" class="btn_custom i_custom" asp-route-couponId="@item.CouponId">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-3 container_btn_custom">
+                                        <a asp-action="CouponDelete" class="btn_custom i_custom" asp-route-couponId="@item.CouponId">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </form>
+}
