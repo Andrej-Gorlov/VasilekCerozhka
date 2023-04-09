@@ -2,7 +2,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using VasilekCerozhka.Data;
 using VasilekCerozhka.Helpers;
+using VasilekCerozhka.Services.Implementations.CouponAPI;
 using VasilekCerozhka.Services.Implementations.ProductAPI;
+using VasilekCerozhka.Services.Interfaces.ICouponAPI;
 using VasilekCerozhka.Services.Interfaces.IProductAPI;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,12 +21,15 @@ builder.Services.AddMemoryCache();
 builder.Services.AddHttpClient<IProductService, ProductService>();
 builder.Services.AddHttpClient<IImageService, ImageService>();
 builder.Services.AddHttpClient<ICategoryService, CategoryService>();
+builder.Services.AddHttpClient<ICouponService, CouponService>();
 
 StaticDitels.ProductApiBase = builder.Configuration["ServiseUrl:ProductAPI"];
+StaticDitels.CouponApiBase = builder.Configuration["ServiseUrl:CouponAPI"];
 
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<ICouponService, CouponService>();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
