@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace VasilekCerozhka.Models.CouponAPI.Coupon
+﻿namespace VasilekCerozhka.Models.CouponAPI.Coupon
 {
     public class CreateCouponDtoBase
     {

@@ -1,10 +1,4 @@
-﻿using VasilekCerozhka.Helpers;
-using VasilekCerozhka.Models;
-using VasilekCerozhka.Models.Paging;
-using VasilekCerozhka.Models.ProductAPI.Product;
-using VasilekCerozhka.Services.Interfaces.IProductAPI;
-
-namespace VasilekCerozhka.Services.Implementations.ProductAPI
+﻿namespace VasilekCerozhka.Services.Implementations.ProductAPI
 {
     public class ProductService : BaseService, IProductService
     {

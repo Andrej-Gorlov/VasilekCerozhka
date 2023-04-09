@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Xml.Linq;
-
-namespace VasilekCerozhka.Models.CouponAPI.Coupon
+﻿namespace VasilekCerozhka.Models.CouponAPI.Coupon
 {
     public class CouponDtoBase
     {

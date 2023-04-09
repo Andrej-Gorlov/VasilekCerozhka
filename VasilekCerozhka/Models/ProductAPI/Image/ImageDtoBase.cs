@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace VasilekCerozhka.Models.ProductAPI.Image
+﻿namespace VasilekCerozhka.Models.ProductAPI.Image
 {
     public class ImageDtoBase : IImageBase
     {

@@ -1,9 +1,4 @@
-﻿using VasilekCerozhka.Helpers;
-using VasilekCerozhka.Models;
-using VasilekCerozhka.Models.ProductAPI.Category;
-using VasilekCerozhka.Services.Interfaces.IProductAPI;
-
-namespace VasilekCerozhka.Services.Implementations.ProductAPI
+﻿namespace VasilekCerozhka.Services.Implementations.ProductAPI
 {
     public class CategoryService : BaseService, ICategoryService
     {

@@ -1,11 +1,4 @@
-﻿using Newtonsoft.Json;
-using System.Net.Http.Headers;
-using System.Text;
-using VasilekCerozhka.Helpers;
-using VasilekCerozhka.Models;
-using VasilekCerozhka.Services.IServices;
-
-namespace VasilekCerozhka.Services
+﻿namespace VasilekCerozhka.Services
 {
     public class BaseService : IBaseService
     {

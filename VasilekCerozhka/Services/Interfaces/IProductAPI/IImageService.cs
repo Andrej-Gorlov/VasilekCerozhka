@@ -1,7 +1,4 @@
-﻿using VasilekCerozhka.Models.ProductAPI.Category;
-using VasilekCerozhka.Models.ProductAPI.Image;
-
-namespace VasilekCerozhka.Services.Interfaces.IProductAPI
+﻿namespace VasilekCerozhka.Services.Interfaces.IProductAPI
 {
     public interface IImageService
     {

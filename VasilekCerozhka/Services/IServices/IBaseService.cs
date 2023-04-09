@@ -1,6 +1,4 @@
-﻿using VasilekCerozhka.Models;
-
-namespace VasilekCerozhka.Services.IServices
+﻿namespace VasilekCerozhka.Services.IServices
 {
     public interface IBaseService : IDisposable
     {

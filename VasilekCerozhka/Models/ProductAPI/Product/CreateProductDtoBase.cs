@@ -1,8 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using VasilekCerozhka.Models.ProductAPI.Category;
-using VasilekCerozhka.Models.ProductAPI.Image;
-
-namespace VasilekCerozhka.Models.ProductAPI.Product
+﻿namespace VasilekCerozhka.Models.ProductAPI.Product
 {
     public class CreateProductDtoBase
     {

@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using VasilekCerozhka.Models.ProductAPI.Category;
-
-namespace VasilekCerozhka.Models.ViewModels.Product
+﻿namespace VasilekCerozhka.Models.ViewModels.Product
 {
     public class SelectCategory 
     {

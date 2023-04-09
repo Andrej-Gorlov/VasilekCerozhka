@@ -1,6 +1,4 @@
-﻿using VasilekCerozhka.Models.Paging;
-
-namespace VasilekCerozhka.Models
+﻿namespace VasilekCerozhka.Models
 {
     public class ResponseDtoBase
     {

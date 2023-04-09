@@ -1,6 +1,4 @@
-﻿using VasilekCerozhka.Models.CouponAPI.Coupon;
-
-namespace VasilekCerozhka.Services.Interfaces.ICouponAPI
+﻿namespace VasilekCerozhka.Services.Interfaces.ICouponAPI
 {
     public interface ICouponService
     {

@@ -1,18 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using VasilekCerozhka.Models.ProductAPI.Product;
-using VasilekCerozhka.Models;
-using VasilekCerozhka.Services.Interfaces.IProductAPI;
-using VasilekCerozhka.Models.Paging;
-using VasilekCerozhka.Models.ViewModels.Product;
-using VasilekCerozhka.Models.ProductAPI.Image;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using VasilekCerozhka.Models.ProductAPI.Category;
-using System.Data;
-using Microsoft.Extensions.Caching.Memory;
-using VasilekCerozhka.Services.Helpers;
-
-namespace VasilekCerozhka.Controllers
+﻿namespace VasilekCerozhka.Controllers
 {
     public class ProductController : Controller
     {

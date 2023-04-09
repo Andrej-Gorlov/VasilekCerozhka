@@ -1,6 +1,4 @@
-﻿using VasilekCerozhka.Models.ProductAPI.Category;
-
-namespace VasilekCerozhka.Services.Interfaces.IProductAPI
+﻿namespace VasilekCerozhka.Services.Interfaces.IProductAPI
 {
     public interface ICategoryService
     {

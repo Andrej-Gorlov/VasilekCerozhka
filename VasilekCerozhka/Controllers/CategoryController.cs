@@ -1,12 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
-using Newtonsoft.Json;
-using VasilekCerozhka.Models;
-using VasilekCerozhka.Services.Interfaces.IProductAPI;
-using VasilekCerozhka.Models.ViewModels.Category;
-using VasilekCerozhka.Models.ProductAPI.Category;
-
-namespace VasilekCerozhka.Controllers
+﻿namespace VasilekCerozhka.Controllers
 {
     public class CategoryController : Controller
     {

@@ -1,6 +1,4 @@
-﻿using VasilekCerozhka.Models.ProductAPI.Image;
-
-namespace VasilekCerozhka.Services.Helpers
+﻿namespace VasilekCerozhka.Services.Helpers
 {
     public class SetParams
     {

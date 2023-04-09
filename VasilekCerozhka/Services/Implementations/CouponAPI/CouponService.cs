@@ -1,9 +1,4 @@
-﻿using VasilekCerozhka.Helpers;
-using VasilekCerozhka.Models;
-using VasilekCerozhka.Models.CouponAPI.Coupon;
-using VasilekCerozhka.Services.Interfaces.ICouponAPI;
-
-namespace VasilekCerozhka.Services.Implementations.CouponAPI
+﻿namespace VasilekCerozhka.Services.Implementations.CouponAPI
 {
     public class CouponService : BaseService, ICouponService
     {

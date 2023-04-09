@@ -1,7 +1,4 @@
-﻿using VasilekCerozhka.Models.Paging;
-using VasilekCerozhka.Models.ProductAPI.Product;
-
-namespace VasilekCerozhka.Services.Interfaces.IProductAPI
+﻿namespace VasilekCerozhka.Services.Interfaces.IProductAPI
 {
     public interface IProductService
     {

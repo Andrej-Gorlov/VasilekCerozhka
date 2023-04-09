@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace VasilekCerozhka.Models.ProductAPI.Category
+﻿namespace VasilekCerozhka.Models.ProductAPI.Category
 {
     public class CategoryDtoBase
     {

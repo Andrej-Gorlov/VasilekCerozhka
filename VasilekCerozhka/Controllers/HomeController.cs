@@ -1,12 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System.Diagnostics;
-using VasilekCerozhka.Models;
-using VasilekCerozhka.Models.ProductAPI.Category;
-using VasilekCerozhka.Models.ViewModels.Category;
-using VasilekCerozhka.Services.Interfaces.IProductAPI;
-
-namespace VasilekCerozhka.Controllers
+﻿namespace VasilekCerozhka.Controllers
 {
     public class HomeController : Controller
     {

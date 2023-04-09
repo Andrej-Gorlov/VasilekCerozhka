@@ -1,9 +1,4 @@
-﻿using VasilekCerozhka.Helpers;
-using VasilekCerozhka.Models;
-using VasilekCerozhka.Models.ProductAPI.Image;
-using VasilekCerozhka.Services.Interfaces.IProductAPI;
-
-namespace VasilekCerozhka.Services.Implementations.ProductAPI
+﻿namespace VasilekCerozhka.Services.Implementations.ProductAPI
 {
     public class ImageService : BaseService, IImageService
     {
