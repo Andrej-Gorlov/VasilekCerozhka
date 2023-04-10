@@ -2,13 +2,11 @@
 {
     //[Authorize(Roles = "Admin")]
     //[ValidateAntiForgeryToken]
-    public class CouponController : Controller
+    public class CouponController : BaseApiController<CouponController>
     {
         private readonly ICouponService _couponService;
-        private readonly IMemoryCache _cache;
-        public CouponController(ICouponService couponService, IMemoryCache cache)
+        public CouponController(ICouponService couponService, IMemoryCache cache, ILogger<CouponController> logger) :base(cache, logger)
         {
-            _cache= cache;  
             _couponService= couponService;
         }
 

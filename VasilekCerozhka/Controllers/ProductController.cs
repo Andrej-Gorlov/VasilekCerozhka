@@ -1,16 +1,14 @@
 ﻿namespace VasilekCerozhka.Controllers
 {
-    public class ProductController : Controller
+    public class ProductController : BaseApiController<ProductController>
     {
         private readonly IProductService _productService;
         private readonly ICategoryService _categoryService;
-        private readonly IMemoryCache _cache;
         private SetParams SetParams = new();
 
-        public ProductController(IProductService productService, ICategoryService categoryService, IMemoryCache cache)
+        public ProductController(IProductService productService, ICategoryService categoryService, IMemoryCache cache, ILogger<ProductController> logger) :base(cache, logger)
         {
             _productService = productService;
-            _cache= cache;
             _categoryService = categoryService;
         }
         /// <summary>

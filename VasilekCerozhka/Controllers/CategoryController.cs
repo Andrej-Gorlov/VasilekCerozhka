@@ -1,14 +1,12 @@
 ﻿namespace VasilekCerozhka.Controllers
 {
-    public class CategoryController : Controller
+    public class CategoryController : BaseApiController<CategoryController>
     {
         private readonly ICategoryService _categoryService;
-        private readonly IMemoryCache _cache;
 
-        public CategoryController(ICategoryService categoryService, IMemoryCache cache)
+        public CategoryController(ICategoryService categoryService, IMemoryCache cache, ILogger<CategoryController> logger) :base(cache,logger)
         {
             _categoryService= categoryService;
-            _cache= cache; 
         }
         /// <summary>
         /// request to ProductAPI (controller: Category / metod: Get)

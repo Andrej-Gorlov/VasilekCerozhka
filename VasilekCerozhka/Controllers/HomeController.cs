@@ -1,11 +1,11 @@
 ﻿namespace VasilekCerozhka.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseApiController<HomeController>
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ICategoryService _categoryService ;
 
-        public HomeController(ILogger<HomeController> logger, ICategoryService categoryService)
+        public HomeController(ICategoryService categoryService, IMemoryCache cache, ILogger<HomeController> logger) :base(cache,logger)
         {
             _logger = logger;
             _categoryService = categoryService;
