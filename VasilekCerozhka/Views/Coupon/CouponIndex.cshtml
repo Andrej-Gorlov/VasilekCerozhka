@@ -45,6 +45,9 @@ else
                 <tbody>
                     @foreach (var item in Model.Coupons)
                     {
+                        var eModal = $"#exampleModal{item.CouponId}";
+                        var idModal = $"exampleModal{item.CouponId}";
+
                         <tr>
                             <td class="px-3">
                                 @item.CouponCode
@@ -61,17 +64,19 @@ else
                             <td class="col-3 text-end pt-1">
 
                                 <div class="row" style="justify-content: flex-end;">
+
                                     <div class="col-3 container_btn_custom">
                                         <a asp-action="CouponEdit" class="btn_custom i_custom" asp-route-couponId="@item.CouponId">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                     </div>
 
-                                    <div class="col-3 container_btn_custom">
-                                        <a asp-action="CouponDelete" class="btn_custom i_custom" asp-route-couponId="@item.CouponId">
+                                    <div class="col-3 container_btn_custom" onmouseover="assignIdModal('@idModal','@item.CouponId')">
+                                        <a asp-action="CouponDelete" class="btn_custom i_custom" data-bs-toggle="modal" data-bs-target="@eModal">
                                             <i class="fas fa-trash"></i>
                                         </a>
                                     </div>
+
                                 </div>
 
                             </td>
@@ -82,4 +87,37 @@ else
             </table>
         </div>
     </form>
+
+
+    <div id="IdModal" aria-hidden="true">
+        <div class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+
+                    <div style="text-align:center; padding:10px; color:#0d6efd;">
+                        <h1 class=" fs-5" id="exampleModalLabel">Удалить купон?</h1>
+                    </div>
+                    <span style="border-bottom:1px solid #0d6efd;display:block;width:100%;"></span>
+    
+                    <div class="row" style="padding: 10px;">
+                        <div class="col-6">
+
+                            <div class="container_btn_custom">
+                                <button type="button" class="btn_custom a_custom" data-bs-dismiss="modal">Отмена</button>
+                            </div>
+
+                        </div>
+
+                        <div class="col-6">
+
+                            <div class="container_btn_custom">
+                                <a id="idModalBtnDelete" class="btn_custom a_custom" onclick="deleteCoupon()" data-bs-dismiss="modal">&nbsp &nbsp Да &nbsp &nbsp</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 }

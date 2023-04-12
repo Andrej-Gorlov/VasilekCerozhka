@@ -1,9 +1,13 @@
-//function deleteImages() {
-//    import('./del')
-//        .then(module => {
-//            module.default("","","");
-//        })
-//}
+function assignIdModal(idModal, idCoupon) {
+    if (document.getElementById("IdModal").children[0].id !== idModal) {
+        document.getElementById("IdModal").children[0].id = idModal;
+        document.getElementById("idModalBtnDelete").ariaValueText = idCoupon;
+    }
+}
+function deleteCoupon() {
+    var id = document.getElementById("idModalBtnDelete").ariaValueText;
+    window.location.href = "/Coupon/CouponDelete?couponId=" + id;
+}
 function TextareaChangesStyle() {
     document.getElementById("id_label_textarea").classList.add("label_textarea_focus");
 }

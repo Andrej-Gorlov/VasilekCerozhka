@@ -3,18 +3,6 @@
 
 // Write your JavaScript code.
 
-//import ddImages from './AddImages.js';
-//import eleteImages from './DeleteImages.js';
-//window.addEventListener('DOMContentLoaded', () => {
-//    AddImages();
-//    DeleteImages(idInput, idBtn);   
-//    const x = await import ('./AddImages.js');
-//    let btn = document.getElementById('xxx');
-//    btn.addEventListener('click', (idInput, idBtn, idImg) => {
-//        eleteImages(idInput, idBtn, idImg);
-//    });
-//});
-
 
 // add new input
 function addImages() {

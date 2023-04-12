@@ -1,14 +1,21 @@
-//function deleteImages() {
-//    import('./del')
-//        .then(module => {
-//            module.default("","","");
-//        })
-//}
+
+function assignIdModal(idModal: string, idCoupon: string) {
+
+    if (document.getElementById("IdModal").children[0].id !== idModal) {
+        
+        document.getElementById("IdModal").children[0].id = idModal;
+        document.getElementById("idModalBtnDelete").ariaValueText = idCoupon;
+    }
+}
+function deleteCoupon() {
+    const id = document.getElementById("idModalBtnDelete").ariaValueText;
+    window.location.href = "/Coupon/CouponDelete?couponId=" + id;
+}
+
 
 function TextareaChangesStyle() {
     document.getElementById("id_label_textarea").classList.add("label_textarea_focus");
 }
-
 function TextareaEmpty() {
     if ((document.getElementById("id_textarea") as HTMLInputElement).value.length === 0) {
         document.getElementById("id_label_textarea").classList.remove("label_textarea_focus");
