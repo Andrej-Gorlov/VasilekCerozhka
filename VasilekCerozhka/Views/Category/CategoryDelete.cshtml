@@ -27,9 +27,10 @@
 
                     <div class="col-12 pt-4">
 
-                        <label class="label_textarea_focus">Описание</label>
-                        <div class="border_textarea_custom">
-                            <textarea asp-for="Description" class="textarea_custom" rows="5"></textarea>
+                        <label id="id_label_textarea" class="label_textarea_focus">Описание</label>
+
+                        <div id="borderId" class="border_textarea_custom">
+                            <textarea asp-for="Description" id="id_textarea" class="textarea_custom" onblur="TextareaEmpty()" onclick="TextareaChangesStyle()"></textarea>
                         </div>
 
                     </div>

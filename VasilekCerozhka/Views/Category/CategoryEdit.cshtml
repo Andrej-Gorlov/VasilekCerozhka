@@ -37,10 +37,12 @@
 
                 <div class="col-12 pt-4">
 
-                    <label id="id_label_textarea">Описание</label>
-                    <div class="border_textarea_custom">
-                        <textarea asp-for="Description" id="id_textarea" class="textarea_custom" rows="5" onblur="TextareaEmpty()" onclick="TextareaChangesStyle()"></textarea>
+                    <label id="id_label_textarea" class="label_textarea">Описание</label>
+
+                    <div id="borderId" style="width: 100%;">
+                        <textarea asp-for="Description" id="id_textarea" class="textarea_custom" onblur="TextareaEmpty()" onclick="TextareaChangesStyle()"></textarea>
                     </div>
+                    <span id="id_span_label" class="span_label_textarea"></span>
 
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
