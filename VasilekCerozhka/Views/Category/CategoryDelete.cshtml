@@ -1,8 +1,12 @@
 ﻿@model VasilekCerozhka.Models.ProductAPI.Category.CategoryDtoBase
 
+<div id="Idloader" class="loader-container">
+    <span class="loader"></span>
+</div>
+
 <br />
 
-<form asp-action="CategoryDelete" class="container form-glass">
+<form asp-action="CategoryDelete" id="IdForm" class="container form-glass" hidden>
 
     <input asp-for="CategoryId" hidden />
 

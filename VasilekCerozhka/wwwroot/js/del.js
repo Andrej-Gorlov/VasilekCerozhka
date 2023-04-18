@@ -1,4 +1,6 @@
-export default function deleteImages(idInput, idBtn, idImg) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+function deleteImages(idInput, idBtn, idImg) {
     if (idImg === void 0) { idImg = null; }
     document.getElementById(idInput).remove();
     document.getElementById(idBtn).remove();
@@ -12,4 +14,5 @@ export default function deleteImages(idInput, idBtn, idImg) {
     }
     document.getElementById(idImg).remove();
 }
+exports.default = deleteImages;
 //# sourceMappingURL=del.js.map

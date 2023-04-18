@@ -1,8 +1,12 @@
 ﻿@model VasilekCerozhka.Models.ProductAPI.Category.UpdateCategoryDtoBase
 
+<div id="Idloader" class="loader-container">
+    <span class="loader"></span>
+</div>
+
 <br />
 
-<form asp-action="CategoryEdit" class="container form-glass">
+<form asp-action="CategoryEdit" id="IdForm" class="container form-glass" hidden>
     <input asp-for="CategoryId" hidden />
     <br />
     <div class="container p-3">
@@ -74,7 +78,7 @@
                     @if (Model.CategoryId != 0)
                     {
                         <div class="pb-2">
-                            <label class="control-label pt-2" style="font-size:20px;">Tекущие изображение</label>
+                            <label class="control-label pt-2" style="font-size:20px;text-align: center; width:100%;">Tекущие изображение</label>
                         </div>
 
                         <div class="effect_gloss_img">

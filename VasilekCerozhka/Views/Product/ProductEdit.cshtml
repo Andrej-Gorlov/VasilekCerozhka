@@ -1,9 +1,13 @@
 ﻿@model VasilekCerozhka.Models.ViewModels.Product.UpdateProductVM
 
+<div id="Idloader" class="loader-container">
+    <span class="loader"></span>
+</div>
+
 <br />
 
 @*<form asp-action="ProductEdit" onload="window.Images.addImages()">*@
-<form asp-action="ProductEdit" class="container form-glass">
+<form asp-action="ProductEdit" id="IdForm" class="container form-glass" hidden>
     <input asp-for="UpdateProduct.ProductId" hidden />
     @*@for (int i = 0; i < Model.UpdateProduct.SecondaryImages.Count; i++)
     {
@@ -19,11 +23,42 @@
         <div class="row mx-auto">
 
             <div class="col-3">
+
+
+
+
+                <div class="pb-3 box">
+
+                    @if (Model.UpdateProduct.ProductId != 0)
+                    {
+                        <div class="pb-2">
+                            <label class="control-label pt-2" style="font-size:20px;text-align: center; width:100%;">Tекущие изображение</label>
+                        </div>
+
+                        <div class="main-card-add">
+
+                            <div class="card-add">
+
+                                <div class="card_add_effect_gloss_img">
+                                    <img src="@Model.UpdateProduct.MainImageUrl" />
+                                </div>
+
+                            </div>
+                        </div>
+
+                    }
+                    else
+                    {
+                        <img src="~/img/886fac756d43925eea0cb1e3643b0dfd.jpg" class="w-100" />
+                    }
+
+                </div>
+
                 <div class="pb-3">
                     @if (Model.UpdateProduct.SecondaryImages.Count > 0)
                     {
                         <div class="pb-2">
-                            <label class="control-label pt-2" style="font-size:20px;">Tекущий список изображений</label>
+                            <label class="control-label pt-2" style="font-size:20px;text-align: center; width:100%;">Tекущий список изображений</label>
                         </div>
 
                         <div id="carouselExampleDark" class="carousel carousel-blue slide carousel-fade" data-bs-ride="carousel">
@@ -46,12 +81,6 @@
                     {
                         <img src="~/img/886fac756d43925eea0cb1e3643b0dfd.jpg" class="w-100"/>
                     }
-                </div>
-
-                <div id="carouselExampleDark" class="carousel carousel-blue slide carousel-fade" data-bs-ride="carousel">
-                    <div id="new_products" class="carousel-inner">
-
-                    </div>
                 </div>
 
             </div>
@@ -96,7 +125,7 @@
 
 
                 <div class="form_input_custom mt-3">
-                    <input asp-for="UpdateProduct.MainImageUrl" required autocomplete="off" oninput="newimgproduct(this)" />
+                    <input asp-for="UpdateProduct.MainImageUrl" required autocomplete="off" oninput="newimgproduct(this,true)" />
 
                     <label asp-for="UpdateProduct.MainImageUrl" for="name" class="label_name_input">
                         <span class="content_name_input">Url Изображения</span>
@@ -186,27 +215,12 @@
 
             <div class="col-3">
 
-                <div class="pb-3 box">
-
-                    @if (Model.UpdateProduct.ProductId != 0)
-                    {
-                        <div class="pb-2">
-                            <label class="control-label pt-2" style="font-size:20px;">Tекущие изображение</label>
-                        </div>
-
-                        <div class="effect_gloss_img">
-                            <img src="@Model.UpdateProduct.MainImageUrl"/>
-                        </div>
-                    }
-                    else
-                    {
-                        <img src="~/img/886fac756d43925eea0cb1e3643b0dfd.jpg" class="w-100" />
-                    }
-
-                </div>
-                
                 <div id="new_product">
+                </div>
 
+                <div id="carouselExampleDark" class="carousel carousel-blue slide carousel-fade" data-bs-ride="carousel">
+                    <div id="new_products" class="carousel-inner">
+                    </div>
                 </div>
 
             </div>
@@ -214,7 +228,11 @@
         </div>
 
     </div>
+
 </form>
+
+<div class="pb-5"></div>
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

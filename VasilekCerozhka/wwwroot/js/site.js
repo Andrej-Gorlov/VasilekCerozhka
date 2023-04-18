@@ -77,7 +77,7 @@ function deleteImages(idInput, idBtn, idImg) {
 }
 
 // add new img
-function newimgproduct(value) {
+function newimgproduct(value,isAddProduct) {
 
     let container = document.getElementById("new_product");
     let divCount = container.getElementsByTagName("div").length;
@@ -89,7 +89,7 @@ function newimgproduct(value) {
 
         let label = document.createElement("label");
         label.setAttribute("class", "control-label pt-2");
-        label.setAttribute("style", "font-size:20px;");
+        label.setAttribute("style", "font-size:20px;text-align: center; width:100%;");
         label.textContent = 'Новое изображение';
 
         div.appendChild(label);
@@ -100,14 +100,34 @@ function newimgproduct(value) {
     }
     if (document.getElementById("new_product_img") === null && value.value != "") {
 
-        let divImg = document.createElement("div");
-        divImg.setAttribute("class", "effect_gloss_img");
-        divImg.setAttribute("id", "div_effect_gloss_img");
-        let img = document.createElement("img");
-        img.setAttribute("src", value.value);
-        img.setAttribute("id", "new_product_img");
-        divImg.appendChild(img);
-        container.appendChild(divImg);
+
+        if (isAddProduct) {
+
+            let divImg = document.createElement("div");
+            divImg.setAttribute("class", "main-card-add");
+            divImg.setAttribute("id", "div_effect_gloss_img");
+            let divImgCard = document.createElement("div");
+            divImgCard.setAttribute("class", "card-add");
+            let divImgCardFG = document.createElement("div");
+            divImgCardFG.setAttribute("class", "card_add_effect_gloss_img");
+            let img = document.createElement("img");
+            img.setAttribute("src", value.value);
+            img.setAttribute("id", "new_product_img");
+            divImgCardFG.appendChild(img);
+            divImgCard.appendChild(divImgCardFG);
+            divImg.appendChild(divImgCard);
+            container.appendChild(divImg);
+        } else {
+
+            let divImg = document.createElement("div");
+            divImg.setAttribute("class", "effect_gloss_img");
+            divImg.setAttribute("id", "div_effect_gloss_img");
+            let img = document.createElement("img");
+            img.setAttribute("src", value.value);
+            img.setAttribute("id", "new_product_img");
+            divImg.appendChild(img);
+            container.appendChild(divImg);
+        }
     }
     else if (document.getElementById("new_product_img") != null && value.value != ""){
         document.getElementById("new_product_img").src = value.value;
@@ -164,7 +184,7 @@ function newimgproducts(value) {
 
         let label = document.createElement("label");
         label.setAttribute("class", "control-label pt-2");
-        label.setAttribute("style", "font-size:20px;");
+        label.setAttribute("style", "font-size:20px;text-align: center; width:100%;");
         label.textContent = 'Новый список изображений';
 
         div.appendChild(label);

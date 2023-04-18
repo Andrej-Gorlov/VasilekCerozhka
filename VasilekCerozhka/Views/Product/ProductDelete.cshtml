@@ -1,8 +1,12 @@
 ﻿@model VasilekCerozhka.Models.ProductAPI.Product.ProductDtoBase
 
+<div id="Idloader" class="loader-container">
+    <span class="loader"></span>
+</div>
+
 <br />
 
-<form asp-action="ProductDelete" class="container form-glass">
+<form asp-action="ProductDelete" id="IdForm" class="container form-glass" hidden>
 
     <input asp-for="ProductId" hidden />
 

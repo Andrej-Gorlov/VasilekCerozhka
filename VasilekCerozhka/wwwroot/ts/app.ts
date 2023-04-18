@@ -7,10 +7,12 @@ function assignIdModal(idModal: string, idCoupon: string) {
         document.getElementById("idModalBtnDelete").ariaValueText = idCoupon;
     }
 }
-function deleteCoupon() {
+function CallControllers(src) {
+
     const id = document.getElementById("idModalBtnDelete").ariaValueText;
-    window.location.href = "/Coupon/CouponDelete?couponId=" + id;
+    window.location.href = src + id;
 }
+
 
 
 
@@ -35,7 +37,9 @@ function TextareaEmpty() {
 function LoadTextarea() {
     if ((document.getElementById("id_textarea") as HTMLInputElement).value.length > 0) {
         document.getElementById("id_textarea").setAttribute('style', 'height:150px;background: #ebf3ff;');
-        document.getElementById("id_span_label").classList.remove("span_label_textarea");
+        if (document.getElementById("id_span_label") !== null) {
+            document.getElementById("id_span_label").classList.remove("span_label_textarea");
+        }
         document.getElementById("borderId").classList.add("border_textarea_custom");
         document.getElementById("id_label_textarea").classList.add("label_textarea_focus");
     } else {
@@ -45,4 +49,10 @@ function LoadTextarea() {
 }
 document.addEventListener('DOMContentLoaded', function () {
     LoadTextarea();
+
+    setTimeout(function () {
+        document.getElementById("Idloader")?.setAttribute("hidden", "true");
+        document.getElementById("IdForm").removeAttribute("hidden");
+    }, 1000);
+
 });

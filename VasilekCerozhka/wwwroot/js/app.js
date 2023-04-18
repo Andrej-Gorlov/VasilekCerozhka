@@ -4,9 +4,9 @@ function assignIdModal(idModal, idCoupon) {
         document.getElementById("idModalBtnDelete").ariaValueText = idCoupon;
     }
 }
-function deleteCoupon() {
+function CallControllers(src) {
     var id = document.getElementById("idModalBtnDelete").ariaValueText;
-    window.location.href = "/Coupon/CouponDelete?couponId=" + id;
+    window.location.href = src + id;
 }
 function TextareaChangesStyle() {
     document.getElementById("id_label_textarea").classList.add("label_textarea_focus");
@@ -26,7 +26,9 @@ function TextareaEmpty() {
 function LoadTextarea() {
     if (document.getElementById("id_textarea").value.length > 0) {
         document.getElementById("id_textarea").setAttribute('style', 'height:150px;background: #ebf3ff;');
-        document.getElementById("id_span_label").classList.remove("span_label_textarea");
+        if (document.getElementById("id_span_label") !== null) {
+            document.getElementById("id_span_label").classList.remove("span_label_textarea");
+        }
         document.getElementById("borderId").classList.add("border_textarea_custom");
         document.getElementById("id_label_textarea").classList.add("label_textarea_focus");
     }
@@ -37,5 +39,10 @@ function LoadTextarea() {
 }
 document.addEventListener('DOMContentLoaded', function () {
     LoadTextarea();
+    setTimeout(function () {
+        var _a;
+        (_a = document.getElementById("Idloader")) === null || _a === void 0 ? void 0 : _a.setAttribute("hidden", "true");
+        document.getElementById("IdForm").removeAttribute("hidden");
+    }, 1000);
 });
 //# sourceMappingURL=app.js.map

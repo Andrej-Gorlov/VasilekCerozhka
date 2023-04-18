@@ -12,9 +12,9 @@
 
             <div class="col-3">
                 
-                <div id="carouselExampleDark" class="carousel carousel-blue slide carousel-fade" data-bs-ride="carousel">
+                <div id="carouselExampleDark" class="carousel carousel-blue slide carousel-fade mt-5" data-bs-ride="carousel">
 
-                    <div id="new_products" class="carousel-inner">
+                    <div id="new_products" class="carousel-inner pt-5">
                     </div>
 
                 </div>
@@ -62,7 +62,7 @@
 
 
                 <div class="form_input_custom mt-3">
-                    <input asp-for="CreateProduct.MainImageUrl" required autocomplete="off" oninput="newimgproduct(this)" />
+                    <input asp-for="CreateProduct.MainImageUrl" required autocomplete="off" oninput="newimgproduct(this,true)" />
 
                     <label asp-for="CreateProduct.MainImageUrl" for="name" class="label_name_input">
                         <span class="content_name_input">Url Изображения</span>
