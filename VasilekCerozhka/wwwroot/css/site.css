@@ -1022,3 +1022,168 @@ div[disabled] {
     transform: rotate(-50deg) translate(-126px, 500px);
   }
 }
+
+/*   card   */
+
+.main-card-view{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+  font-family: 'Roboto', sans-serif;
+}
+.card-view{
+  width: 20rem;
+  height: 33rem;
+  border:1px solid #5993fd;
+  border-radius: 30px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  color:#8ab6f9;
+  text-shadow: 0.5px 0 0.5px #000000a3, 
+                0 0.5px 0.5px #000000a3, 
+                -0.5px 0 0.5px #000000a3, 
+                0 -0.5px 0.5px #000000a3;
+  box-shadow: 0px 1px 20px 1px #5993fd;
+}
+.card-view img{
+  position: absolute;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  top:0;
+  left:0;
+  opacity: 0.9;
+  transition: opacity 0.2s ease-out;
+}
+.card-view h2{
+  position: absolute;
+  z-index: 5;
+  inset: auto auto 30px 15px;
+  margin: 0;
+  transition: 0.5s;
+  font-family: 'Roboto Condensed', sens-serif;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+.card-view p, .card-view a {
+  position: absolute;
+  z-index: 5;
+  opacity: 0;
+  max-width:  80%;
+  transition: opacity 0.3s ease-out;
+}
+.card-view p{
+  inset: auto auto 80px  30px;
+}
+.card-view a{
+  inset: auto auto 40px 30px;
+  color: inherit;
+  text-decoration: none;
+}
+.card-view:hover h2{
+  inset: auto auto 220px 30px;
+  transition: inset 0.3s ease-out;
+}
+.card-view:hover p, .card-view:hover a{
+  opacity: 1;
+  transition: opacity 0.5s 0.3s ease-in;
+}
+.card-view:hover img{
+  transition: opacity 0.3s ease-in;
+  opacity: 1;
+}
+.card-view:hover~ .PriceProduct-view{
+  z-index: 5;
+  font-size:26px;
+  color:#0065ff;
+  align-items: center;
+  justify-content: center;
+  transform: translate3d(50%,-90%,0);
+  transition: 0.3s;
+  text-shadow: 0.5px 0 0.5px #000000a3, 
+                0 0.5px 0.5px #000000a3, 
+                -0.5px 0 0.5px #000000a3, 
+                0 -0.5px 0.5px #000000a3;
+}
+.PriceProduct-view{
+  font-size:28px;
+  color:#0065ff;
+  padding:50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.5s;
+}
+.effect_gloss_img-view::before {
+  content:' ';
+  width: 800px;
+  height: 500px;
+  top: -100px;
+  left: -290px;
+  opacity: 1;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0.3) 59%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  filter: blur(1rem);
+  transform-origin: center center;
+  position: absolute;
+  z-index: 8;
+  animation-delay: 0.5s;
+  animation-name: mask-ani;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+}
+.effect_gloss_img-view::after {
+  content:' ';
+  width: 800px;
+  height: 50px;
+  opacity: 0;
+  top: -50px;
+  left: -390px;
+  background-color: #ffffff59;
+  filter: blur(1.2rem);
+  transform-origin: center center;
+  position: absolute;
+  z-index: 5;
+  animation-delay: 0.5s;
+  animation-name: mask-border-ani;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+}
+.effect_gloss_img-view img {
+  vertical-align: top;
+  z-index: 5;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+@keyframes mask-ani {
+  0% {
+    transform: rotate(-50deg) translate(-40px, -430px);
+  }
+  70%,
+  100% {
+    transform: rotate(-50deg) translate(-40px, 800px);
+  }
+}
+@keyframes mask-border-ani {
+  0% {
+    opacity: 0.8;
+    transform: rotate(-50deg) translate(-126px, -190px);
+  }
+  70%,
+  100% {
+    opacity: 0.8;
+    transform: rotate(-50deg) translate(-126px, 900px);
+  }
+}

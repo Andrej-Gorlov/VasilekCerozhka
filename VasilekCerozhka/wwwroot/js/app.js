@@ -26,6 +26,9 @@ function TextareaEmpty(idLable, itTextarea, idBorder, idSpan) {
     }
 }
 function LoadTextarea() {
+    var d = document.getElementById("id_textarea");
+    if (document.getElementById("id_textarea") === null)
+        return;
     if (document.getElementById("id_textarea").value.length > 0) {
         document.getElementById("id_textarea").setAttribute('style', 'height:150px;background: #ebf3ff;');
         if (document.getElementById("id_span_label") !== null) {
@@ -38,6 +41,8 @@ function LoadTextarea() {
         document.getElementById("id_label_textarea").classList.add("label_textarea");
         document.getElementById("id_label_textarea").style.transition = "";
     }
+    if (document.getElementById("id_textareaSD") === null)
+        return;
     if (document.getElementById("id_textareaSD").value.length > 0) {
         document.getElementById("id_textareaSD").setAttribute('style', 'height:100px;background: #ebf3ff;');
         if (document.getElementById("id_span_labelSD") !== null) {

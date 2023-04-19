@@ -19,7 +19,7 @@
         public async Task<IActionResult> ProductIndex(int page = 1)
         {
             var productVM = new ProductVM();
-            var respons = await _productService.GetAllProductAsync<ResponseDtoBase>(new PagingParameters() { PageNumber = page },null,null, null);
+            var respons = await _productService.GetAllProductAsync<ResponseDtoBase>(new PagingParameters() { maxPageSize = 10, PageNumber = page },null,null, null);
             if (respons != null & respons.IsSuccess)
             {
                 productVM.products = JsonConvert.DeserializeObject<List<ProductDtoBase>>(Convert.ToString(respons.Result));

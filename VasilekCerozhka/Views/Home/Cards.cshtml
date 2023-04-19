@@ -1,0 +1,47 @@
+﻿@model VasilekCerozhka.Models.ViewModels.Product.ProductVM
+
+
+@if (Model.products is null || Model.products.Count() is 0)
+{
+    <div><h1>У выбранной категории нет продуктов</h1></div>
+}
+else
+{
+    <div id="Idloader" class="loader-container">
+        <span class="loader"></span>
+    </div>
+
+    <br />
+
+    <form id="IdForm" class="container form-glass mt-5" hidden>
+
+        <div style="display: flex; flex-direction: row; flex-wrap: wrap;">
+
+            @foreach (var product in Model.products)
+            {
+                <div class="main-card-view">
+
+                    <div class="card-view">
+
+                        <div class="effect_gloss_img-view">
+                            <img src="@product.MainImageUrl">
+                        </div>
+
+                        <div class="card-content-view">
+                            <h2>@product.ProductName</h2>
+                            <p>@product.ShortDescription</p>
+                            <a href="" class="button">Дитали</a>
+                        </div>
+
+                    </div>
+                    <label class="PriceProduct-view">@product.Price &#8381</label>
+                </div>
+            }
+
+        </div>
+
+    </form>
+  
+}
+
+<div class="pb-5"></div>

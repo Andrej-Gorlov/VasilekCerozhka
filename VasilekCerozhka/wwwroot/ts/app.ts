@@ -42,6 +42,10 @@ function TextareaEmpty(idLable: string, itTextarea: string, idBorder: string, id
 
 function LoadTextarea() {
 
+    let d =document.getElementById("id_textarea");
+
+    if (document.getElementById("id_textarea") === null ) return;
+
     if ((document.getElementById("id_textarea") as HTMLInputElement).value.length > 0) {
 
         document.getElementById("id_textarea").setAttribute('style', 'height:150px;background: #ebf3ff;');
@@ -56,6 +60,8 @@ function LoadTextarea() {
         document.getElementById("id_label_textarea").classList.add("label_textarea");
         document.getElementById("id_label_textarea").style.transition = "";
     }
+
+    if (document.getElementById("id_textareaSD") === null) return;
 
     if ((document.getElementById("id_textareaSD") as HTMLInputElement).value.length > 0) {
 

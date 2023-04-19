@@ -1,12 +1,16 @@
-﻿namespace VasilekCerozhka.Controllers
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+
+namespace VasilekCerozhka.Controllers
 {
     public class HomeController : BaseApiController<HomeController>
     {
         private readonly ICategoryService _categoryService ;
+        private readonly IProductService _productService;
 
-        public HomeController(ICategoryService categoryService, IMemoryCache cache, ILogger<HomeController> logger) :base(cache,logger)
+        public HomeController(ICategoryService categoryService, IProductService productService, IMemoryCache cache, ILogger<HomeController> logger) :base(cache,logger)
         {
             _categoryService = categoryService;
+            _productService = productService;
         }
 
         public async Task<IActionResult> Index()
@@ -18,6 +22,18 @@
                 categoryVM.categorys = JsonConvert.DeserializeObject<List<CategoryDtoBase>>(Convert.ToString(respons.Result));
             }
             return View(categoryVM);
+        }
+
+        public async Task<IActionResult> Cards(string category, int page = 1)
+        {
+            ProductVM list = new();
+            var response = await _productService.GetAllProductAsync<ResponseDtoBase>(new PagingParameters() { maxPageSize = 9, PageNumber = page },category,null,null);
+            if (response != null && response.IsSuccess)
+            {
+                list.products = JsonConvert.DeserializeObject<List<ProductDtoBase>>(Convert.ToString(response.Result));
+            }
+
+            return View(list);
         }
 
         public IActionResult Privacy()

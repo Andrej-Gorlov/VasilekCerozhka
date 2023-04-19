@@ -21,7 +21,7 @@ else
                     {
                         nImg++;
                         var active = nImg == 1 ? "slider__images-item--active" : "";
-                        <a asp-action="CategoryVM" asp-route-category="@Model.categorys[i].CategoryName">
+                        <a asp-action="Cards" asp-route-category="@Model.categorys[i].CategoryName">
                             <div class="slider__images-item @active" data-id="@(@i+1)">
                                 <img src="@Model.categorys[i].ImageUrl" />
                             </div>
