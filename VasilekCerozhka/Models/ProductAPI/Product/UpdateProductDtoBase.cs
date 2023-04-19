@@ -13,6 +13,9 @@
         [Display(Name = "Описание")]
         [StringLength(1000, MinimumLength = 0, ErrorMessage = "Описание продукта не должно превышать 1000 символов.")]
         public string Description { get; set; } = string.Empty;
+        [Display(Name = "Краткое описание")]
+        [StringLength(250, MinimumLength = 0, ErrorMessage = "Краткое описание продукта не должно превышать 250 символов.")]
+        public string ShortDescription { get; set; } = string.Empty;
         public int CategoryId { get; set; }
         public UpdateCategoryDtoBase? Category { get; set; }
         [Display(Name = "Url Изображения")]

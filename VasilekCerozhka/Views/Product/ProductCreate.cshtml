@@ -47,13 +47,28 @@
                     </label>
                 </div>
 
+                <div class="col-12 pt-4">
 
-                <div  class="col-12 pt-4">
+                    <label id="id_label_textareaSD" class="label_textarea">Краткое описание</label>
 
-                    <label id="id_label_textarea" class="label_textarea">Описание</label>
+                    <div id="borderIdSD" style="width: 100%;">
+                        <textarea asp-for="CreateProduct.ShortDescription" id="id_textareaSD" class="textarea_custom" 
+                            onblur="TextareaEmpty('id_label_textareaSD','id_textareaSD','borderIdSD','id_span_labelSD')" 
+                            onclick="TextareaChangesStyle('id_label_textareaSD','id_textareaSD','borderIdSD','id_span_labelSD')"></textarea>
+                    </div>
+                    <span id="id_span_labelSD" class="span_label_textarea"></span>
+
+                    <span asp-validation-for="CreateProduct.ShortDescription" class="text-danger"></span>
+                </div>
+
+                 <div  class="col-12 pt-4">
+
+                    <label id="id_label_textarea" class="label_textarea">Подробное описание</label>
 
                     <div id="borderId" style="width: 100%;">
-                        <textarea asp-for="CreateProduct.Description" id="id_textarea" class="textarea_custom" onblur="TextareaEmpty()" onclick="TextareaChangesStyle()"></textarea>
+                        <textarea asp-for="CreateProduct.Description" id="id_textarea" class="textarea_custom" 
+                            onblur="TextareaEmpty('id_label_textarea','id_textarea','borderId','id_span_label')"
+                            onclick="TextareaChangesStyle('id_label_textarea','id_textarea','borderId','id_span_label')"></textarea>
                     </div>
                     <span id="id_span_label" class="span_label_textarea"></span>
 

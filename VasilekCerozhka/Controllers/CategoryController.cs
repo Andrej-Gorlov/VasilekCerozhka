@@ -62,17 +62,11 @@
             if (ModelState.IsValid)
             {
                 var category = new UpdateCategoryDtoBase();
-                _cache.TryGetValue(categoryId, out CategoryDtoBase? categoryCache);
-                if (categoryCache != null)
-                {
-                    return View(categoryCache);
-                }
                 //var accessToken = await HttpContext.GetTokenAsync("access_token");
                 var respons = await _categoryService.GetCategoryByIdAsync<ResponseDtoBase>(categoryId, null);
                 if (respons.Result != null & respons.IsSuccess)
                 {
                     category = JsonConvert.DeserializeObject<UpdateCategoryDtoBase>(Convert.ToString(respons.Result));
-                    _cache.Set(categoryId, category, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(5)));
                     return View(category);
                 }
             }

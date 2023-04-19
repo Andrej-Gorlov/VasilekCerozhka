@@ -83,11 +83,6 @@
         {
             var productVM = new UpdateProductVM();
             //var accessToken = await HttpContext.GetTokenAsync("access_token");
-            _cache.TryGetValue(productId, out UpdateProductVM? productCache);
-            if (productCache != null)
-            {
-                return View(productCache);
-            }
             var responsProduct = await _productService.GetProductByIdAsync<ResponseDtoBase>(productId,null);
             var responseCategory = await _categoryService.GetAllCategoryAsync<ResponseDtoBase>();
             if (responsProduct != null & responsProduct.IsSuccess)
@@ -101,7 +96,6 @@
                     Value = x.CategoryId.ToString(),
                 }).DistinctBy(x => x.Text);
                 productVM.paramsCategory = productVM.UpdateProduct.Category.CategoryId.ToString();
-                _cache.Set(productId, productVM, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(5)));
                 return View(productVM);
             }
             return NotFound();

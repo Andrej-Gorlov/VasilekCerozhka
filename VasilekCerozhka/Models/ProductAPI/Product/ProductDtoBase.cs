@@ -15,6 +15,8 @@
         public DateTime CreateDateTime { get; }
         [Display(Name = "Описание")]
         public string Description { get; set; } = string.Empty;
+        [Display(Name = "Краткое описание")]
+        public string ShortDescription { get; set; } = string.Empty;
         [Display(Name = "Категория")]
         public CategoryDtoBase? Category { get; set; }
         [Display(Name = "Url Изображения")]
