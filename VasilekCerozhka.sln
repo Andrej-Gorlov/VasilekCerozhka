@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VasilekCerozhka", "VasilekC
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Geteway", "Geteway", "{2E3D5D3C-FF65-4FC8-BCF2-AD9B500B080F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VasilekCerozhka.GetewaySolution", "VasilekCerozhka.GetewaySolution\VasilekCerozhka.GetewaySolution.csproj", "{49BB8E1C-A665-4F60-B5CD-08D33D7C4415}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VasilekCerozhka.GetewaySolution", "VasilekCerozhka.GetewaySolution\VasilekCerozhka.GetewaySolution.csproj", "{49BB8E1C-A665-4F60-B5CD-08D33D7C4415}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

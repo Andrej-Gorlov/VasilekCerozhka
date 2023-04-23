@@ -1103,12 +1103,16 @@ div[disabled] {
   justify-content: center;
   transform: translate3d(50%,-90%,0);
   transition: 0.3s;
+  pointer-events:none;
   text-shadow: 0.5px 0 0.5px #000000a3, 
                 0 0.5px 0.5px #000000a3, 
                 -0.5px 0 0.5px #000000a3, 
                 0 -0.5px 0.5px #000000a3;
 }
 .PriceProduct-view{
+  z-index: 5;
+  pointer-events:none;
+  position:relative;
   font-size:28px;
   color:#0065ff;
   padding:50px;

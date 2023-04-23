@@ -1,20 +1,14 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using VasilekCerozhka.Data;
-using VasilekCerozhka.Services.Implementations.CouponAPI;
-using VasilekCerozhka.Services.Implementations.ProductAPI;
-
-namespace VasilekCerozhka.Extensions
+﻿namespace VasilekCerozhka.Extensions
 {
     public static class ApplicationServiceExtensions
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services,
            IConfiguration config)
         {
-            // Add services to the container.
             var connectionString = config.GetConnectionString("DefaultConnection");
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(connectionString));
+            // Add services to the container.
+            services.AddDbContext<ApplicationDbContext>(x => x.UseNpgsql(connectionString));
+
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddMemoryCache();
@@ -28,13 +22,15 @@ namespace VasilekCerozhka.Extensions
             StaticDitels.ProductApiBase = config["ServiseUrl:ProductAPI"];
             StaticDitels.CouponApiBase = config["ServiseUrl:CouponAPI"];
 
+            services.AddScoped<IAccountServicesAuth, AccountServicesAuth> ();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IImageService, ImageService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<ICouponService, CouponService>();
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            //    .AddEntityFrameworkStores<ApplicationDbContext>();
+
             services.AddControllersWithViews();
 
             return services;
