@@ -1,4 +1,6 @@
-﻿namespace VasilekCerozhka.Identity.ServicesAuth.ImplementationsAuth
+﻿using System.Security.Claims;
+
+namespace VasilekCerozhka.Identity.ServicesAuth.ImplementationsAuth
 {
     public class AccountServicesAuth: IAccountServicesAuth
     {
@@ -36,10 +38,11 @@
             }
 
             var isExistsUser = await _userManager.FindByNameAsync(register.Email);
-            if (isExistsUser is null) return UserNotFound(register.Email);
+            if (isExistsUser != null) return UserNotFound(register.Email);
 
             var newUser = new ApplicationUser
             {
+                UserName = register.Email,
                 FirstName = register.FirstName,
                 LastName = register.LastName,
                 MiddleName = register.MiddleName,
@@ -64,7 +67,7 @@
             }
             // Add a Default USER Role to all users
             _logger.LogWarning($"Добавление роли по умолчанию (USER).");
-            await _userManager.AddToRoleAsync(newUser, StaticUserRoles.USER);
+            await _userManager.AddToRoleAsync(newUser, "admin");
             return await AuthenticateAsync(new() { Email ="",Password=""});
         }
         /// <summary>
@@ -173,6 +176,20 @@
             response.Status = Status.NotFound;
             response.Message = $"Пользователь с {email} не найден.";
             return response;
-        }     
+        }
+
+
+
+
+        private ClaimsIdentity Authenticate(ApplicationUser user)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName),
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, "ADMIN") /// !!! доработать !!!
+            };
+            return new ClaimsIdentity(claims, "ApplicationCookie",
+                ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+        }
     }
 }

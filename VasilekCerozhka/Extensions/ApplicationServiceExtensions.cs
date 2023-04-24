@@ -1,4 +1,6 @@
-﻿namespace VasilekCerozhka.Extensions
+﻿using VasilekCerozhka.Helpers.Initializer;
+
+namespace VasilekCerozhka.Extensions
 {
     public static class ApplicationServiceExtensions
     {
@@ -22,7 +24,8 @@
             StaticDitels.ProductApiBase = config["ServiseUrl:ProductAPI"];
             StaticDitels.CouponApiBase = config["ServiseUrl:CouponAPI"];
 
-            services.AddScoped<IAccountServicesAuth, AccountServicesAuth> ();
+            services.AddScoped<IAccountServicesAuth, AccountServicesAuth>();
+            services.AddScoped<IDbBaseUserInitializer, DbBaseUserInitializer>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IImageService, ImageService>();
             services.AddScoped<ICategoryService, CategoryService>();

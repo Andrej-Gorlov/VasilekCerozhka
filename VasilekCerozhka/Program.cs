@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
+using VasilekCerozhka.Helpers.Initializer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,13 +11,15 @@ builder.Services.AddApplicationServices(builder.Configuration);
 
 
 
-builder.Services.AddCors(c => c.AddPolicy("cors", opt =>
-{
-    opt.AllowAnyHeader();
-    opt.AllowCredentials();
-    opt.AllowAnyMethod();
-    opt.WithOrigins(builder.Configuration.GetSection("Cors:Urls").Get<string[]>()!);
-}));
+//builder.Services.AddCors(c => c.AddPolicy("cors", opt =>
+//{
+//    opt.AllowAnyHeader();
+//    opt.AllowCredentials();
+//    opt.AllowAnyMethod();
+//    opt.WithOrigins(builder.Configuration.GetSection("Cors:Urls").Get<string[]>()!);
+//}));
+
+
 builder.Services.AddAuthentication(opt => {
     opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -44,8 +47,6 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole<long>>()
     .AddUserManager<UserManager<ApplicationUser>>()
     .AddSignInManager<SignInManager<ApplicationUser>>();
 
-
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -67,7 +68,16 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseCors("cors");
+//app.UseCors("cors");
+
+
+using (var scope = app.Services.CreateScope())
+{
+    var service = scope.ServiceProvider;
+    IDbBaseUserInitializer dbInitializer = service.GetRequiredService<IDbBaseUserInitializer>();
+    dbInitializer.Initialize();
+}
+
 
 app.MapControllerRoute(
     name: "default",

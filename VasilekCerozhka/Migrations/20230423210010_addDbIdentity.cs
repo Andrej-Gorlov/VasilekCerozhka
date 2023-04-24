@@ -165,11 +165,6 @@ namespace VasilekCerozhka.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.InsertData(
-                table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "BirthDate", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "MiddleName", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "RefreshToken", "RefreshTokenExpiryTime", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { 1L, 0, new DateTime(1991, 12, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), "7c6b0735-e045-4dc7-bfc1-6614569fcd0d", "avgorlov899@gmail.com", false, "Anessens", "Anessens", false, null, "Anessens", null, null, null, null, false, "", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "74c74f54-e71d-4a3f-b636-ee7f6482970d", false, null });
-
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",

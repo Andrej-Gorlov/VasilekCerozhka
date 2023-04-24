@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Win32;
 
 namespace VasilekCerozhka.Controllers
 {
@@ -7,10 +8,16 @@ namespace VasilekCerozhka.Controllers
         private readonly ICategoryService _categoryService ;
         private readonly IProductService _productService;
 
-        public HomeController(ICategoryService categoryService, IProductService productService, IMemoryCache cache, ILogger<HomeController> logger) :base(cache,logger)
+
+        private readonly IAccountServicesAuth _accountServices;
+
+        public HomeController(IAccountServicesAuth accountServices, ICategoryService categoryService, IProductService productService, IMemoryCache cache, ILogger<HomeController> logger) :base(cache,logger)
         {
             _categoryService = categoryService;
             _productService = productService;
+
+
+            _accountServices = accountServices;
         }
 
         public async Task<IActionResult> Index()

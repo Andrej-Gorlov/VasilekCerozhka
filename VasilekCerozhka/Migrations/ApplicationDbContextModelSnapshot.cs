@@ -240,26 +240,6 @@ namespace VasilekCerozhka.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            AccessFailedCount = 0,
-                            BirthDate = new DateTime(1991, 12, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "7c6b0735-e045-4dc7-bfc1-6614569fcd0d",
-                            Email = "avgorlov899@gmail.com",
-                            EmailConfirmed = false,
-                            FirstName = "Anessens",
-                            LastName = "Anessens",
-                            LockoutEnabled = false,
-                            MiddleName = "Anessens",
-                            PhoneNumberConfirmed = false,
-                            RefreshToken = "",
-                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            SecurityStamp = "74c74f54-e71d-4a3f-b636-ee7f6482970d",
-                            TwoFactorEnabled = false
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<long>", b =>
