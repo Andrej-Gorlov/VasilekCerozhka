@@ -1,4 +1,7 @@
-﻿namespace VasilekCerozhka.Controllers
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+
+namespace VasilekCerozhka.Controllers
 {
     public class ProductController : BaseApiController<ProductController>
     {
@@ -16,6 +19,7 @@
         /// </summary>
         /// <param name="page">номер страницы</param>
         /// <returns>Open page ProductIndex</returns>
+        [Authorize]
         public async Task<IActionResult> ProductIndex(int page = 1)
         {
             var productVM = new ProductVM();
@@ -33,6 +37,9 @@
         /// <returns>Open views page create</returns>
         public async Task<IActionResult> ProductCreate()
         {
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+
+
             var productVM = new CreateProductVM();
 
             var respons = await _categoryService.GetAllCategoryAsync<ResponseDtoBase>();

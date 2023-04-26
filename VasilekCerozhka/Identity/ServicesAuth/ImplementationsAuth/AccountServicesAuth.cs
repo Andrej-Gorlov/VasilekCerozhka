@@ -1,4 +1,4 @@
-﻿using System.Security.Claims;
+﻿using System.Data;
 
 namespace VasilekCerozhka.Identity.ServicesAuth.ImplementationsAuth
 {
@@ -110,14 +110,14 @@ namespace VasilekCerozhka.Identity.ServicesAuth.ImplementationsAuth
             _logger.LogWarning("Сохраненные в бд.");
             await _db.SaveChangesAsync();
 
+
+
+
+
+            response.resultAuth = Authenticate(user, accessToken, roles);
             _logger.LogWarning("Пользователь авторизован.");
-            response.resultAuth = new() {
-                Username = user.UserName,
-                Email = user.Email,
-                Token = accessToken,
-                RefreshToken = user.RefreshToken
-            };
             response.Status = Status.Authorized;
+            response.RefreshTokenExpiryTime = user.RefreshTokenExpiryTime;
             response.Message = "Пользователь авторизован.";
             return response;
         }
@@ -138,11 +138,13 @@ namespace VasilekCerozhka.Identity.ServicesAuth.ImplementationsAuth
             _logger.LogWarning($"Роль пользователь {user.UserName} обновлена (ADMIN).");
             response.Status = Status.UpdatedRole;
             response.Message = $"Роль пользователь {user.UserName} обновлена (ADMIN).";
-            response.resultAuth = new()
-            {
-                Username = user.UserName,
-                Email = user.Email,
-            };
+
+            //response.resultAuth = new()
+            //{
+            //    Username = user.UserName,
+            //    Email = user.Email,
+            //};
+
             return response;
         }
         /// <summary>
@@ -162,11 +164,13 @@ namespace VasilekCerozhka.Identity.ServicesAuth.ImplementationsAuth
             _logger.LogWarning($"Роль пользователь {user.UserName} обновлена (OWNER).");
             response.Status = Status.UpdatedRole;
             response.Message = $"Роль пользователь {user.UserName} обновлена (OWNER).";
-            response.resultAuth = new()
-            {
-                Username = user.UserName,
-                Email = user.Email,
-            };
+
+            //response.resultAuth = new()
+            //{
+            //    Username = user.UserName,
+            //    Email = user.Email,
+            //};
+
             return response;
         }
 
@@ -178,15 +182,20 @@ namespace VasilekCerozhka.Identity.ServicesAuth.ImplementationsAuth
             return response;
         }
 
+        private ClaimsIdentity Authenticate(ApplicationUser user, string token, List<IdentityRole<long>> roles)
 
-
-
-        private ClaimsIdentity Authenticate(ApplicationUser user)
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName),
-                new Claim(ClaimsIdentity.DefaultRoleClaimType, "ADMIN") /// !!! доработать !!!
+                new Claim(JwtClaimTypes.Name, user.FirstName+" "+user.LastName+" "+ user.MiddleName),
+                new Claim(JwtClaimTypes.GivenName, user.FirstName),
+                new Claim(JwtClaimTypes.FamilyName, user.LastName),
+                new Claim(JwtClaimTypes.MiddleName, user.MiddleName),
+                new Claim(JwtClaimTypes.Email, user.Email),
+                new Claim(JwtClaimTypes.BirthDate, user.BirthDate.ToString()),
+                new Claim(JwtClaimTypes.ReferenceTokenId, user.RefreshToken),
+                new Claim(JwtClaimTypes.AccessTokenHash, token),
+                new Claim(JwtClaimTypes.Role, string.Join(" ", roles.Select(x => x.Name)))
             };
             return new ClaimsIdentity(claims, "ApplicationCookie",
                 ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);

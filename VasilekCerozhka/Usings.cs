@@ -34,3 +34,5 @@ global using VasilekCerozhka.Identity.ServicesAuth.InterfacesAuth;
 global using VasilekCerozhka.Identity.ServicesAuth.ImplementationsAuth;
 global using VasilekCerozhka.Services.Implementations.CouponAPI;
 global using VasilekCerozhka.Services.Implementations.ProductAPI;
+global using IdentityModel;
+global using System.Security.Claims;

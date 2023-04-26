@@ -4,15 +4,16 @@
     {
         public Status Status { get; set; }
         public string Message { get; set; } = string.Empty;
-        public ResultAuthorization? resultAuth { get; set; }
+        public ClaimsIdentity? resultAuth { get; set; }
+        public DateTime RefreshTokenExpiryTime { get; set; }
     }
-    public class ResultAuthorization
-    {
-        public string Username { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
-        public string Token { get; set; } = string.Empty;
-        public string RefreshToken { get; set; } = string.Empty;
-    }
+    //public class ResultAuthorization
+    //{
+    //    public string Username { get; set; } = string.Empty;
+    //    public string Email { get; set; } = string.Empty;
+    //    public string Token { get; set; } = string.Empty;
+    //    public string RefreshToken { get; set; } = string.Empty;
+    //}
     public enum Status
     {
         NotFound,

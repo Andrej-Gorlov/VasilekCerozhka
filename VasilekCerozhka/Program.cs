@@ -1,15 +1,8 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.IdentityModel.Tokens;
-using VasilekCerozhka.Helpers.Initializer;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddApplicationServices(builder.Configuration);
-
-
-
-
 
 //builder.Services.AddCors(c => c.AddPolicy("cors", opt =>
 //{
@@ -20,32 +13,13 @@ builder.Services.AddApplicationServices(builder.Configuration);
 //}));
 
 
-builder.Services.AddAuthentication(opt => {
-    opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-})
-.AddJwtBearer(options =>
-{
-    options.TokenValidationParameters = new TokenValidationParameters
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
     {
-        ValidateIssuer = false,
-        ValidateAudience = false,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        ValidIssuer = builder.Configuration["Jwt:Issuer"]!,
-        ValidAudience = builder.Configuration["Jwt:Audience"]!,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Secret"]!))
-    };
-});
-builder.Services.AddAuthorization(options => options.DefaultPolicy =
-    new AuthorizationPolicyBuilder
-            (JwtBearerDefaults.AuthenticationScheme)
-        .RequireAuthenticatedUser()
-        .Build());
-builder.Services.AddIdentity<ApplicationUser, IdentityRole<long>>()
-    .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddUserManager<UserManager<ApplicationUser>>()
-    .AddSignInManager<SignInManager<ApplicationUser>>();
+        options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Register");
+        options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Account/Register");
+    });
+
 
 var app = builder.Build();
 
@@ -70,14 +44,12 @@ app.UseAuthentication();
 app.UseAuthorization();
 //app.UseCors("cors");
 
-
-using (var scope = app.Services.CreateScope())
-{
-    var service = scope.ServiceProvider;
-    IDbBaseUserInitializer dbInitializer = service.GetRequiredService<IDbBaseUserInitializer>();
-    dbInitializer.Initialize();
-}
-
+//using (var scope = app.Services.CreateScope())
+//{
+//    var service = scope.ServiceProvider;
+//    IDbBaseUserInitializer dbInitializer = service.GetRequiredService<IDbBaseUserInitializer>();
+//    dbInitializer.Initialize();
+//}
 
 app.MapControllerRoute(
     name: "default",

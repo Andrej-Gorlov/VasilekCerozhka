@@ -12,8 +12,8 @@ using VasilekCerozhka.Data;
 namespace VasilekCerozhka.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230423210010_addDbIdentity")]
-    partial class addDbIdentity
+    [Migration("20230425193017_AddToDbIdentity")]
+    partial class AddToDbIdentity
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

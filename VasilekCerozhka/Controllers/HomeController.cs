@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Win32;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 
 namespace VasilekCerozhka.Controllers
 {
@@ -22,6 +22,16 @@ namespace VasilekCerozhka.Controllers
 
         public async Task<IActionResult> Index()
         {
+           
+                var response = await _accountServices.AuthenticateAsync(new("admin@gmail.com", "Admin123!"));
+     
+              await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(response.resultAuth));
+
+              
+             
+        
+
+
             var categoryVM = new CategoryVM();
             var respons = await _categoryService.GetAllCategoryAsync<ResponseDtoBase>();
             if (respons != null & respons.IsSuccess)

@@ -1,17 +1,11 @@
-﻿using IdentityModel;
-using System.Security.Claims;
-
-namespace VasilekCerozhka.Helpers.Initializer
+﻿namespace VasilekCerozhka.Helpers.Initializer
 {
     public class DbBaseUserInitializer: IDbBaseUserInitializer
     {
-        private readonly ApplicationDbContext _db;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole<long>> _roleManager;
-        public DbBaseUserInitializer(ApplicationDbContext db, UserManager<ApplicationUser> userManager,
-                             RoleManager<IdentityRole<long>> roleManager)
+        public DbBaseUserInitializer(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole<long>> roleManager)
         {
-            _db = db;
             _userManager = userManager;
             _roleManager = roleManager;
         }
@@ -49,7 +43,7 @@ namespace VasilekCerozhka.Helpers.Initializer
 
             ApplicationUser adminUser = new ApplicationUser()
             {
-                UserName = "admin899@gmail.com",
+                UserName = "admin@gmail.com",
                 FirstName = "Anessens",
                 LastName = "Anessens",
                 MiddleName = "Anessens",
@@ -69,14 +63,13 @@ namespace VasilekCerozhka.Helpers.Initializer
                 new Claim(JwtClaimTypes.Role,StaticUserRoles.ADMIN),
             }).Result;
 
-
             ApplicationUser user = new ApplicationUser()
             {
                 UserName = "user@gmail.com",
                 FirstName = "Anessens",
                 LastName = "Anessens",
                 MiddleName = "Anessens",
-                Email = "user899@gmail.com",
+                Email = "user@gmail.com",
                 BirthDate = new DateTime(1991, 12, 09),
                 EmailConfirmed = true,
                 PasswordHash = "123456789"
@@ -88,6 +81,7 @@ namespace VasilekCerozhka.Helpers.Initializer
                 new Claim(JwtClaimTypes.Name,user.FirstName+" "+user.LastName+" "+ user.MiddleName),
                 new Claim(JwtClaimTypes.GivenName,user.FirstName),
                 new Claim(JwtClaimTypes.FamilyName,user.LastName),
+                new Claim(JwtClaimTypes.MiddleName,user.MiddleName),
                 new Claim(JwtClaimTypes.Role,StaticUserRoles.USER),
             }).Result;
         }
