@@ -1,25 +1,14 @@
-using Microsoft.AspNetCore.Authentication.Cookies;
+
+using Microsoft.AspNetCore.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+builder.Services.AddControllersWithViews();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddHttpClient();
+
 builder.Services.AddApplicationServices(builder.Configuration);
-
-//builder.Services.AddCors(c => c.AddPolicy("cors", opt =>
-//{
-//    opt.AllowAnyHeader();
-//    opt.AllowCredentials();
-//    opt.AllowAnyMethod();
-//    opt.WithOrigins(builder.Configuration.GetSection("Cors:Urls").Get<string[]>()!);
-//}));
-
-
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(options =>
-    {
-        options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Register");
-        options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Account/Register");
-    });
-
 
 var app = builder.Build();
 
@@ -42,19 +31,9 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
-//app.UseCors("cors");
-
-//using (var scope = app.Services.CreateScope())
-//{
-//    var service = scope.ServiceProvider;
-//    IDbBaseUserInitializer dbInitializer = service.GetRequiredService<IDbBaseUserInitializer>();
-//    dbInitializer.Initialize();
-//}
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
-//app.MapRazorPages();
 
 app.Run();

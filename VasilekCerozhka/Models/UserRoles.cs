@@ -1,6 +1,6 @@
-﻿namespace VasilekCerozhka.Identity.ResponseAuth
+﻿namespace VasilekCerozhka.Models
 {
-    public class StaticUserRoles
+    public static class UserRoles
     {
         public const string OWNER = "OWNER";
         public const string ADMIN = "ADMIN";

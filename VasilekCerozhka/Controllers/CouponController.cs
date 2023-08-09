@@ -1,7 +1,8 @@
-﻿namespace VasilekCerozhka.Controllers
+﻿using Microsoft.AspNetCore.Authorization;
+
+namespace VasilekCerozhka.Controllers
 {
-    //[Authorize(Roles = "Admin")]
-    //[ValidateAntiForgeryToken]
+    [Authorize(Roles = $"{UserRoles.ADMIN}")]
     public class CouponController : BaseApiController<CouponController>
     {
         private readonly ICouponService _couponService;
@@ -14,11 +15,11 @@
         /// request to CouponAPI (controller: Coupon / metod: Get)
         /// </summary>
         /// <returns>Open page CouponIndex</returns>
+        [HttpGet]
         public async Task<IActionResult> CouponIndex()
         {
             var couponVM = new CouponVM(); 
-            //var accessToken = await HttpContext.GetTokenAsync("access_token");
-            var respons = await _couponService.GetAllCouponAsync<ResponseDtoBase>(null);
+            var respons = await _couponService.GetAllCouponAsync();
             if (respons != null & respons.IsSuccess)
             {
                 couponVM.Coupons = JsonConvert.DeserializeObject<List<CouponDtoBase>>(Convert.ToString(respons.Result));
@@ -29,6 +30,7 @@
         /// 
         /// </summary>
         /// <returns>Open views page CouponCreate</returns>
+        [HttpGet]
         public async Task<IActionResult> CouponCreate()
         {
             return View();
@@ -39,12 +41,12 @@
         /// <param name="model"></param>
         /// <returns>Open page CouponIndex</returns>
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> CouponCreate(CreateCouponDtoBase model)
         {
             if (ModelState.IsValid)
             {
-                //var accessToken = await HttpContext.GetTokenAsync("access_token");
-                var respons = await _couponService.CreateCouponAsync<ResponseDtoBase>(model, null);
+                var respons = await _couponService.CreateCouponAsync(model);
                 if (respons.IsSuccess)
                 {
                     return RedirectToAction(nameof(CouponIndex));
@@ -57,6 +59,7 @@
         /// </summary>
         /// <param name="couponId"></param>
         /// <returns>Open page CouponEdit</returns>
+        [HttpGet]
         public async Task<ActionResult> CouponEdit(int couponId)
         {
             if (ModelState.IsValid)
@@ -67,8 +70,7 @@
                 {
                     return View(cache);
                 }
-                //var accessToken = await HttpContext.GetTokenAsync("access_token");
-                var respons = await _couponService.GetCouponByIdAsync<ResponseDtoBase>(couponId, null);
+                var respons = await _couponService.GetCouponByIdAsync(couponId);
                 if (respons.Result != null & respons.IsSuccess)
                 {
                     coupon = JsonConvert.DeserializeObject<UpdateCouponDtoBase>(Convert.ToString(respons.Result));
@@ -84,14 +86,12 @@
         /// <param name="model"></param>
         /// <returns>Open page CouponIndex</returns>
         [HttpPost]
-        //[Authorize(Roles = "Admin")]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> CouponEdit(UpdateCouponDtoBase model)
         {
             if (ModelState.IsValid)
             {
-                //var accessToken = await HttpContext.GetTokenAsync("access_token");
-                var respons = await _couponService.UpdateCouponAsync<ResponseDtoBase>(model.CouponId,model, null);
+                var respons = await _couponService.UpdateCouponAsync(model.CouponId,model);
                 if (respons.IsSuccess)
                 {
                     return RedirectToAction(nameof(CouponIndex));
@@ -105,12 +105,12 @@
         /// <param name="couponId"></param>
         /// <returns>Open page CouponIndex</returns>
         [HttpGet]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> CouponDelete(int couponId)
         {
             if (ModelState.IsValid)
             {
-                //var accessToken = await HttpContext.GetTokenAsync("access_token");
-                var respons = await _couponService.DeleteCouponAsync<ResponseDtoBase>(couponId, null);
+                var respons = await _couponService.DeleteCouponAsync(couponId);
                 if (respons.IsSuccess)
                 {
                    return RedirectToAction(nameof(CouponIndex));

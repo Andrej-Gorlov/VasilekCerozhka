@@ -2,11 +2,11 @@
 {
     public interface IProductService
     {
-        Task<T> GetAllProductAsync<T>(PagingParameters parameters, string? filter, string? search, string token);
-        Task<T> GetProductByIdAsync<T>(int id, string token);
-        Task<T> CreateProductAsync<T>(CreateProductDtoBase productDto, string token);
-        Task<T> UpdateProductAsync<T>(UpdateProductDtoBase productDto, string token);
-        Task<T> UpdatePatrialProductAsync<T>(int id, UpdateProductDtoBase productDto, string token);
-        Task<T> DeleteProductAsync<T>(int id, string token);
+        Task<ResponseDtoBase?> GetAllProductAsync(PagingParameters parameters, string? filter, string? search);
+        Task<ResponseDtoBase?> GetProductByIdAsync(int id);
+        Task<ResponseDtoBase?> CreateProductAsync(CreateProductDtoBase productDto);
+        Task<ResponseDtoBase?> UpdateProductAsync(UpdateProductDtoBase productDto);
+        Task<ResponseDtoBase?> UpdatePatrialProductAsync(int id, UpdateProductDtoBase productDto);
+        Task<ResponseDtoBase?> DeleteProductAsync(int id);
     }
 }

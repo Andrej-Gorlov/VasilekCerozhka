@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.IdentityModel.Tokens;
-using VasilekCerozhka.Helpers.Initializer;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using VasilekCerozhka.Services;
+using VasilekCerozhka.Services.Implementations.AccountsAPI;
+using VasilekCerozhka.Services.Interfaces.IAccountsAPI;
+using IBaseService = VasilekCerozhka.Services.IBaseService;
 
 namespace VasilekCerozhka.Extensions
 {
@@ -10,14 +11,7 @@ namespace VasilekCerozhka.Extensions
         public static IServiceCollection AddApplicationServices(this IServiceCollection services,
            IConfiguration config)
         {
-            var connectionString = config.GetConnectionString("DefaultConnection");
-            // Add services to the container.
-            services.AddDbContext<ApplicationDbContext>(x => x.UseNpgsql(connectionString));
-
-            services.AddDatabaseDeveloperPageExceptionFilter();
-
             services.AddMemoryCache();
-
             // Add HttpClient
             services.AddHttpClient<IProductService, ProductService>();
             services.AddHttpClient<IImageService, ImageService>();
@@ -26,46 +20,27 @@ namespace VasilekCerozhka.Extensions
 
             StaticDitels.ProductApiBase = config["ServiseUrl:ProductAPI"];
             StaticDitels.CouponApiBase = config["ServiseUrl:CouponAPI"];
+            StaticDitels.AuthApiBase = config["ServiseUrl:AuthAPI"];
 
-            services.AddScoped<IAccountServicesAuth, AccountServicesAuth>();
-            services.AddScoped<IDbBaseUserInitializer, DbBaseUserInitializer>();
+            services.AddScoped<ITokenProvider, TokenProvider>();
+            services.AddScoped<IBaseService, BaseService>();
+            services.AddScoped<IAccountsService, AccountsService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IImageService, ImageService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<ICouponService, CouponService>();
 
-            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-            //    .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            services.AddAuthentication(opt => {
-                opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-            .AddJwtBearer(options =>
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(options =>
             {
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = config["Jwt:Issuer"],
-                    ValidAudience = config["Jwt:Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Secret"]))
-                };
+                options.ExpireTimeSpan = TimeSpan.FromHours(10);
+                options.LoginPath = "/Auth/Login";
+                options.AccessDeniedPath = "/Auth/AccessDenied";
             });
-            services.AddAuthorization(options => options.DefaultPolicy =
-                new AuthorizationPolicyBuilder
-                        (JwtBearerDefaults.AuthenticationScheme)
-                    .RequireAuthenticatedUser()
-                    .Build());
-            services.AddIdentity<ApplicationUser, IdentityRole<long>>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddUserManager<UserManager<ApplicationUser>>()
-                .AddSignInManager<SignInManager<ApplicationUser>>();
 
             services.AddControllersWithViews();
-
             return services;
         }
     }

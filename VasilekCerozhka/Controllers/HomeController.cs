@@ -1,50 +1,30 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication;
-
-namespace VasilekCerozhka.Controllers
+﻿namespace VasilekCerozhka.Controllers
 {
     public class HomeController : BaseApiController<HomeController>
     {
         private readonly ICategoryService _categoryService ;
         private readonly IProductService _productService;
-
-
-        private readonly IAccountServicesAuth _accountServices;
-
-        public HomeController(IAccountServicesAuth accountServices, ICategoryService categoryService, IProductService productService, IMemoryCache cache, ILogger<HomeController> logger) :base(cache,logger)
+        public HomeController(ICategoryService categoryService, IProductService productService, IMemoryCache cache, ILogger<HomeController> logger) :base(cache,logger)
         {
             _categoryService = categoryService;
             _productService = productService;
-
-
-            _accountServices = accountServices;
         }
-
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
-           
-                var response = await _accountServices.AuthenticateAsync(new("admin@gmail.com", "Admin123!"));
-     
-              await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(response.resultAuth));
-
-              
-             
-        
-
-
             var categoryVM = new CategoryVM();
-            var respons = await _categoryService.GetAllCategoryAsync<ResponseDtoBase>();
+            var respons = await _categoryService.GetAllCategoryAsync();
             if (respons != null & respons.IsSuccess)
             {
                 categoryVM.categorys = JsonConvert.DeserializeObject<List<CategoryDtoBase>>(Convert.ToString(respons.Result));
             }
             return View(categoryVM);
         }
-
+        [HttpGet]
         public async Task<IActionResult> Cards(string category, int page = 1)
         {
             ProductVM list = new();
-            var response = await _productService.GetAllProductAsync<ResponseDtoBase>(new PagingParameters() { maxPageSize = 9, PageNumber = page },category,null,null);
+            var response = await _productService.GetAllProductAsync(new PagingParameters() { maxPageSize = 9, PageNumber = page },category,null);
             if (response != null && response.IsSuccess)
             {
                 list.products = JsonConvert.DeserializeObject<List<ProductDtoBase>>(Convert.ToString(response.Result));

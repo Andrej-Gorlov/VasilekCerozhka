@@ -1,40 +1,29 @@
-﻿namespace VasilekCerozhka.Identity.EntityAuth.Dto
+﻿namespace VasilekCerozhka.Models.Accounts
 {
-    public record struct RegisterDto
+    public class RegisterDto
     {
-        public RegisterDto(string email, DateTime birthDate, string password, string passwordConfirm, string firstName, string lastName, string? middleName)
-        {
-            Email = email;
-            BirthDate = birthDate;
-            Password = password;
-            PasswordConfirm = passwordConfirm;
-            FirstName = firstName;
-            LastName = lastName;
-            MiddleName = middleName;
-        }
-
         [EmailAddress, Required(ErrorMessage = "Введите электронную почту.")]
-        public string Email { get; init; }
+        public string? Email { get; set; }
 
         [Required, Display(Name = "Дата рождения")]
-        public DateTime BirthDate { get; init; }
+        public DateTime BirthDate { get; set; }
 
         [Display(Name = "Пароль"), Required(ErrorMessage = "Введите пароль.")]
         [DataType(DataType.Password)]
-        public string Password { get; init; }
+        public string? Password { get; set; }
 
         [Display(Name = "Подтвердить пароль"), Required(ErrorMessage = "Введите пароль.")]
         [Compare("Password", ErrorMessage = "Пароли не совпадают")]
         [DataType(DataType.Password)]
-        public string PasswordConfirm { get; init; }
+        public string? PasswordConfirm { get; set; }
 
         [Display(Name = "Имя"), Required(ErrorMessage = "Введите имя пользователя.")]
-        public string FirstName { get; init; }
+        public string? FirstName { get; set; }
 
         [Display(Name = "Фамилия"), Required(ErrorMessage = "Введите фамилию пользователя.")]
-        public string LastName { get; init; }
+        public string? LastName { get; set; }
 
         [Display(Name = "Отчество")]
-        public string? MiddleName { get; init; }
+        public string? MiddleName { get; set; }
     }
 }

@@ -1,62 +1,57 @@
 ﻿namespace VasilekCerozhka.Services.Implementations.ProductAPI
 {
-    public class CategoryService : BaseService, ICategoryService
+    public class CategoryService : ICategoryService
     {
-        private readonly IHttpClientFactory _clientFactory;
-        public CategoryService(IHttpClientFactory clientFactory) : base(clientFactory)
+        private readonly IBaseService _baseService;
+        public CategoryService(IBaseService baseService) 
         {
-            _clientFactory = clientFactory;
+            _baseService = baseService;
         }
 
-        public async Task<T> CreateCategoryAsync<T>(CreateCategoryDtoBase categoryDto, string token)
+        public async Task<ResponseDtoBase?> CreateCategoryAsync(CreateCategoryDtoBase categoryDto)
         {
-            return await this.SendAsync<T>(new ApiRequest()
+            return await _baseService.SendAsync(new ApiRequest()
             {
                 Api_Type = StaticDitels.ApiType.POST,
                 Data = categoryDto,
-                Url = StaticDitels.ProductApiBase + "/api/v2/category",
-                AccessToken = token
+                Url = StaticDitels.ProductApiBase + "/api/v2/category"
             });
         }
 
-        public async Task<T> DeleteCategoryAsync<T>(int id, string token)
+        public async Task<ResponseDtoBase?> DeleteCategoryAsync(int id)
         {
-            return await this.SendAsync<T>(new ApiRequest()
+            return await _baseService.SendAsync(new ApiRequest()
             {
                 Api_Type = StaticDitels.ApiType.DELETE,
-                Url = StaticDitels.ProductApiBase + $"/api/v2/category/{id}",
-                AccessToken = token
+                Url = StaticDitels.ProductApiBase + $"/api/v2/category/{id}"
             });
         }
 
-        public async Task<T> GetAllCategoryAsync<T>(string? filter, string? search, string token)
+        public async Task<ResponseDtoBase?> GetAllCategoryAsync(string? filter, string? search)
         {
-            return await this.SendAsync<T>(new ApiRequest()
+            return await _baseService.SendAsync(new ApiRequest()
             {
                 Api_Type = StaticDitels.ApiType.GET,
-                Url = StaticDitels.ProductApiBase + $"/api/v2/categorys?filter={filter}&search={search}",
-                //AccessToken = token                           
+                Url = StaticDitels.ProductApiBase + $"/api/v2/categorys?filter={filter}&search={search}"                         
             });
         }
 
-        public async Task<T> GetCategoryByIdAsync<T>(int id, string token)
+        public async Task<ResponseDtoBase?> GetCategoryByIdAsync(int id)
         {
-            return await this.SendAsync<T>(new ApiRequest()
+            return await _baseService.SendAsync(new ApiRequest()
             {
                 Api_Type = StaticDitels.ApiType.GET,
-                Url = StaticDitels.ProductApiBase + $"/api/v2/category/{id}",
-                AccessToken = token
+                Url = StaticDitels.ProductApiBase + $"/api/v2/category/{id}"
             });
         }
 
-        public async Task<T> UpdateCategoryAsync<T>(UpdateCategoryDtoBase categoryDto, string token)
+        public async Task<ResponseDtoBase?> UpdateCategoryAsync(UpdateCategoryDtoBase categoryDto)
         {
-            return await this.SendAsync<T>(new ApiRequest()
+            return await _baseService.SendAsync(new ApiRequest()
             {
                 Api_Type = StaticDitels.ApiType.PUT,
                 Data = categoryDto,
-                Url = StaticDitels.ProductApiBase + "/api/v2/category",
-                AccessToken = token
+                Url = StaticDitels.ProductApiBase + "/api/v2/category"
             });
         }
     }

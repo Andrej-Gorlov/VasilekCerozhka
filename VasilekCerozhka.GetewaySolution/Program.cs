@@ -1,22 +1,14 @@
-using Microsoft.IdentityModel.Tokens;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using VasilekCerozhka.GetewaySolution.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddAuthentication("Bearer").AddJwtBearer("Bearer", x =>
-{
-    x.Authority = "https://localhost:7220/";//url Vasilek.Services.Identity
-    x.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateAudience = false
-    };
-});
-
-builder.Services.AddOcelot();
+builder.AddAppAuthetication();
+builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
+builder.Services.AddOcelot(builder.Configuration);
 
 var app = builder.Build();
 
-await app.UseOcelot();
-
+app.MapGet("/", () => "Hello World!");
+app.UseOcelot().GetAwaiter().GetResult();
 app.Run();

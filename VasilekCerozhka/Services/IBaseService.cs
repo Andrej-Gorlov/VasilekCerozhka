@@ -1,6 +1,6 @@
-﻿namespace VasilekCerozhka.Services.IServices
+﻿namespace VasilekCerozhka.Services
 {
-    public interface IBaseService : IDisposable
+    public interface IBaseService
     {
         Task<ResponseDtoBase?> SendAsync(ApiRequest apiRequest, bool withBearer = true);
     }

@@ -1,34 +1,70 @@
-﻿namespace VasilekCerozhka.Services
+﻿using System.Net;
+using VasilekCerozhka.Services.Interfaces.IAccountsAPI;
+using static VasilekCerozhka.Helpers.StaticDitels;
+
+namespace VasilekCerozhka.Services
 {
     public class BaseService : IBaseService
     {
-        public ResponseDtoBase responseModel { get; set; }
-        public IHttpClientFactory? httpClient { get; set; }
-        public BaseService(IHttpClientFactory httpClient)
+        private readonly IHttpClientFactory _httpClient;
+        private readonly ITokenProvider _tokenProvider;
+        public BaseService(ITokenProvider tokenProvider, IHttpClientFactory httpClient)
         {
-            this.responseModel = new ResponseDtoBase();
-            this.httpClient = httpClient;
+            _httpClient = httpClient;
+            _tokenProvider= tokenProvider;
         }
 
-        public async Task<T> SendAsync<T>(ApiRequest apiRequest)
+        public async Task<ResponseDtoBase?> SendAsync(ApiRequest apiRequest, bool withBearer = true)
         {
             try
             {
-                var client = httpClient.CreateClient("VasilisaAPI");
+                HttpClient client = _httpClient.CreateClient("VasilisaAPI");
+                HttpRequestMessage message = new();
 
-                HttpRequestMessage message = new HttpRequestMessage();
-                message.Headers.Add("Accept", "application/json");
-                message.RequestUri = new Uri(apiRequest.Url);
-                client.DefaultRequestHeaders.Clear();
-                if (apiRequest.Data != null)
+                if (apiRequest.ContentType == ContentType.MultipartFormData)
                 {
-                    message.Content = new StringContent(JsonConvert.SerializeObject(apiRequest.Data),
-                        Encoding.UTF8, "application/json");
+                    message.Headers.Add("Accept", "*/*");
                 }
-
-                if (!string.IsNullOrEmpty(apiRequest.AccessToken))
+                else
                 {
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiRequest.AccessToken);
+                    message.Headers.Add("Accept", "application/json");
+                }
+                //token
+                if (withBearer)
+                {
+                    var token = _tokenProvider.GetToken();
+                    message.Headers.Add("Authorization", $"Bearer {token}");
+                }
+                message.RequestUri = new Uri(apiRequest.Url);
+
+                if (apiRequest.ContentType == ContentType.MultipartFormData)
+                {
+                    var content = new MultipartFormDataContent();
+
+                    foreach (var prop in apiRequest.Data.GetType().GetProperties())
+                    {
+                        var value = prop.GetValue(apiRequest.Data);
+                        if (value is FormFile)
+                        {
+                            var file = (FormFile)value;
+                            if (file != null)
+                            {
+                                content.Add(new StreamContent(file.OpenReadStream()), prop.Name, file.FileName);
+                            }
+                        }
+                        else
+                        {
+                            content.Add(new StringContent(value == null ? "" : value.ToString()), prop.Name);
+                        }
+                    }
+                    message.Content = content;
+                }
+                else
+                {
+                    if (apiRequest.Data != null)
+                    {
+                        message.Content = new StringContent(JsonConvert.SerializeObject(apiRequest.Data), Encoding.UTF8, "application/json");
+                    }
                 }
 
                 HttpResponseMessage? apiResponse = null;
@@ -51,21 +87,32 @@
                         message.Method = HttpMethod.Get;
                         break;
                 }
+
                 apiResponse = await client.SendAsync(message);
-                var apiContet = await apiResponse.Content.ReadFromJsonAsync<T>();
-                return apiContet;
+
+                switch (apiResponse.StatusCode)
+                {
+                    case HttpStatusCode.NotFound:
+                        return new() { IsSuccess = false, DisplayMessage = "Not Found" };
+                    case HttpStatusCode.Forbidden:
+                        return new() { IsSuccess = false, DisplayMessage = "Access Denied" };
+                    case HttpStatusCode.Unauthorized:
+                        return new() { IsSuccess = false, DisplayMessage = "Unauthorized" };
+                    case HttpStatusCode.InternalServerError:
+                        return new() { IsSuccess = false, DisplayMessage = "Internal Server Error" };
+                    default:
+                        var apiContet = await apiResponse.Content.ReadFromJsonAsync<ResponseDtoBase>();
+                        return apiContet;
+                }
             }
             catch (Exception ex)
             {
                 var dto = new ResponseDtoBase
                 {
-                    DisplayMessage = "Error",
-                    ErrorMessages = new List<string> { Convert.ToString(ex.Message) },
+                    DisplayMessage = ex.Message.ToString(),
                     IsSuccess = false
                 };
-                var res = JsonConvert.SerializeObject(dto);
-                var apiResponseDto = JsonConvert.DeserializeObject<T>(res);
-                return apiResponseDto;
+                return dto;
             }
         }
 

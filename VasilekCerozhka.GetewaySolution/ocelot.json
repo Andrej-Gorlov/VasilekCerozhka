@@ -1,0 +1,246 @@
+{
+  "Routes": [
+    //{
+    //  "UpstreamPathTemplate": "/api/accounts/login",
+    //  "UpstreamHttpMethod": [ "POST" ],
+    //  "DownstreamScheme": "https",
+    //  "DownstreamPathTemplate": "/api/accounts/login",
+    //  "DownstreamHostAndPorts": [
+    //    {
+    //      "Host": "localhost",
+    //      "Port": 7160
+    //    }
+    //  ]
+    //},
+    // Product API
+    // get
+    {
+      // в api
+      "DownstreamPathTemplate": "/api/v1/products",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7078
+        }
+      ],
+      // из VasilekCerozhka
+      "UpstreamPathTemplate": "/api/v1/products",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    // get by id
+    {
+      "DownstreamPathTemplate": "/api/v1/product/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7078
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/product/{id}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    // create and edit
+    {
+      "DownstreamPathTemplate": "/api/v1/product",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7078
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/product",
+      "UpstreamHttpMethod": [ "POST", "PUT" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    },
+    // patrial edit
+    {
+      "DownstreamPathTemplate": "/api/v1/product/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7078
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/product/{id}",
+      "UpstreamHttpMethod": [ "PUT" ]
+      //"AuthenticationOptions": {
+      //  "AuthenticationProviderKey": "Bearer",
+      //  //ApiScope name
+      //  "AllowedScopes": [ "vasilek" ]
+      //}
+    },
+    // delete
+    {
+      "DownstreamPathTemplate": "/api/v1/product/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7078
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/product/{id}",
+      "UpstreamHttpMethod": [ "DELETE" ]
+      //"AuthenticationOptions": {
+      //  "AuthenticationProviderKey": "Bearer",
+      //  "AllowedScopes": [ "vasilek" ]
+      //}
+    },
+    {
+      "DownstreamPathTemplate": "/api/v2/categorys",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7078
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v2/categorys",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v2/category/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7078
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v2/category/{id}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v2/category",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7078
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v2/category",
+      "UpstreamHttpMethod": [ "POST", "PUT" ]
+      //"AuthenticationOptions": {
+      //  "AuthenticationProviderKey": "Bearer",
+      //  //ApiScope name
+      //  "AllowedScopes": [ "vasilek" ]
+      //}
+    },
+    {
+      "DownstreamPathTemplate": "/api/v2/category/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7078
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v2/category/{id}",
+      "UpstreamHttpMethod": [ "DELETE" ]
+      //"AuthenticationOptions": {
+      //  "AuthenticationProviderKey": "Bearer",
+      //  "AllowedScopes": [ "vasilek" ]
+      //}
+    },
+    // coupon API
+    // get
+    {
+      // в api
+      "DownstreamPathTemplate": "/api/coupons",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7048
+        }
+      ],
+      // из VasilekCerozhka
+      "UpstreamPathTemplate": "/api/coupons",
+      "UpstreamHttpMethod": [ "GET" ]
+      //"AuthenticationOptions": {
+      //  "AuthenticationProviderKey": "Bearer",
+      //  "AllowedScopes": [ "vasilek" ]
+      //}
+    },
+    // get by id
+    {
+      "DownstreamPathTemplate": "/api/coupon/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7048
+        }
+      ],
+      "UpstreamPathTemplate": "/api/coupon/{id}",
+      "UpstreamHttpMethod": [ "GET" ]
+      //"AuthenticationOptions": {
+      //  "AuthenticationProviderKey": "Bearer",
+      //  "AllowedScopes": [ "vasilek" ]
+      //}
+    },
+    // create
+    {
+      "DownstreamPathTemplate": "/api/coupon",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7048
+        }
+      ],
+      "UpstreamPathTemplate": "/api/coupon",
+      "UpstreamHttpMethod": [ "POST" ]
+      //"AuthenticationOptions": {
+      //"AuthenticationProviderKey": "Bearer",
+      //ApiScope name
+      //"AllowedScopes": [ "vasilek" ]
+      //}
+    },
+    // edit
+    {
+      "DownstreamPathTemplate": "/api/coupon/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7048
+        }
+      ],
+      "UpstreamPathTemplate": "/api/coupon/{id}",
+      "UpstreamHttpMethod": [ "PUT" ]
+      //"AuthenticationOptions": {
+      //"AuthenticationProviderKey": "Bearer",
+      //ApiScope name
+      //"AllowedScopes": [ "vasilek" ]
+      //}
+    },
+    // delete
+    {
+      "DownstreamPathTemplate": "/api/coupon/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7048
+        }
+      ],
+      "UpstreamPathTemplate": "/api/coupon/{id}",
+      "UpstreamHttpMethod": [ "DELETE" ]
+      //"AuthenticationOptions": {
+      //  "AuthenticationProviderKey": "Bearer",
+      //  "AllowedScopes": [ "vasilek" ]
+      //}
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:7208"
+  }
+}

@@ -2,10 +2,10 @@
 {
     public interface IImageService
     {
-        Task<T> GetAllImageAsync<T>(string? filter, string? search, string token);
-        Task<T> GetImageByIdAsync<T>(int id, string token);
-        Task<T> CreateImageAsync<T>(CreateImageDtoBase imageDto, string token);
-        Task<T> UpdateImageAsync<T>(UpdateImageDtoBase imageDto, string token);
-        Task<T> DeleteImageAsync<T>(int id, string token);
+        Task<ResponseDtoBase?> GetAllImageAsync(string? filter, string? search);
+        Task<ResponseDtoBase?> GetImageByIdAsync(int id);
+        Task<ResponseDtoBase?> CreateImageAsync(CreateImageDtoBase imageDto);
+        Task<ResponseDtoBase?> UpdateImageAsync(UpdateImageDtoBase imageDto);
+        Task<ResponseDtoBase?> DeleteImageAsync(int id);
     }
 }

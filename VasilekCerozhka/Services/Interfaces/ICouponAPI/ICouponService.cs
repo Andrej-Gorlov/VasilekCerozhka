@@ -2,10 +2,10 @@
 {
     public interface ICouponService
     {
-        Task<T> GetAllCouponAsync<T>(string? token = null);
-        Task<T> GetCouponByIdAsync<T>(int id, string token);
-        Task<T> CreateCouponAsync<T>(CreateCouponDtoBase couponDto, string token);
-        Task<T> UpdateCouponAsync<T>(int id, UpdateCouponDtoBase couponDto, string token);
-        Task<T> DeleteCouponAsync<T>(int id, string token);
+        Task<ResponseDtoBase?> GetAllCouponAsync();
+        Task<ResponseDtoBase?> GetCouponByIdAsync(int id);
+        Task<ResponseDtoBase?> CreateCouponAsync(CreateCouponDtoBase couponDto);
+        Task<ResponseDtoBase?> UpdateCouponAsync(int id, UpdateCouponDtoBase couponDto);
+        Task<ResponseDtoBase?> DeleteCouponAsync(int id);
     }
 }

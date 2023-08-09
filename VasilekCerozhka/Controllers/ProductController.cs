@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 
 namespace VasilekCerozhka.Controllers
 {
@@ -19,11 +18,11 @@ namespace VasilekCerozhka.Controllers
         /// </summary>
         /// <param name="page">номер страницы</param>
         /// <returns>Open page ProductIndex</returns>
-        [Authorize]
+        [HttpGet]
         public async Task<IActionResult> ProductIndex(int page = 1)
         {
             var productVM = new ProductVM();
-            var respons = await _productService.GetAllProductAsync<ResponseDtoBase>(new PagingParameters() { maxPageSize = 10, PageNumber = page },null,null, null);
+            var respons = await _productService.GetAllProductAsync(new PagingParameters() { maxPageSize = 10, PageNumber = page },null,null);
             if (respons != null & respons.IsSuccess)
             {
                 productVM.products = JsonConvert.DeserializeObject<List<ProductDtoBase>>(Convert.ToString(respons.Result));
@@ -35,14 +34,13 @@ namespace VasilekCerozhka.Controllers
         /// request to ProductAPI (controller: Product / metod: Get)
         /// </summary>
         /// <returns>Open views page create</returns>
+        [HttpGet]
+        [Authorize(Roles = $"{UserRoles.ADMIN}, {UserRoles.OWNER}")]
         public async Task<IActionResult> ProductCreate()
         {
-            var accessToken = await HttpContext.GetTokenAsync("access_token");
-
-
             var productVM = new CreateProductVM();
 
-            var respons = await _categoryService.GetAllCategoryAsync<ResponseDtoBase>();
+            var respons = await _categoryService.GetAllCategoryAsync();
             if (respons != null & respons.IsSuccess)
             {
                 productVM.Categorys = JsonConvert.DeserializeObject<List<CategoryDtoBase>>(Convert.ToString(respons.Result));
@@ -60,8 +58,8 @@ namespace VasilekCerozhka.Controllers
         /// <param name="model"></param>
         /// <returns>Open page ProductIndex</returns>
         [HttpPost]
-        //[Authorize(Roles = "Admin")]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = $"{UserRoles.ADMIN}, {UserRoles.OWNER}")]
         public async Task<IActionResult> ProductCreate(CreateProductVM model)
         {
             if (ModelState.IsValid)
@@ -72,8 +70,7 @@ namespace VasilekCerozhka.Controllers
                 {
                     model.CreateProduct.SecondaryImages = SetParams.Images<CreateImageDtoBase>(model.Images);
                 }
-                //var accessToken = await HttpContext.GetTokenAsync("access_token");
-                var respons = await _productService.CreateProductAsync<ResponseDtoBase>(model.CreateProduct, null);
+                var respons = await _productService.CreateProductAsync(model.CreateProduct);
                 if (respons.Result != null & respons.IsSuccess)
                 {
                     return RedirectToAction(nameof(ProductIndex));
@@ -86,12 +83,13 @@ namespace VasilekCerozhka.Controllers
         /// </summary>
         /// <param name="productId"></param>
         /// <returns>Open page ProductEdit</returns>
+        [HttpGet]
+        [Authorize(Roles = $"{UserRoles.ADMIN}, {UserRoles.OWNER}")]
         public async Task<IActionResult> ProductEdit(int productId)
         {
             var productVM = new UpdateProductVM();
-            //var accessToken = await HttpContext.GetTokenAsync("access_token");
-            var responsProduct = await _productService.GetProductByIdAsync<ResponseDtoBase>(productId,null);
-            var responseCategory = await _categoryService.GetAllCategoryAsync<ResponseDtoBase>();
+            var responsProduct = await _productService.GetProductByIdAsync(productId);
+            var responseCategory = await _categoryService.GetAllCategoryAsync();
             if (responsProduct != null & responsProduct.IsSuccess)
             {
                 productVM.UpdateProduct = JsonConvert.DeserializeObject<UpdateProductDtoBase>(Convert.ToString(responsProduct.Result));
@@ -114,8 +112,8 @@ namespace VasilekCerozhka.Controllers
         /// <param name="model"></param>
         /// <returns>Open page ProductIndex</returns>
         [HttpPost]
-        //[Authorize(Roles = "Admin")]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = $"{UserRoles.ADMIN}, {UserRoles.OWNER}")]
         public async Task<IActionResult> ProductEdit(UpdateProductVM model)
         {
             if (ModelState.IsValid)
@@ -123,7 +121,7 @@ namespace VasilekCerozhka.Controllers
                 model.UpdateProduct.CategoryId = SetParams.IdParams(model.paramsCategory);
                 model.UpdateProduct.SecondaryImages = SetParams.Images<UpdateImageDtoBase>(model.Images);
 
-                var respons = await _productService.UpdateProductAsync<ResponseDtoBase>(model.UpdateProduct, null);
+                var respons = await _productService.UpdateProductAsync(model.UpdateProduct);
                 if (respons != null & respons.IsSuccess)
                 {
                     return RedirectToAction(nameof(ProductIndex));
@@ -137,6 +135,8 @@ namespace VasilekCerozhka.Controllers
         /// </summary>
         /// <param name="productId"></param>
         /// <returns>Open page ProductDelete</returns>
+        [HttpGet]
+        [Authorize(Roles = $"{UserRoles.ADMIN}, {UserRoles.OWNER}")]
         public async Task<IActionResult> ProductDelete(int productId)
         {
             if (ModelState.IsValid)
@@ -147,8 +147,7 @@ namespace VasilekCerozhka.Controllers
                 {
                     return View(productCache);
                 }
-                //var accessToken = await HttpContext.GetTokenAsync("access_token");
-                var respons = await _productService.GetProductByIdAsync<ResponseDtoBase>(productId, null);
+                var respons = await _productService.GetProductByIdAsync(productId);
                 if (respons != null & respons.IsSuccess)
                 {
                     model = JsonConvert.DeserializeObject<ProductDtoBase>(Convert.ToString(respons.Result));
@@ -165,14 +164,13 @@ namespace VasilekCerozhka.Controllers
         /// <param name="model"></param>
         /// <returns>Open page ProductIndex</returns>
         [HttpPost]
-        //[Authorize(Roles = "Admin")]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = $"{UserRoles.ADMIN}, {UserRoles.OWNER}")]
         public async Task<IActionResult> ProductDelete(ProductDtoBase model)
         {
             if (ModelState.IsValid)
             {
-                //var accessToken = await HttpContext.GetTokenAsync("access_token");
-                var respons = await _productService.DeleteProductAsync<ResponseDtoBase>(model.ProductId, null);
+                var respons = await _productService.DeleteProductAsync(model.ProductId);
                 if (respons.IsSuccess)
                 {
                     return RedirectToAction(nameof(ProductIndex));

@@ -1,62 +1,57 @@
 ﻿namespace VasilekCerozhka.Services.Implementations.ProductAPI
 {
-    public class ImageService : BaseService, IImageService
+    public class ImageService : IImageService
     {
-        private readonly IHttpClientFactory _clientFactory;
-        public ImageService(IHttpClientFactory httpClient) : base(httpClient)
+        private readonly IBaseService _baseService;
+        public ImageService(IBaseService baseService) 
         {
-            _clientFactory = httpClient;
+            _baseService = baseService;
         }
 
-        public async Task<T> CreateImageAsync<T>(CreateImageDtoBase imageDto, string token)
+        public async Task<ResponseDtoBase?> CreateImageAsync(CreateImageDtoBase imageDto)
         {
-            return await this.SendAsync<T>(new ApiRequest()
+            return await _baseService.SendAsync(new ApiRequest()
             {
                 Api_Type = StaticDitels.ApiType.POST,
                 Data = imageDto,
-                Url = StaticDitels.ProductApiBase + "/api/v3/image",
-                AccessToken = token
+                Url = StaticDitels.ProductApiBase + "/api/v3/image"
             });
         }
 
-        public async Task<T> DeleteImageAsync<T>(int id, string token)
+        public async Task<ResponseDtoBase?> DeleteImageAsync(int id)
         {
-            return await this.SendAsync<T>(new ApiRequest()
+            return await _baseService.SendAsync(new ApiRequest()
             {
                 Api_Type = StaticDitels.ApiType.DELETE,
-                Url = StaticDitels.ProductApiBase + $"/api/v3/image/{id}",
-                AccessToken = token
+                Url = StaticDitels.ProductApiBase + $"/api/v3/image/{id}"
             });
         }
 
-        public async Task<T> GetAllImageAsync<T>(string? filter, string? search, string token)
+        public async Task<ResponseDtoBase?> GetAllImageAsync(string? filter, string? search)
         {
-            return await this.SendAsync<T>(new ApiRequest()
+            return await _baseService.SendAsync(new ApiRequest()
             {
                 Api_Type = StaticDitels.ApiType.GET,
-                Url = StaticDitels.ProductApiBase + $"/api/v3/images?filter={filter}&search={search}",
-                //AccessToken = token                          
+                Url = StaticDitels.ProductApiBase + $"/api/v3/images?filter={filter}&search={search}"                        
             });
         }
 
-        public async Task<T> GetImageByIdAsync<T>(int id, string token)
+        public async Task<ResponseDtoBase?> GetImageByIdAsync(int id)
         {
-            return await this.SendAsync<T>(new ApiRequest()
+            return await _baseService.SendAsync(new ApiRequest()
             {
                 Api_Type = StaticDitels.ApiType.GET,
-                Url = StaticDitels.ProductApiBase + $"/api/v3/image/{id}",
-                AccessToken = token
+                Url = StaticDitels.ProductApiBase + $"/api/v3/image/{id}"
             });
         }
 
-        public async Task<T> UpdateImageAsync<T>(UpdateImageDtoBase imageDto, string token)
+        public async Task<ResponseDtoBase?> UpdateImageAsync(UpdateImageDtoBase imageDto)
         {
-            return await this.SendAsync<T>(new ApiRequest()
+            return await _baseService.SendAsync(new ApiRequest()
             {
                 Api_Type = StaticDitels.ApiType.PUT,
                 Data = imageDto,
-                Url = StaticDitels.ProductApiBase + "/api/v3/image",
-                AccessToken = token
+                Url = StaticDitels.ProductApiBase + "/api/v3/image"
             });
         }
     }

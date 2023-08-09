@@ -1,62 +1,57 @@
 ﻿namespace VasilekCerozhka.Services.Implementations.CouponAPI
 {
-    public class CouponService : BaseService, ICouponService
+    public class CouponService : ICouponService
     {
-        private readonly IHttpClientFactory _clientFactory;
-        public CouponService(IHttpClientFactory clientFactory) : base(clientFactory)
+        private readonly IBaseService _baseService;
+        public CouponService(IBaseService baseService)
         {
-            _clientFactory = clientFactory;
+            _baseService = baseService;
         }
 
-        public async Task<T> CreateCouponAsync<T>(CreateCouponDtoBase couponDto, string token)
+        public async Task<ResponseDtoBase?> CreateCouponAsync(CreateCouponDtoBase couponDto)
         {
-            return await this.SendAsync<T>(new ApiRequest()
+            return await _baseService.SendAsync(new ApiRequest()
             {
                 Api_Type = StaticDitels.ApiType.POST,
                 Data = couponDto,
-                Url = StaticDitels.CouponApiBase + "/api/coupon",
-                //AccessToken = token
+                Url = StaticDitels.CouponApiBase + "/api/coupon"
             });
         }
 
-        public async Task<T> DeleteCouponAsync<T>(int id, string token)
+        public async Task<ResponseDtoBase?> DeleteCouponAsync(int id)
         {
-            return await this.SendAsync<T>(new ApiRequest()
+            return await _baseService.SendAsync(new ApiRequest()
             {
                 Api_Type = StaticDitels.ApiType.DELETE,
-                Url = StaticDitels.CouponApiBase + $"/api/coupon/{id}",
-                //AccessToken = token
+                Url = StaticDitels.CouponApiBase + $"/api/coupon/{id}"
             });
         }
 
-        public async Task<T> GetAllCouponAsync<T>(string? token = null)
+        public async Task<ResponseDtoBase?> GetAllCouponAsync()
         {
-            return await this.SendAsync<T>(new ApiRequest()
+            return await _baseService.SendAsync(new ApiRequest()
             {
                 Api_Type = StaticDitels.ApiType.GET,
-                Url = StaticDitels.CouponApiBase + $"/api/coupons"
-                //AccessToken = token                           
+                Url = StaticDitels.CouponApiBase + $"/api/coupons"                         
             });
         }
 
-        public async Task<T> GetCouponByIdAsync<T>(int id, string token)
+        public async Task<ResponseDtoBase?> GetCouponByIdAsync(int id)
         {
-            return await this.SendAsync<T>(new ApiRequest()
+            return await _baseService.SendAsync(new ApiRequest()
             {
                 Api_Type = StaticDitels.ApiType.GET,
-                Url = StaticDitels.CouponApiBase + $"/api/coupon/{id}",
-                //AccessToken = token
+                Url = StaticDitels.CouponApiBase + $"/api/coupon/{id}"
             });
         }
 
-        public async Task<T> UpdateCouponAsync<T>(int id, UpdateCouponDtoBase couponDto, string token)
+        public async Task<ResponseDtoBase?> UpdateCouponAsync(int id, UpdateCouponDtoBase couponDto)
         {
-            return await this.SendAsync<T>(new ApiRequest()
+            return await _baseService.SendAsync(new ApiRequest()
             {
                 Api_Type = StaticDitels.ApiType.PUT,
                 Data = couponDto,
-                Url = StaticDitels.CouponApiBase + $"/api/coupon/{id}",
-                //AccessToken = token
+                Url = StaticDitels.CouponApiBase + $"/api/coupon/{id}"
             });
         }
     }
