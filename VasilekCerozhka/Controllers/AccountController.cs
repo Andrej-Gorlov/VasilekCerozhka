@@ -37,7 +37,7 @@ namespace VasilekCerozhka.Controllers
         private async Task SignInUser(string model)
         {
             var handler = new JwtSecurityTokenHandler();
-            var jwt = handler.ReadJwtToken(model);
+            var jwt = handler.ReadJwtToken(model); 
 
             var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
             identity.AddClaim(new Claim(ClaimTypes.Email,
